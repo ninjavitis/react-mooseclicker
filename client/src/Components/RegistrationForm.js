@@ -23,7 +23,6 @@ export default withStyles(styles)(({classes}) => {
   const handleSubmit = (e) => {
     if(password === passConf){
       handleRegister({email, password})
-      props.history.push('/')
     } else {
       alert('Passwords must match!')
     }
