@@ -56,10 +56,9 @@ const handleClick = () => {
   if(authenticated){
     axios
     .get("/api/moose/click")
-    .then(res => {})
+    .then(res => {setClicks(res.data)})
     .catch(res => console.log(res))
   
-    setClicks(clicks +1)
   } else {
     handleModalOpen()
   }
