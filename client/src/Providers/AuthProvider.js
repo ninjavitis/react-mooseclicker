@@ -6,7 +6,7 @@ export const AuthContext = React.createContext();
 export const AuthConsumer = AuthContext.Consumer;
 
 export class AuthProvider extends React.Component {
-  state = { user:null, loginSuccessful:true, }
+  state = { user:null, loginSuccessful:true, clicks:0}
 
   handleRegister=(user, history)=>{
     axios.post("/api/auth", user)
@@ -24,12 +24,10 @@ export class AuthProvider extends React.Component {
     axios.post('/api/auth/sign_in', user)
     .then(res => {
       this.setState({user:res.data.data})
-      history.push('/')
-      return true
+      this.setState({clicks:res.data.data.mooseclicks})
     })
     .catch(res => {
       console.log(res)
-      return false
     })
   }
 
@@ -37,6 +35,7 @@ export class AuthProvider extends React.Component {
     axios.delete('/api/auth/sign_out')
     .then(res=>{
       this.setState({user:null})
+      this.setState({clicks:0})
     })
     .catch(res=>{console.log(res)})
   }
@@ -50,6 +49,7 @@ export class AuthProvider extends React.Component {
         handleRegister: this.handleRegister,
         handleLogin: this.handleLogin,
         handleLogout: this.handleLogout,
+        clicks: this.state.clicks,
         setUser:(user) => this.setState({user, })
       }}>
         {this.props.children}

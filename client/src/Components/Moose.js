@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {useState} from 'react'
 import {AuthContext} from '../Providers/AuthProvider'
 import axios from 'axios'
@@ -46,17 +46,19 @@ const styles = (theme => ({
 }))
 
 export default withStyles(styles)(({classes}) => {
-const [clicks, setClicks] = useState(0)
+  const {authenticated, clicks} = useContext(AuthContext)
+const [mooseClicks, setMooseClicks] = useState(clicks)
 const [nextClick, setNextClick] = useState(null)
 
-const {authenticated} = useContext(AuthContext)
-
+useEffect(()=>{
+  setMooseClicks(clicks)
+},[clicks])
 
 const handleClick = () => {
   if(authenticated){
     axios
     .get("/api/moose/click")
-    .then(res => {setClicks(res.data)})
+    .then(res => {setMooseClicks(res.data)})
     .catch(res => console.log(res))
   
   } else {
@@ -108,7 +110,7 @@ const registerModal = (
         </CardActionArea>
         <CardContent>
           <Typography>
-            Clicks:{clicks}
+            Clicks:{mooseClicks}
           </Typography>
         </CardContent>
         <CardActions>
