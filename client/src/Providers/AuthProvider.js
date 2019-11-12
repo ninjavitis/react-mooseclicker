@@ -1,11 +1,12 @@
 import React from 'react';
 import axios from 'axios'
 
+
 export const AuthContext = React.createContext();
 export const AuthConsumer = AuthContext.Consumer;
 
 export class AuthProvider extends React.Component {
-  state = { user:null, loginSuccessful:true }
+  state = { user:null, loginSuccessful:true, }
 
   handleRegister=(user, history)=>{
     axios.post("/api/auth", user)
@@ -24,8 +25,12 @@ export class AuthProvider extends React.Component {
     .then(res => {
       this.setState({user:res.data.data})
       history.push('/')
+      return true
     })
-    .catch(res => {console.log(res)})
+    .catch(res => {
+      console.log(res)
+      return false
+    })
   }
 
   handleLogout=(history)=>{

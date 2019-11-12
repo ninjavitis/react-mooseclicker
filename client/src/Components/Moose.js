@@ -14,17 +14,14 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import RegistrationForm from './RegistrationForm'
-import LoginForm from './LoginForm'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
-import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
 
 
 
 
 const styles = (theme => ({
-  loginModal:{
+  registrationModal:{
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -68,7 +65,7 @@ const handleClick = () => {
   }
 }
 
-// Login Modal Section
+// Registration Modal Section
 const [modalOpen, setModalOpen] = React.useState(false);
 
 const handleModalOpen = () => {
@@ -79,11 +76,11 @@ const handleModalClose = () => {
   setModalOpen(false);
 };
 
-const loginModal = (
+const registerModal = (
   <Modal
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
-      className={classes.loginModal}
+      className={classes.registrationModal}
       open={modalOpen}
       onClose={handleModalClose}
       closeAfterTransition
@@ -94,31 +91,7 @@ const loginModal = (
     >
     <Fade in={modalOpen}>
       <Paper className={classes.paper}>
-        <Grid
-          className={classes.grid}
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-        >
-          <Grid item xs={12}>
-            <RegistrationForm />
-          </Grid>
-          <Grid item xs={5}>
-            <Divider variant='middle' />
-          </Grid>
-          <Grid item xs={2} className={classes.centered}>
-            or
-          </Grid>
-          <Grid item xs={5}>
-            <Divider variant='middle' />
-          </Grid>
-          <Grid item xs={12} className={classes.centered}>
-            <Button className={classes.centered} variant="outlined">
-              Log In
-            </Button>
-          </Grid>
-        </Grid>
+        <RegistrationForm handleClose={()=>handleModalClose()}/>
       </Paper>
     </Fade>
   </Modal>
@@ -145,7 +118,7 @@ const loginModal = (
           </Button>
         </CardActions>
       </Card>
-      {loginModal}
+      {registerModal}
     </>
   )
 })

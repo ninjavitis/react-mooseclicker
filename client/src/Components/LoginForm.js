@@ -1,5 +1,7 @@
 import React, {useState, useContext} from 'react';
 import {AuthContext} from '../Providers/AuthProvider'
+
+// Material UI
 import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input'
@@ -10,17 +12,21 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button'
 
 
-
+// Material UI theme overrides
 const styles = (theme => ({}))
 
 export default withStyles(styles)(({classes}) => {
   const {handleLogin} = useContext(AuthContext)
 
+  // Login form fields
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  // Router
+  const [toHome, setToHome] = useState(false)
+
   const handleSubmit = (e) => {
-    handleLogin({email, password})
+    handleLogin({email, password}) || alert('Invalid Login')
   }
 
   return(
@@ -30,16 +36,20 @@ export default withStyles(styles)(({classes}) => {
       </Typography>
       <FormGroup>
         <FormControl>
-        <InputLabel htmlFor="emailAddress" required>Email address</InputLabel>
-          <Input id="loginEmailAddress" aria-describedby="my-helper-text" />
+        <InputLabel htmlFor="email" required>Email address</InputLabel>
+          <Input 
+          id="email" 
+          aria-describedby="my-helper-text" 
+          onChange={(e)=>setEmail(e.target.value)}
+          />
         </FormControl>
         <FormControl>
           <InputLabel htmlFor="password" required>Password</InputLabel>
           <Input 
-            id="loginPassword" 
+            id="password" 
             aria-describedby="Choose your password"
             type="password"
-            onChange={(e)=>setEmail(e.target.value)}
+            onChange={(e)=>setPassword(e.target.value)}
             autoComplete="current-password"
           />
         </FormControl>

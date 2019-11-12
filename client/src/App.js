@@ -7,6 +7,7 @@ import Home from './Components/Home'
 import Navbar from './Components/Navbar'
 import Footer from './Components/Footer'
 import FetchUser from './Components/FetchUser';
+import LoginForm from './Components/LoginForm';
 
 
 function App() {
@@ -16,7 +17,6 @@ function App() {
       <FetchUser>
         <Switch>
           <Route exact path="/" component={Home} />
-
         </Switch>
       </FetchUser>
       <Footer />

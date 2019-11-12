@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button'
 
 const styles = (theme => ({}))
 
-export default withStyles(styles)(({classes}) => {
+export default withStyles(styles)((props,{classes}) => {
   const {handleRegister} = useContext(AuthContext)
 
   const [email, setEmail] = useState('')
@@ -23,6 +23,7 @@ export default withStyles(styles)(({classes}) => {
   const handleSubmit = (e) => {
     if(password === passConf){
       handleRegister({email, password})
+      props.handleClose()
     } else {
       alert('Passwords must match!')
     }

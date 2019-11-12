@@ -8,9 +8,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { fade, withStyles } from '@material-ui/core/styles';
 
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import AccountCircleOutlined from '@material-ui/icons/AccountCircleOutlined';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
 import {ReactComponent as Logo} from '../Icons/moose.svg'
+import LoginForm from './LoginForm';
+
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import Paper from '@material-ui/core/Paper'
 
 
 
@@ -74,6 +81,19 @@ const styles = (theme => ({
       display: 'none',
     },
   },
+  loginModal:{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: theme.palette.background.border,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    borderRadius: theme.palette.background.borderRadius,
+    outline: 'none',
+  },
 }));
 
 
@@ -89,6 +109,8 @@ export default withStyles(styles)(({classes}) => {
   const isMenuOpen = Boolean(anchorEl)
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+
+
   const handleProfileMenuOpen = (e) => {
     setAnchorEl(e.currentTarget)
   }
@@ -100,12 +122,45 @@ export default withStyles(styles)(({classes}) => {
 
   const handleMobileMenuOpen = event => {
     setMobileMoreAnchorEl(event.currentTarget);
-  };
+  }
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null)
   }
 
+  // Registration Modal Section
+  const [modalOpen, setModalOpen] = React.useState(false);
+
+  const handleModalOpen = () => {
+    setModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
+  const loginModal = (
+    <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.loginModal}
+        open={modalOpen}
+        onClose={handleModalClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+      <Fade in={modalOpen}>
+        <Paper className={classes.paper}>
+          <LoginForm />
+        </Paper>
+      </Fade>
+    </Modal>
+  )
+
+  // Mobile Account Menu
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
@@ -124,7 +179,7 @@ export default withStyles(styles)(({classes}) => {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          {authenticated? <AccountCircle /> : <AccountCircleOutlined />}
         </IconButton>
         {authenticated?
         <>
@@ -132,12 +187,13 @@ export default withStyles(styles)(({classes}) => {
           <MenuItem onClick={handleLogout}>Log Out</MenuItem>
         </>
         :
-        <MenuItem onClick={handleLogin}>Log In</MenuItem>
+        <MenuItem onClick={()=>setModalOpen(true)}>Log In</MenuItem>
       }
       </MenuItem>
     </Menu>
   )
 
+  // Desktop Account Menu
   const menuId = 'primary-account-window'
   const renderMenu = (
     <Menu
@@ -154,7 +210,7 @@ export default withStyles(styles)(({classes}) => {
           <MenuItem onClick={handleLogout}>Log Out</MenuItem>
         </>
         :
-        <MenuItem onClick={handleLogin}>Log In</MenuItem>
+        <MenuItem onClick={()=>setModalOpen(true)}>Log In</MenuItem>
       }
     </Menu>
   )
@@ -204,6 +260,7 @@ export default withStyles(styles)(({classes}) => {
       </AppBar>
       {renderMenu}
       {renderMobileMenu}
+      {loginModal}
     </div>
   )
   })
