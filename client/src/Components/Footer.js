@@ -1,8 +1,6 @@
 import React from 'react';
-import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
 import AppBar from '@material-ui/core/AppBar'
 import ToolBar from '@material-ui/core/ToolBar'
 import Grid from '@material-ui/core/Grid'

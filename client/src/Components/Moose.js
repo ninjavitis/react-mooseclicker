@@ -61,7 +61,7 @@ const handleClick = () => {
   
     setClicks(clicks +1)
   } else {
-    setModalOpen(true)
+    handleModalOpen()
   }
 }
 

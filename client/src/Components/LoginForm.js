@@ -6,7 +6,6 @@ import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'
-import FormHelperText from '@material-ui/core/FormHelperText'
 import FormGroup from '@material-ui/core/FormGroup'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button'
@@ -15,18 +14,16 @@ import Button from '@material-ui/core/Button'
 // Material UI theme overrides
 const styles = (theme => ({}))
 
-export default withStyles(styles)(({classes}) => {
+export default withStyles(styles)((props,{classes}) => {
   const {handleLogin} = useContext(AuthContext)
 
   // Login form fields
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  // Router
-  const [toHome, setToHome] = useState(false)
-
   const handleSubmit = (e) => {
-    handleLogin({email, password}) || alert('Invalid Login')
+    handleLogin({email, password})
+    props.handleClose()
   }
 
   return(

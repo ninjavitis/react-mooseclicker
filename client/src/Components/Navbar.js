@@ -103,7 +103,7 @@ export default withStyles(styles)(({classes}) => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   //Context
-    const {authenticated, handleLogin, handleLogout, user} = useContext(AuthContext)
+    const {authenticated, handleLogout,} = useContext(AuthContext)
 
   //Local
   const isMenuOpen = Boolean(anchorEl)
@@ -154,11 +154,16 @@ export default withStyles(styles)(({classes}) => {
       >
       <Fade in={modalOpen}>
         <Paper className={classes.paper}>
-          <LoginForm />
+          <LoginForm handleClose={()=>handleModalClose()}/>
         </Paper>
       </Fade>
     </Modal>
   )
+
+  const menuItems = [
+    <MenuItem key={'1'}>My Account</MenuItem>,
+    <MenuItem onClick={handleLogout} key={'2'}>Log Out</MenuItem>
+ ]
 
   // Mobile Account Menu
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -181,17 +186,17 @@ export default withStyles(styles)(({classes}) => {
         >
           {authenticated? <AccountCircle /> : <AccountCircleOutlined />}
         </IconButton>
-        {authenticated?
-        <>
-          <MenuItem>My Account</MenuItem>
-          <MenuItem onClick={handleLogout}>Log Out</MenuItem>
-        </>
-        :
-        <MenuItem onClick={()=>setModalOpen(true)}>Log In</MenuItem>
-      }
       </MenuItem>
+        {
+          authenticated?
+          menuItems
+          :
+          <MenuItem onClick={()=>handleModalOpen()}>Log In</MenuItem>
+        }
     </Menu>
   )
+
+
 
   // Desktop Account Menu
   const menuId = 'primary-account-window'
@@ -200,15 +205,13 @@ export default withStyles(styles)(({classes}) => {
       anchorEl={anchorEl}
       anchorOrigin={{vertical:'top', horizontal:'right'}}
       id={menuId}
-      keepMountedtransformorigin={{vertical:'top', horizontal:'right'}}
+      keepMounted
+      transformOrigin={{vertical:'top', horizontal:'right'}}
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
       {authenticated?
-        <>
-          <MenuItem>My Account</MenuItem>
-          <MenuItem onClick={handleLogout}>Log Out</MenuItem>
-        </>
+        menuItems
         :
         <MenuItem onClick={()=>setModalOpen(true)}>Log In</MenuItem>
       }
