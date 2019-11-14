@@ -47,15 +47,13 @@ const styles = (theme => ({
 
 export default withStyles(styles)(({classes}) => {
   const {authenticated, clicks} = useContext(AuthContext)
-const [mooseClicks, setMooseClicks] = useState(clicks)
+const [mooseClicks, setMooseClicks] = useState(0)
+const [remainingClicks, setRemainingClicks] = useState(0)
 const [nextClick, setNextClick] = useState(null)
-
-useEffect(()=>{
-  setMooseClicks(clicks)
-},[clicks])
+const [timeToFreeClick, setTimeToFreeClick] = useState('')
 
 const handleClick = () => {
-  if(authenticated){
+  if(authenticated && remainingClicks > 0){
     axios
     .get("/api/moose/click")
     .then(res => {setMooseClicks(res.data)})
@@ -110,7 +108,13 @@ const registerModal = (
         </CardActionArea>
         <CardContent>
           <Typography>
-            Clicks:{mooseClicks}
+            You've clicked your moose {clicks} times!
+          </Typography>
+          <Typography>
+            You have {remainingClicks} clicks remaining.
+          </Typography>
+          <Typography>
+            Next free click in {}
           </Typography>
         </CardContent>
         <CardActions>

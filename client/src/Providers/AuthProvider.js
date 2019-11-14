@@ -6,7 +6,13 @@ export const AuthContext = React.createContext();
 export const AuthConsumer = AuthContext.Consumer;
 
 export class AuthProvider extends React.Component {
-  state = { user:null, loginSuccessful:true, clicks:0}
+  state = { user:null, loginSuccessful:true, clicks:0, activeMoose:null}
+
+
+  getClickCount=()=>{
+    axios.get('/api/moose/clickcount')
+  .then(res=>this.setState({clicks:res.data}))
+  }
 
   handleRegister=(user, history)=>{
     axios.post("/api/auth", user)
