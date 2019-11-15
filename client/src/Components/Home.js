@@ -6,37 +6,41 @@ import Grid from '@material-ui/core/Grid';
 import grey from '@material-ui/core/colors/grey';
 
 import Moose from './Moose'
+import ShopBox from './ShopBox'
 
 const styles = (theme => (
   {
-    displayArea:{
-      background: grey[100]
-    },
+    displayArea:{},
     grid:{
+      flexWrap: 'wrap',
       padding: '50px'
     },
+    shopPanel:{
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+      overflow: 'hidden',
+    }
   }
   ))
 
 export default withStyles(styles)(({classes}) => { 
   return(
-    <Container className={classes.displayArea}>
-      <div className={classes.column}>
-        <div className={classes.mainRow}>
-          <Grid
-            className={classes.grid}
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-          >
-            <Grid item xs={4}>
-              <Moose />
-            </Grid>
-          </Grid>
-        </div>
-      </div>
-    </Container>
+    <Grid
+      className={classes.grid}
+      container
+      direction="row"
+      spacing={5}
+    >
+      <Grid item xs={12} lg={4}>
+      </Grid>
+      <Grid item xs={12} lg={4}>
+        <Moose />
+      </Grid>
+      <Grid item xs={12} lg={4}>
+        <ShopBox className={classes.shopPanel}/>
+      </Grid>
+    </Grid>
   )
 })
 

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  subtype: MyString
+  clicks: 
+  User: one
+
+two:
+  type: 
+  subtype: MyString
+  clicks: 
+  User: two

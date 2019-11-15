@@ -7,4 +7,11 @@ class Api::UsersController < ApplicationController
     render json: current_user.mooseclicks
   end
 
+  
+  def getClickCount
+    render json: current_user.mooseclicks
+  end
+
+
+
 end
