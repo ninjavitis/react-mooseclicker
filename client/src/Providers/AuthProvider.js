@@ -6,12 +6,17 @@ export const AuthContext = React.createContext();
 export const AuthConsumer = AuthContext.Consumer;
 
 export class AuthProvider extends React.Component {
-  state = { user:null, loginSuccessful:true, clicks:0, remainingClicks:0,activeMoose:null}
+  state = { user:null, loginSuccessful:true, points:0, clicks:0, remainingClicks:0,activeMoose:null}
 
 
   getClickCount=()=>{
     axios.get('/api/moose/clickcount')
   .then(res=>this.setState({clicks:res.data}))
+  }
+  
+  getPoints=()=>{
+    axios.get('/api/moose/getPoints')
+    .then(res=>this.setState({clicks:res.data}))
   }
 
   handleRegister=(user, history)=>{
@@ -58,6 +63,7 @@ export class AuthProvider extends React.Component {
         handleLogout: this.handleLogout,
         clicks: this.state.clicks,
         remainingClicks: this.state.remainingClicks,
+        points: this.state.points,
         setUser:(user) => this.setState({user, })
       }}>
         {this.props.children}

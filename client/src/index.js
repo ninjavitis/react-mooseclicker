@@ -22,7 +22,7 @@ let theme = createMuiTheme({
       main: amber[800]
     }, 
     background:{
-      
+
     }
   },
 })

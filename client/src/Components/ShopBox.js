@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button'
 const styles = (theme =>(
   {
     gridList:{
-      height:'680px'
+      height:'630px'
     },
     subheader:{
 
@@ -61,9 +61,6 @@ export default withStyles(styles)(({classes}) => {
     {itemName:'Bog Standard Moose', desc: 'A standard moose native to boggy areas.', price:1500},
     {itemName:'Mangy Moose', desc: 'This moose has quite a bit of mange', price:1000},
     {itemName:'Darling Moose', desc: 'The most darling moose.', price:3000},
-    {itemName:'', desc: '', price:0},
-    {itemName:'', desc: '', price:0},
-    {itemName:'', desc: '', price:0},
   ]
 
   const tempClickPacks = [
