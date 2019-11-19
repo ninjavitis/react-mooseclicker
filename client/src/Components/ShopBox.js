@@ -4,11 +4,11 @@ import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
 import ToolBar from '@material-ui/core/ToolBar'
 import Paper from '@material-ui/core/Paper'
 import {ReactComponent as Placeholder} from '../Icons/Moose_loose.svg'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
 
 const styles = (theme =>(
   {
@@ -87,11 +87,22 @@ export default withStyles(styles)(({classes}) => {
   return(
     <>
         <ToolBar>
-          <Tabs>
-            <Tab label='Points Shop' onClick={(e)=>setShopIndex(0)} id='tab_1'/>
-            <Tab label='Moose Shop' onClick={(e)=>setShopIndex(1)} />
-            <Tab label='Clicks Shop' onClick={(e)=>setShopIndex(2)} />
-          </Tabs>
+          <Grid
+            className={classes.grid}
+            container
+            direction="row"
+            spacing={5}
+          >
+              <Grid item xs={4} lg={4}>
+                <Button onClick={(e)=>setShopIndex(0)} size={'small'}>Points Shop</Button>
+              </Grid>
+              <Grid item xs={4} lg={4}>
+                <Button onClick={(e)=>setShopIndex(1)} size={'small'}>Moose Shop</Button>
+              </Grid>
+              <Grid item xs={4} lg={4}>
+                <Button onClick={(e)=>setShopIndex(1)} size={'small'}>Clicks Shop</Button>
+              </Grid>
+          </Grid>
         </ToolBar>
       <Paper>
         <GridList cellHeight={180} className={classes.gridList}>
