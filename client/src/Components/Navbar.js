@@ -18,6 +18,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper'
+import Grid from '@material-ui/core/Grid'
 
 
 
@@ -103,7 +104,7 @@ export default withStyles(styles)(({classes}) => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   //Context
-    const {authenticated, handleLogout,} = useContext(AuthContext)
+    const {authenticated, handleLogout, points, remainingClicks} = useContext(AuthContext)
 
   //Local
   const isMenuOpen = Boolean(anchorEl)
@@ -164,6 +165,16 @@ export default withStyles(styles)(({classes}) => {
     <MenuItem key={'1'}>My Account</MenuItem>,
     <MenuItem onClick={handleLogout} key={'2'}>Log Out</MenuItem>
  ]
+
+ const PlayerStatus = () => {
+   return(
+    <Typography>
+      Clicks Remaining: {remainingClicks} | Next click in: {} | MoosePoints: {points}
+    </Typography>
+   )
+ }
+
+ 
 
   // Mobile Account Menu
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -236,6 +247,8 @@ export default withStyles(styles)(({classes}) => {
             Mooseclicker Deluxe
           </Typography>
           <div className={classes.grow} />
+          {authenticated && <PlayerStatus />}
+
           <div className={classes.sectionDesktop}>
             <IconButton
               edge = "end"

@@ -102,7 +102,7 @@ const registerModal = (
       <Card className={classes.mooseCard}>
         <ToolBar>
           <Typography>
-            Clicked: {clicks} | Clicks: {remainingClicks} | Free click in: {}
+            You've clicked your Moose: {clicks} times!
           </Typography>
         </ToolBar>
         <CardActionArea
