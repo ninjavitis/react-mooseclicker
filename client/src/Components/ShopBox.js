@@ -100,7 +100,7 @@ export default withStyles(styles)(({classes}) => {
                 <Button onClick={(e)=>setShopIndex(1)} size={'small'}>Moose Shop</Button>
               </Grid>
               <Grid item xs={4} lg={4}>
-                <Button onClick={(e)=>setShopIndex(1)} size={'small'}>Clicks Shop</Button>
+                <Button onClick={(e)=>setShopIndex(2)} size={'small'}>Clicks Shop</Button>
               </Grid>
           </Grid>
         </ToolBar>
