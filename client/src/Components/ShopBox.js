@@ -1,21 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
+import ToolBar from '@material-ui/core/ToolBar'
 import Paper from '@material-ui/core/Paper'
-
-
-
 import {ReactComponent as Placeholder} from '../Icons/Moose_loose.svg'
+import deepPurple from '@material-ui/core/colors/deepPurple';
+
+
 
 
 const styles = (theme =>(
   {
     gridList:{
-      height:'600px'
+      height:'680px'
     },
     subheader:{
 
@@ -37,12 +39,24 @@ const styles = (theme =>(
       padding: theme.spacing(2, 4, 3),
       borderRadius: theme.palette.background.borderRadius,
       outline: 'none',
+    },
+    activeTab:{
+      backgroundColor: deepPurple[500],
     }
 
   }
 ))
 
 export default withStyles(styles)(({classes}) => {
+  const [shop, setShop] = useState(0)
+  const [value, setValue] = useState('')
+
+  const [shopSettings, setShopSettings] = useState(
+      [
+        {name:'Moose Shop'},
+        {name:'Points Shop'},
+      ]
+    )
 
   const tempPointsPackArray = [
     {itemName: '1000 MoosePoints', desc:'', price:'1.00'},
@@ -66,34 +80,29 @@ export default withStyles(styles)(({classes}) => {
     {itemName:'', desc: '', price:0},
   ]
 
+  const shopItems =[tempPointsPackArray,tempArray]
+
   return(
-    <Paper>
-      <GridList cellHeight={150} className={classes.gridList}>
-        <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-          <ListSubheader className={classes.subheader} component="div" color="inherit">Points Packs!</ListSubheader>
-        </GridListTile>
-          {tempPointsPackArray.map(item=>
-            <GridListTile className={classes.item} onClick={()=>alert('click')}>
-              <Placeholder />
-              <GridListTileBar 
-                title={item.itemName}
-                subtitle={<span>Price: ${item.price}</span>}
-              />
-            </GridListTile>
-          )}
-        <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-          <ListSubheader className={classes.subheader} component="div" color="inherit">New Moose!</ListSubheader>
-        </GridListTile>
-          {tempArray.map(item=>
-            <GridListTile className={classes.item} onClick={()=>alert('click')}>
-              <Placeholder />
-              <GridListTileBar 
-                title={item.itemName}
-                subtitle={<span>Price: {item.price} MP</span>}
-              />
-            </GridListTile>
-          )}
-      </GridList>
-    </Paper>
-  )
+    <>
+        <ToolBar>
+          <Tabs value={value}>
+            <Tab label='Points Shop' onClick={(e)=>setShop(0)} id='tab_1'/>
+            <Tab label='Moose Shop' onClick={(e)=>setShop(1)} />
+          </Tabs>
+        </ToolBar>
+      <Paper>
+        <GridList cellHeight={180} className={classes.gridList}>
+            {shopItems[shop].map(item=>
+              <GridListTile className={classes.item} onClick={()=>alert('click')}>
+                <Placeholder />
+                <GridListTileBar 
+                  title={item.itemName}
+                  subtitle={<span>Price: ${item.price}</span>}
+                />
+              </GridListTile>
+            )}
+          </GridList>
+        </Paper>
+      </>
+    )
 })
