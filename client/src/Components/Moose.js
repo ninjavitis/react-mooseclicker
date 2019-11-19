@@ -17,7 +17,6 @@ import RegistrationForm from './RegistrationForm'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import ToolBar from '@material-ui/core/ToolBar'
-import Container from '@material-ui/core/Container'
 
 
 
@@ -48,19 +47,19 @@ const styles = (theme => ({
 }))
 
 export default withStyles(styles)(({classes}) => {
-  const {authenticated, clicks} = useContext(AuthContext)
+  const {authenticated, clicks, remainingClicks} = useContext(AuthContext)
 const [mooseClicks, setMooseClicks] = useState(0)
-const [remainingClicks, setRemainingClicks] = useState(0)
-const [nextClick, setNextClick] = useState(null)
-const [timeToFreeClick, setTimeToFreeClick] = useState('')
 
 const handleClick = () => {
-  if(authenticated && remainingClicks > 0){
-    axios
-    .get("/api/moose/click")
-    .then(res => {setMooseClicks(res.data)})
-    .catch(res => console.log(res))
-  
+  if(authenticated){
+    if(remainingClicks > 0){
+      axios
+      .get("/api/moose/click")
+      .then(res => {setMooseClicks(res.data)})
+      .catch(res => console.log(res))
+    } else {
+      alert('no clicks remaining')
+    }
   } else {
     handleModalOpen()
   }
@@ -102,7 +101,9 @@ const registerModal = (
     <>
       <Card className={classes.mooseCard}>
         <ToolBar>
-          Clicked: {clicks} | Clicks: {remainingClicks}
+          <Typography>
+            Clicked: {clicks} | Clicks: {remainingClicks} | Free click in: {}
+          </Typography>
         </ToolBar>
         <CardActionArea
           onClick={handleClick}
@@ -112,12 +113,6 @@ const registerModal = (
           </CardMedia>
         </CardActionArea>
         <CardContent>
-          <Typography>
-            You've clicked your moose {clicks} times!
-          </Typography>
-          <Typography>
-            You have {remainingClicks} clicks remaining.
-          </Typography>
         </CardContent>
         <CardActions>
           <Button size={'small'}>

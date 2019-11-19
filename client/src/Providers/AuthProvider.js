@@ -6,7 +6,7 @@ export const AuthContext = React.createContext();
 export const AuthConsumer = AuthContext.Consumer;
 
 export class AuthProvider extends React.Component {
-  state = { user:null, loginSuccessful:true, clicks:0, activeMoose:null}
+  state = { user:null, loginSuccessful:true, clicks:0, remainingClicks:0,activeMoose:null}
 
 
   getClickCount=()=>{
@@ -31,6 +31,7 @@ export class AuthProvider extends React.Component {
     .then(res => {
       this.setState({user:res.data.data})
       this.setState({clicks:res.data.data.mooseclicks})
+      this.setState({reamaingingClicks:res.data.data.remainingClicks})
     })
     .catch(res => {
       console.log(res)
@@ -56,6 +57,7 @@ export class AuthProvider extends React.Component {
         handleLogin: this.handleLogin,
         handleLogout: this.handleLogout,
         clicks: this.state.clicks,
+        remainingClicks: this.state.remainingClicks,
         setUser:(user) => this.setState({user, })
       }}>
         {this.props.children}

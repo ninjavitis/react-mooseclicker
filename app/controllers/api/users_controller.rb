@@ -2,9 +2,14 @@ class Api::UsersController < ApplicationController
   # Uncomment this when user registrations are working
 
   def mooseclick
-    current_user.increment!(:mooseclicks)
-    current_user.touch(:lastclick)
-    render json: current_user.mooseclicks
+    if current_user.remainingClicks > 0
+      current_user.increment!(:mooseclicks)
+      current_user.decrement!(:remainingClicks)
+      current_user.touch(:lastclick)
+      render json: current_user.mooseclicks, current_user.remainingClicks
+    else
+      render json: current_user.errors, status:422 
+    end
   end
 
   

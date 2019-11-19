@@ -13,7 +13,7 @@ const styles = (theme => (
     displayArea:{},
     grid:{
       flexWrap: 'wrap',
-      padding: '50px'
+      padding: '25px'
     },
     shopPanel:{
       display: 'flex',

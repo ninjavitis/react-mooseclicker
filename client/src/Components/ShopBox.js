@@ -9,10 +9,6 @@ import Tab from '@material-ui/core/Tab'
 import ToolBar from '@material-ui/core/ToolBar'
 import Paper from '@material-ui/core/Paper'
 import {ReactComponent as Placeholder} from '../Icons/Moose_loose.svg'
-import deepPurple from '@material-ui/core/colors/deepPurple';
-
-
-
 
 const styles = (theme =>(
   {
@@ -40,23 +36,12 @@ const styles = (theme =>(
       borderRadius: theme.palette.background.borderRadius,
       outline: 'none',
     },
-    activeTab:{
-      backgroundColor: deepPurple[500],
-    }
-
   }
 ))
 
 export default withStyles(styles)(({classes}) => {
-  const [shop, setShop] = useState(0)
+  const [shopIndex, setShopIndex] = useState(0)
   const [value, setValue] = useState('')
-
-  const [shopSettings, setShopSettings] = useState(
-      [
-        {name:'Moose Shop'},
-        {name:'Points Shop'},
-      ]
-    )
 
   const tempPointsPackArray = [
     {itemName: 'Get 1000 MoosePoints!', desc:'', price:'1.00'},
@@ -81,27 +66,41 @@ export default withStyles(styles)(({classes}) => {
     {itemName:'', desc: '', price:0},
   ]
 
+  const tempClickPacks = [
+    {itemName:'5 Clicks', desc: '', price:700},
+    {itemName:'10 Clicks', desc: '', price:1000},
+    {itemName:'20 Clicks', desc: '', price:1900},
+    {itemName:'50 Clicks', desc: '', price:4500},
+    {itemName:'100 Clicks', desc: '', price:9500},
+    {itemName:'200 Clicks', desc: '', price:18000},
+    {itemName:'500 Clicks', desc: '', price:37000},
+    {itemName:'1000 Clicks', desc: '', price:70000},
+    {itemName:'5000 Clicks', desc: '', price:300000},
+  ]
+
   const shopItems =[
     {items:tempPointsPackArray, currency:'$'},
     {items:tempArray, currency:'MP '},
+    {items:tempClickPacks, currency:'MP '}
   ]
 
   return(
     <>
         <ToolBar>
-          <Tabs value={value}>
-            <Tab label='Points Shop' onClick={(e)=>setShop(0)} id='tab_1'/>
-            <Tab label='Moose Shop' onClick={(e)=>setShop(1)} />
+          <Tabs>
+            <Tab label='Points Shop' onClick={(e)=>setShopIndex(0)} id='tab_1'/>
+            <Tab label='Moose Shop' onClick={(e)=>setShopIndex(1)} />
+            <Tab label='Clicks Shop' onClick={(e)=>setShopIndex(2)} />
           </Tabs>
         </ToolBar>
       <Paper>
         <GridList cellHeight={180} className={classes.gridList}>
-            {shopItems[shop].items.map(item=>
+            {shopItems[shopIndex].items.map(item=>
               <GridListTile className={classes.item} onClick={()=>alert('click')}>
                 <Placeholder />
                 <GridListTileBar 
                   title={item.itemName}
-                  subtitle={<span>{shopItems[shop].currency}{item.price}</span>}
+                  subtitle={<span>{shopItems[shopIndex].currency}{item.price}</span>}
                 />
               </GridListTile>
             )}
