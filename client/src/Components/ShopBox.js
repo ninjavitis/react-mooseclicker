@@ -59,7 +59,7 @@ export default withStyles(styles)(({classes}) => {
     )
 
   const tempPointsPackArray = [
-    {itemName: '1000 MoosePoints', desc:'', price:'1.00'},
+    {itemName: 'Get 1000 MoosePoints!', desc:'', price:'1.00'},
     {itemName: '3000 MoosePoints', desc:'', price:'3.00'},
     {itemName: '5000 MoosePoints', desc:'', price:'5.00'},
     {itemName: '10000 MoosePoints', desc:'', price:'10.00'},
@@ -71,6 +71,7 @@ export default withStyles(styles)(({classes}) => {
 
   const tempArray = [
     {itemName:'Standard Moose', desc: 'A standard moose.', price:1000},
+    {itemName:'Limited Edition Moose', desc: 'A limted edition moose.', price:5000},
     {itemName:'Mega Moose', desc: 'Five times larger than a standard moose.', price:2000},
     {itemName:'Bog Standard Moose', desc: 'A standard moose native to boggy areas.', price:1500},
     {itemName:'Mangy Moose', desc: 'This moose has quite a bit of mange', price:1000},
@@ -80,7 +81,10 @@ export default withStyles(styles)(({classes}) => {
     {itemName:'', desc: '', price:0},
   ]
 
-  const shopItems =[tempPointsPackArray,tempArray]
+  const shopItems =[
+    {items:tempPointsPackArray, currency:'$'},
+    {items:tempArray, currency:'MP '},
+  ]
 
   return(
     <>
@@ -92,12 +96,12 @@ export default withStyles(styles)(({classes}) => {
         </ToolBar>
       <Paper>
         <GridList cellHeight={180} className={classes.gridList}>
-            {shopItems[shop].map(item=>
+            {shopItems[shop].items.map(item=>
               <GridListTile className={classes.item} onClick={()=>alert('click')}>
                 <Placeholder />
                 <GridListTileBar 
                   title={item.itemName}
-                  subtitle={<span>Price: ${item.price}</span>}
+                  subtitle={<span>{shopItems[shop].currency}{item.price}</span>}
                 />
               </GridListTile>
             )}

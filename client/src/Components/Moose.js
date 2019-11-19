@@ -16,6 +16,8 @@ import Fade from '@material-ui/core/Fade';
 import RegistrationForm from './RegistrationForm'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
+import ToolBar from '@material-ui/core/ToolBar'
+import Container from '@material-ui/core/Container'
 
 
 
@@ -99,6 +101,9 @@ const registerModal = (
   return(
     <>
       <Card className={classes.mooseCard}>
+        <ToolBar>
+          Clicked: {clicks} | Clicks: {remainingClicks}
+        </ToolBar>
         <CardActionArea
           onClick={handleClick}
         >
@@ -113,12 +118,9 @@ const registerModal = (
           <Typography>
             You have {remainingClicks} clicks remaining.
           </Typography>
-          <Typography>
-            Next free click in {}
-          </Typography>
         </CardContent>
         <CardActions>
-          <Button>
+          <Button size={'small'}>
             Get more clicks!
           </Button>
         </CardActions>
