@@ -1,6 +1,7 @@
 import React, {useContext, useEffect} from 'react';
 import {useState} from 'react'
 import {AuthContext} from '../Providers/AuthProvider'
+import {MooseContext} from '../Providers/MooseProvider'
 import axios from 'axios'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -17,8 +18,6 @@ import RegistrationForm from './RegistrationForm'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import ToolBar from '@material-ui/core/ToolBar'
-
-
 
 
 const styles = (theme => ({
@@ -47,23 +46,29 @@ const styles = (theme => ({
 }))
 
 export default withStyles(styles)(({classes}) => {
-  const {authenticated, clicks, remainingClicks} = useContext(AuthContext)
-const [mooseClicks, setMooseClicks] = useState(0)
+  const {authenticated, remainingClicks, } = useContext(AuthContext)
+  const {getClickCount} = useContext(MooseContext)
+  const [mooseClicks, setMooseClicks] = useState(0)
+  const [clicks, setClicks] = useState(0)
 
-const handleClick = () => {
-  if(authenticated){
-    if(remainingClicks > 0){
-      axios
-      .get("/api/moose/click")
-      .then(res => {setMooseClicks(res.data)})
-      .catch(res => console.log(res))
+  useEffect(()=>{
+    authenticated ? setClicks(getClickCount) : setClicks(0)
+  },[authenticated])
+
+  const handleClick = () => {
+    if(authenticated){
+      if(remainingClicks > 0){
+        axios
+        .get("/api/moose/click")
+        .then(res => {setMooseClicks(res.data)})
+        .catch(res => console.log(res))
+      } else {
+        alert('no clicks remaining')
+      }
     } else {
-      alert('no clicks remaining')
+      handleModalOpen()
     }
-  } else {
-    handleModalOpen()
   }
-}
 
 // Registration Modal Section
 const [modalOpen, setModalOpen] = React.useState(false);

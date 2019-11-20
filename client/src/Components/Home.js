@@ -1,6 +1,5 @@
 import React from 'react';
-import {MooseProvider} from '../Providers/MooseProvider'
-import {ShopProvider} from '../Providers/ShopProvider'
+
 
 // Material UI 
 import { withStyles } from '@material-ui/core/styles';

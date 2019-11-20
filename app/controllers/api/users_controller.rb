@@ -6,7 +6,7 @@ class Api::UsersController < ApplicationController
       current_user.increment!(:mooseclicks)
       current_user.decrement!(:remainingClicks)
       current_user.touch(:lastclick)
-      render json: current_user.mooseclicks, current_user.remainingClicks
+      render json: current_user.mooseclicks
     else
       render json: current_user.errors, status:422 
     end
