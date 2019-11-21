@@ -19,6 +19,8 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
+import Chip from '@material-ui/core/Chip';
+
 
 
 
@@ -95,6 +97,9 @@ const styles = (theme => ({
     borderRadius: theme.palette.background.borderRadius,
     outline: 'none',
   },
+  chip: {
+    margin: theme.spacing(1)
+  },
 }));
 
 
@@ -168,9 +173,11 @@ export default withStyles(styles)(({classes}) => {
 
  const PlayerStatus = () => {
    return(
-    <Typography>
-      Clicks Remaining: {remainingClicks} | Next click in: {} | MoosePoints: {points}
-    </Typography>
+     <>
+      <Chip label={'Clicks Remaining: ' + remainingClicks} className={classes.chip} />
+      <Chip label={'Next free click in: ' + remainingClicks} className={classes.chip} />
+      <Chip label={'MoosePoints: ' + points} className={classes.chip} />
+    </>
    )
  }
 
