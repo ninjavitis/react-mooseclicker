@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_19_205533) do
+ActiveRecord::Schema.define(version: 2019_11_21_160525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 2019_11_19_205533) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "variant"
+    t.boolean "magic"
+    t.integer "age"
+    t.bigint "clicksToLevel"
+    t.bigint "level"
+    t.string "parent1_id"
+    t.string "parent2_id"
+    t.index ["parent1_id"], name: "index_mooses_on_parent1_id"
+    t.index ["parent2_id"], name: "index_mooses_on_parent2_id"
     t.index ["user_id"], name: "index_mooses_on_user_id"
   end
 

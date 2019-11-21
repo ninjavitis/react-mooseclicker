@@ -9,15 +9,23 @@ export class MooseProvider extends React.Component {
 
   getClickCount=()=>{
     axios.get('/api/moose/clickcount')
-    .then(res=>this.setState({clicks:res.data}))
+    .then(res => this.setState({clicks:res.data}))
     return this.state.clicks
+  }
+
+  mooseInteraction = () => {
+    axios
+    .get("/api/moose/click")
+    .then(res => this.setState({clicks:res.data}))
+    .catch(res => console.log(res))
   }
 
   render(){
     return(
     <MooseContext.Provider value ={{
       ...this.state,
-      getClickCount:this.getClickCount
+      getClickCount:this.getClickCount,
+      mooseInteraction:this.mooseInteraction
     }}>
       {this.props.children}
     </MooseContext.Provider>

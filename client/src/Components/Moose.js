@@ -18,6 +18,10 @@ import RegistrationForm from './RegistrationForm'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import ToolBar from '@material-ui/core/ToolBar'
+import Container from '@material-ui/core/Container'
+import { borders, borderColor } from '@material-ui/system';
+
+
 
 
 const styles = (theme => ({
@@ -46,22 +50,21 @@ const styles = (theme => ({
 }))
 
 export default withStyles(styles)(({classes}) => {
-  const {authenticated, remainingClicks, } = useContext(AuthContext)
+  const {authenticated, remainingClicks, mooseInteraction} = useContext(AuthContext)
   const {getClickCount} = useContext(MooseContext)
   const [mooseClicks, setMooseClicks] = useState(0)
   const [clicks, setClicks] = useState(0)
+  const [level, setLevel] = useState(1)
 
   useEffect(()=>{
     authenticated ? setClicks(getClickCount) : setClicks(0)
   },[authenticated])
 
+
   const handleClick = () => {
     if(authenticated){
       if(remainingClicks > 0){
-        axios
-        .get("/api/moose/click")
-        .then(res => {setMooseClicks(res.data)})
-        .catch(res => console.log(res))
+        mooseInteraction()
       } else {
         alert('no clicks remaining')
       }
@@ -104,7 +107,7 @@ const registerModal = (
 
   return(
     <>
-      <Card className={classes.mooseCard}>
+      <Card className={classes.mooseCard} border={0} >
         <ToolBar>
           <Typography>
             You've clicked your Moose: {clicks} times!

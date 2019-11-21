@@ -12,7 +12,7 @@ class Api::UsersController < ApplicationController
     end
   end
 
-  
+  #used to set the initial click count on login
   def getClickCount
     render json: current_user.mooseclicks
   end
