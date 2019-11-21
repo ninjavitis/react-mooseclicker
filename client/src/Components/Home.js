@@ -37,9 +37,7 @@ export default withStyles(styles)(({classes}) => {
       direction="row"
       spacing={5}
     >
-      <Grid item xs={12} lg={4}>
-      </Grid>
-      <Grid item xs={12} lg={4}>
+      <Grid item xs={12} lg={8}>
         <Moose className={classes.moosePanel}/>
       </Grid>
       <Grid item xs={12} lg={4}>
