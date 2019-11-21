@@ -20,6 +20,9 @@ import Button from '@material-ui/core/Button'
 import ToolBar from '@material-ui/core/ToolBar'
 import Container from '@material-ui/core/Container'
 import { borders, borderColor } from '@material-ui/system';
+import Chip from '@material-ui/core/Chip'
+import Avatar from '@material-ui/core/Avatar';
+
 
 
 
@@ -46,18 +49,21 @@ const styles = (theme => ({
     justify:'center',
     margin:'auto'
   },
-
+  chip: {
+    margin: theme.spacing(1)
+  },
 }))
 
 export default withStyles(styles)(({classes}) => {
-  const {authenticated, remainingClicks, mooseInteraction} = useContext(AuthContext)
+  const {authenticated, remainingClicks, mooseInteraction, getMoose} = useContext(AuthContext)
   const {getClickCount} = useContext(MooseContext)
-  const [mooseClicks, setMooseClicks] = useState(0)
   const [clicks, setClicks] = useState(0)
   const [level, setLevel] = useState(1)
+  const [moose, setMoose] = useState({})
 
   useEffect(()=>{
     authenticated ? setClicks(getClickCount) : setClicks(0)
+    authenticated && setMoose(getMoose)
   },[authenticated])
 
 
@@ -109,9 +115,14 @@ const registerModal = (
     <>
       <Card className={classes.mooseCard} border={0} >
         <ToolBar>
-          <Typography>
-            You've clicked your Moose: {clicks} times!
-          </Typography>
+        <Chip 
+          avatar={<Avatar>LV</Avatar>}
+          label='1'
+          className={classes.chip}
+        />
+        <Chip label={'Clicks: ' + clicks } className={classes.chip} />
+        <Chip label={'To next level: ' + clicks } className={classes.chip} />
+        <Chip label={'Age: 1 Day' } className={classes.chip} />
         </ToolBar>
         <CardActionArea
           onClick={handleClick}
