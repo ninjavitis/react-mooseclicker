@@ -42,6 +42,7 @@ const styles = (theme => ({
     outline: 'none',
   },
   mooseCard: {
+    padding:'10px'
   },
   center: {
     alignItems:'center',
@@ -132,12 +133,8 @@ const registerModal = (
           </CardMedia>
         </CardActionArea>
         <CardContent>
+          Artist: Rick Moosetly
         </CardContent>
-        <CardActions>
-          <Button size={'small'}>
-            Get more clicks!
-          </Button>
-        </CardActions>
       </Card>
       {registerModal}
     </>

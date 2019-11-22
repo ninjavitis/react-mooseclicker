@@ -6,4 +6,8 @@ class Api::MooseController < ApplicationController
   def activeMoose
     render json: current_user.activeMoose
   end
+
+  def testCreate
+    current_user.createMoose(1)
+  end
 end

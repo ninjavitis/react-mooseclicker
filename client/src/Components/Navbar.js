@@ -1,4 +1,5 @@
 import React, {useContext} from 'react';
+import axios from 'axios'
 import {AuthContext} from '../Providers/AuthProvider'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -181,6 +182,11 @@ export default withStyles(styles)(({classes}) => {
    )
  }
 
+ const handleCreateMoose =()=>{
+   console.log('click')
+   axios.get('api/moose/testCreate')
+   .catch(res=>console.log(res))
+ }
  
 
   // Mobile Account Menu
@@ -247,6 +253,8 @@ export default withStyles(styles)(({classes}) => {
             className={classes.menuButton}
             color="inherit"
             aria-label="Mooseclicker Deluxe"
+            onClick={()=>handleCreateMoose()}
+
           >
             <Logo />
           </IconButton>
