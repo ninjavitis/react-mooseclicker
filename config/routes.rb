@@ -12,6 +12,5 @@ Rails.application.routes.draw do
   get 'api/moose/click', to: 'api/users#mooseclick'
   get 'api/moose/clickcount', to: 'api/users#getClickCount'
 
-  # testing routes
-  get 'api/moose/testCreate', to: 'api/moose#testCreate'
+  
 end

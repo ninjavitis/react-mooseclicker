@@ -5,16 +5,21 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  has_many :mooses
+
   include DeviseTokenAuth::Concerns::User
 
   def createMoose(user_id)
-    moose = Moose.new(moose_params)
-    moose.save
+    Moose.create(
+    user_id:user_id,
+    name: 'defaultMoose',
+    variant: 'Standard Moose',
+    magic: false,
+    clicks: 0,
+    level: 1, 
+    clicksToLevel: 5,
+    )
   end
 
-  private
-
-  def moose_params
-    params.require(:moose).permit(:user_id)
-  end
 end

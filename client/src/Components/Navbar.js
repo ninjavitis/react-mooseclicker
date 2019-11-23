@@ -180,14 +180,8 @@ export default withStyles(styles)(({classes}) => {
       <Chip label={'MoosePoints: ' + points} className={classes.chip} />
     </>
    )
- }
+   }
 
- const handleCreateMoose =()=>{
-   console.log('click')
-   axios.get('api/moose/testCreate')
-   .catch(res=>console.log(res))
- }
- 
 
   // Mobile Account Menu
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -253,8 +247,6 @@ export default withStyles(styles)(({classes}) => {
             className={classes.menuButton}
             color="inherit"
             aria-label="Mooseclicker Deluxe"
-            onClick={()=>handleCreateMoose()}
-
           >
             <Logo />
           </IconButton>
