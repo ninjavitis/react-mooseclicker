@@ -5,7 +5,11 @@ export const MooseContext = React.createContext()
 export const MooseConsumer = MooseContext.Consumer
 
 export class MooseProvider extends React.Component {
-  state={clicks:0, activeMoose:{}}
+  state={
+    clicks:0,
+    defaultMoose:{name:'', type:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0 }, 
+    activeMoose:{name:'', type:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0 },
+  }
 
   getClickCount=()=>{
     axios.get('/api/moose/clickcount')
@@ -20,21 +24,26 @@ export class MooseProvider extends React.Component {
     .catch(res => console.log(res))
   }
 
-  getActiveMoose=()=>{
+  getActiveMoose = () => {
     axios
-    .get('/api/activeMoose')
+    .get('/api/moose/show')
     .then(res => this.setState({activeMoose:res.data}))
     .catch(res => console.log(res))
-    return this.state.activeMoose
   }
 
+  clearMoose = () => {
+    this.setState({activeMoose:this.state.defaultMoose})
+  }
+  
   render(){
     return(
     <MooseContext.Provider value ={{
       ...this.state,
       getClickCount:this.getClickCount,
       mooseInteraction:this.mooseInteraction,
-      activeMoose:this.getActiveMoose,
+      getActiveMoose:this.getActiveMoose,
+      activeMoose:this.state.activeMoose,
+      clearMoose:this.clearMoose
     }}>
       {this.props.children}
     </MooseContext.Provider>

@@ -1,13 +1,10 @@
 class Api::MooseController < ApplicationController
-  def find
-  
+
+  def index
+    render json: current_user.moose.all
   end
 
-  def activeMoose
-    render json: current_user.activeMoose
-  end
-
-  def testCreate
-    current_user.createMoose(1)
+  def show
+    render json: Moose.find_by(id:current_user.activeMoose)
   end
 end

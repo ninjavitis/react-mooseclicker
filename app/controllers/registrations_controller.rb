@@ -1,7 +1,9 @@
 class RegistrationsController < DeviseTokenAuth::RegistrationsController
   def create
     super do |resource|
-      resource.createMoose(resource.id)
+      moose = resource.createMoose(resource.id)
+      resource.activeMoose = moose.id
+      resource.save
     end
   end
 end
