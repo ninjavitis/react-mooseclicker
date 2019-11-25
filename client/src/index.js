@@ -19,9 +19,11 @@ let theme = createMuiTheme({
   palette: {
     primary: {
       main: deepPurple[700],
+      light: deepPurple[600]
     },
     secondary: {
-      main: amber[800]
+      main: amber[800],
+      light:  amber[500]
     }, 
     background:{
 

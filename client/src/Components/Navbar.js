@@ -14,6 +14,12 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
 import {ReactComponent as Logo} from '../Icons/moose.svg'
 import LoginForm from './LoginForm';
+import LoginForm2 from './LoginForm2';
+
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
+import FormGroup from '@material-ui/core/FormGroup'
 
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -195,26 +201,19 @@ export default withStyles(styles)(({classes}) => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-        <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
           color="inherit"
         >
-          {authenticated? <AccountCircle /> : <AccountCircleOutlined />}
+          <AccountCircle />
         </IconButton>
       </MenuItem>
-        {
-          authenticated?
-          menuItems
-          :
-          <MenuItem onClick={()=>handleModalOpen()}>Log In</MenuItem>
-        }
+        { menuItems } 
     </Menu>
   )
-
-
 
   // Desktop Account Menu
   const menuId = 'primary-account-window'
@@ -228,15 +227,40 @@ export default withStyles(styles)(({classes}) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {authenticated?
+      {
         menuItems
-        :
-        <MenuItem onClick={()=>setModalOpen(true)}>Log In</MenuItem>
       }
     </Menu>
   )
 
-  
+  const SectionDesktop = () => {
+    return(
+      <IconButton
+      edge = "end"
+      aria-label="current account"
+      aria-controls={menuId}
+      aria-haspopup="true"
+      onClick={handleProfileMenuOpen}
+      color="inherit"
+    >
+      <AccountCircle />
+    </IconButton>
+    )
+  }
+
+  const SectionMobile = () =>{
+    return(
+      <IconButton
+        aria-label="show more"
+        aria-controls={mobileMenuId}
+        aria-haspopup="true"
+        onClick={handleMobileMenuOpen}
+        color="inherit"
+      >
+        <MoreIcon />
+      </IconButton>
+    )
+  }
 
   return(
     <div className={classes.grow}>
@@ -254,30 +278,13 @@ export default withStyles(styles)(({classes}) => {
             Mooseclicker Deluxe
           </Typography>
           <div className={classes.grow} />
-          {authenticated && <PlayerStatus />}
+          {authenticated? <PlayerStatus /> : <LoginForm2 />}
 
           <div className={classes.sectionDesktop}>
-            <IconButton
-              edge = "end"
-              aria-label="current account"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+            {authenticated && <SectionDesktop />}
           </div>
           <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
+            {authenticated && <SectionMobile />}
           </div>
         </Toolbar>
       </AppBar>

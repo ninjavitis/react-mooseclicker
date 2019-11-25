@@ -37,6 +37,7 @@ export class AuthProvider extends React.Component {
       this.setState({user:res.data.data})
       this.setState({clicks:res.data.data.mooseclicks})
       this.setState({reamaingingClicks:res.data.data.remainingClicks})
+      history.push('/')
     })
     .catch(res => {
       console.log(res)
