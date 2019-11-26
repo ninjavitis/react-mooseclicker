@@ -1,5 +1,4 @@
 import React, {useContext} from 'react';
-import axios from 'axios'
 import {AuthContext} from '../Providers/AuthProvider'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -9,23 +8,17 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { fade, withStyles } from '@material-ui/core/styles';
 
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import AccountCircleOutlined from '@material-ui/icons/AccountCircleOutlined';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
 import {ReactComponent as Logo} from '../Icons/moose.svg'
 import LoginForm from './LoginForm';
 import LoginForm2 from './LoginForm2';
 
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input'
-import InputLabel from '@material-ui/core/InputLabel'
-import FormGroup from '@material-ui/core/FormGroup'
 
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
 import Chip from '@material-ui/core/Chip';
 
 
@@ -116,7 +109,7 @@ export default withStyles(styles)(({classes}) => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   //Context
-    const {authenticated, handleLogout, points, remainingClicks} = useContext(AuthContext)
+    const {authenticated, handleLogout, user} = useContext(AuthContext)
 
   //Local
   const isMenuOpen = Boolean(anchorEl)
@@ -181,9 +174,8 @@ export default withStyles(styles)(({classes}) => {
  const PlayerStatus = () => {
    return(
      <>
-      <Chip label={'Clicks Remaining: ' + remainingClicks} className={classes.chip} />
-      <Chip label={'Next free click in: ' + remainingClicks} className={classes.chip} />
-      <Chip label={'MoosePoints: ' + points} className={classes.chip} />
+      <Chip label={'Clicks Remaining: ' + user.remainingClicks} className={classes.chip} />
+      <Chip label={'MoosePoints: ' + user.points} className={classes.chip} />
     </>
    )
    }

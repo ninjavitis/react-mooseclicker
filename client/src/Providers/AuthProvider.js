@@ -33,11 +33,8 @@ export class AuthProvider extends React.Component {
 
   handleLogin=(user, history)=>{
     axios.post('/api/auth/sign_in', user)
-    .then(res => {
+    .then(res => { 
       this.setState({user:res.data.data})
-      this.setState({clicks:res.data.data.mooseclicks})
-      this.setState({reamaingingClicks:res.data.data.remainingClicks})
-      history.push('/')
     })
     .catch(res => {
       console.log(res)
@@ -62,9 +59,7 @@ export class AuthProvider extends React.Component {
         handleRegister: this.handleRegister,
         handleLogin: this.handleLogin,
         handleLogout: this.handleLogout,
-        clicks: this.state.clicks,
-        remainingClicks: this.state.remainingClicks,
-        points: this.state.points,
+        user:this.state.user,
         setUser:(user) => this.setState({user, })
       }}>
         {this.props.children}

@@ -19,8 +19,11 @@ export class MooseProvider extends React.Component {
 
   mooseInteraction = () => {
     axios
-    .get("/api/moose/click")
-    .then(res => this.setState({clicks:res.data}))
+    .get("/api/user/click")
+    .then(res => 
+      //console.log(res.data)
+      this.setState({activeMoose:res.data})
+        )
     .catch(res => console.log(res))
   }
 

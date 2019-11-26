@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'api/auth', controllers:
   {
-    registrations: 'registrations'
+    registrations: 'registrations',
   }
 
   
@@ -9,7 +9,6 @@ Rails.application.routes.draw do
 
   
   get 'api/moose/show', to: 'api/moose#show'
-  get 'api/moose/click', to: 'api/users#mooseclick'
-  get 'api/moose/clickcount', to: 'api/users#getClickCount'
+  get 'api/user/click', to: 'api/users#click'
 
 end

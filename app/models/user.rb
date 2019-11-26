@@ -22,4 +22,11 @@ class User < ActiveRecord::Base
     )
   end
 
+  def self.click(current_user,active_moose)
+    if current_user.remainingClicks > 0
+      active_moose.increment!(:clicks)
+      current_user.decrement!(:remainingClicks)
+    end
+  end
+
 end

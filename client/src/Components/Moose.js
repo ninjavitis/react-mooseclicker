@@ -48,11 +48,9 @@ const styles = (theme => ({
 }))
 
 export default withStyles(styles)(({classes}) => {
-  const {authenticated, remainingClicks, mooseInteraction} = useContext(AuthContext)
-  const {activeMoose, getActiveMoose, clearMoose} = useContext(MooseContext)
-  const {getClickCount} = useContext(MooseContext)
-  const [clicks, setClicks] = useState(0)
-  const [level, setLevel] = useState(1)
+  const {authenticated, user, } = useContext(AuthContext)
+  const {activeMoose, getActiveMoose, mooseInteraction, clearMoose} = useContext(MooseContext)
+
   
   useEffect(()=>{
     if (authenticated){
@@ -64,7 +62,7 @@ export default withStyles(styles)(({classes}) => {
 
   const handleClick = () => {
     if(authenticated){
-      if(remainingClicks > 0){
+      if(user.remainingClicks > 0){
         mooseInteraction()
       } else {
         alert('no clicks remaining')
