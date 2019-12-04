@@ -6,7 +6,15 @@ export const AuthContext = React.createContext();
 export const AuthConsumer = AuthContext.Consumer;
 
 export class AuthProvider extends React.Component {
-  state = { user:null, loginSuccessful:true, points:0, clicks:0, remainingClicks:0,activeMoose:null}
+  state = { 
+    user:null,
+    emptyUser:{remainingClicks:0,points:0},
+    loginSuccessful:true, 
+    points:0, 
+    clicks:0, 
+    remainingClicks:0,
+    activeMoose:null
+  }
 
 
   getClickCount=()=>{
@@ -50,6 +58,19 @@ export class AuthProvider extends React.Component {
     .catch(res=>{console.log(res)})
   }
 
+  getUser=()=>{
+    if (this.state.user){
+      return this.state.user
+    } else {
+      return this.state.emptyUser
+    }
+  }
+
+  // Updates the user object from the UI (ex: when user is returned after clicking a moose)
+  updateUser=(user)=>{
+    this.setState({user:user})
+  }
+
   render() {
     return (
       <AuthContext.Provider
@@ -59,6 +80,8 @@ export class AuthProvider extends React.Component {
         handleRegister: this.handleRegister,
         handleLogin: this.handleLogin,
         handleLogout: this.handleLogout,
+        getUser: this.getUser,
+        updateUser:this.updateUser,
         user:this.state.user,
         setUser:(user) => this.setState({user, })
       }}>

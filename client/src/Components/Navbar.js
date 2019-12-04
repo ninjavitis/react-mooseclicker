@@ -1,5 +1,8 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
+
 import {AuthContext} from '../Providers/AuthProvider'
+import {AppContext} from '../Providers/AppProvider'
+
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -21,9 +24,7 @@ import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper'
 import Chip from '@material-ui/core/Chip';
 
-
-
-
+// Material UI Theme
 const styles = (theme => ({
   grow: {
     flexGrow: 1,
@@ -104,16 +105,22 @@ const styles = (theme => ({
 
 
 export default withStyles(styles)(({classes}) => {
-  //State
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
   //Context
-    const {authenticated, handleLogout, user} = useContext(AuthContext)
+  const {authenticated, handleLogout,} = useContext(AuthContext)
+  const {user, fetchUser} = useContext(AppContext)
+
+  //State
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  
 
   //Local
   const isMenuOpen = Boolean(anchorEl)
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  
+  useEffect(()=>{
+    authenticated && fetchUser()
+  },[authenticated])
 
 
 

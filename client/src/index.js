@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, } from 'react-router-dom';
 import { AuthProvider } from "./Providers/AuthProvider";
-import {MooseProvider} from './Providers/MooseProvider'
+import {AppProvider} from './Providers/AppProvider'
 import {ShopProvider} from './Providers/ShopProvider'
 import './index.css';
 import App from './App';
@@ -35,7 +35,7 @@ theme = responsiveFontSizes(theme)
 
 ReactDOM.render(
   <AuthProvider>
-    <MooseProvider>
+    <AppProvider>
       <ShopProvider>
         <MuiThemeProvider theme={theme}>
           <BrowserRouter>
@@ -43,7 +43,7 @@ ReactDOM.render(
           </BrowserRouter>
         </MuiThemeProvider>
       </ShopProvider>
-    </MooseProvider>
+    </AppProvider>
   </AuthProvider>
   , 
   document.getElementById('root')

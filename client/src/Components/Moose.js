@@ -1,14 +1,14 @@
+// React Imports
 import React, {useContext, useEffect} from 'react';
-import axios from 'axios'
-import {useState} from 'react'
 import {AuthContext} from '../Providers/AuthProvider'
-import {MooseContext} from '../Providers/MooseProvider'
+import {AppContext} from '../Providers/AppProvider'
+
+// Material UI Imports
+import { withStyles } from '@material-ui/styles';
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import { withStyles } from '@material-ui/styles';
-import {ReactComponent as Moose} from '../Icons/Moose_loose.svg'
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -17,6 +17,9 @@ import Paper from '@material-ui/core/Paper'
 import ToolBar from '@material-ui/core/ToolBar'
 import Chip from '@material-ui/core/Chip'
 import Avatar from '@material-ui/core/Avatar';
+
+// Other Imports
+import {ReactComponent as Moose} from '../Icons/Moose_loose.svg'
 
 
 const styles = (theme => ({
@@ -48,8 +51,8 @@ const styles = (theme => ({
 }))
 
 export default withStyles(styles)(({classes}) => {
-  const {authenticated, user, } = useContext(AuthContext)
-  const {activeMoose, getActiveMoose, mooseInteraction, clearMoose} = useContext(MooseContext)
+  const {authenticated, user, updateUser} = useContext(AuthContext)
+  const {activeMoose, getActiveMoose, mooseInteraction, clearMoose, updatedUser} = useContext(AppContext)
 
   
   useEffect(()=>{
@@ -63,7 +66,9 @@ export default withStyles(styles)(({classes}) => {
   const handleClick = () => {
     if(authenticated){
       if(user.remainingClicks > 0){
+        // process the click, then update the user in the auth provider
         mooseInteraction()
+        // updateUser(updatedUser)
       } else {
         alert('no clicks remaining')
       }
@@ -71,6 +76,11 @@ export default withStyles(styles)(({classes}) => {
       handleModalOpen()
     }
   }
+
+  const asyncInteract = async ()=>{
+    await mooseInteraction()
+  }
+
 
   // Registration Modal Section
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -108,8 +118,6 @@ export default withStyles(styles)(({classes}) => {
     <>
       <Card className={classes.mooseCard} border={0} >
         <ToolBar>
-          <Chip label={'Name: ' + activeMoose.name } className={classes.chip} />
-          <Chip label={'Type: ' + activeMoose.type } className={classes.chip} />
           <Chip 
             avatar={<Avatar>LV</Avatar>}
             label={activeMoose.level}
@@ -117,7 +125,6 @@ export default withStyles(styles)(({classes}) => {
           />
           <Chip label={'Clicks: ' + activeMoose.clicks } className={classes.chip} />
           <Chip label={'To next level: ' + activeMoose.clicksToLevel } className={classes.chip} />
-          <Chip label={'Age: ' + activeMoose.age } className={classes.chip} />
         </ToolBar>
         <CardActionArea
           onClick={handleClick}
