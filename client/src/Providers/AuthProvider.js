@@ -44,8 +44,8 @@ export class AuthProvider extends React.Component {
     .then(res => { 
       this.setState({user:res.data.data})
     })
-    .catch(res => {
-      console.log(res)
+    .catch(err => {
+      console.log('err.response')
     })
   }
 

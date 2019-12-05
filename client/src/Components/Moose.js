@@ -123,8 +123,11 @@ export default withStyles(styles)(({classes}) => {
             label={activeMoose.level}
             className={classes.chip}
           />
-          <Chip label={'Clicks: ' + activeMoose.clicks } className={classes.chip} />
-          <Chip label={'To next level: ' + activeMoose.clicksToLevel } className={classes.chip} />
+          <Chip 
+            avatar={<Avatar>XP</Avatar>}
+            label={activeMoose.clicks + ' / ' + activeMoose.clicksToLevel}
+            className={classes.chip}
+          />
         </ToolBar>
         <CardActionArea
           onClick={handleClick}

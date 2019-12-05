@@ -43,7 +43,7 @@ export class AppProvider extends React.Component {
   // Updates the user object from the UI (ex: when user is returned after clicking a moose)
   fetchUser = () => {
     axios.get('/api/users/show')
-    .then(res => this.setState({user:res.data}))
+    .then(res => this.setUser(res.data))
     .catch(res => console.log(res))
   }
 
