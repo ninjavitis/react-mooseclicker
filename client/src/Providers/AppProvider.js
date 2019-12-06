@@ -11,11 +11,13 @@ export class AppProvider extends React.Component {
     defaultMoose:{name:'', type:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0 }, 
     activeMoose:{name:'', type:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0 },
     user:{remainingClicks:0,points:0},
+    myMoose:[]
   }
 
   setUser = (user) => this.setState({user:user})
   setActiveMoose = (moose) => this.setState({activeMoose:moose})
   clearMoose = () => this.setState({activeMoose:this.state.defaultMoose})
+  setMyMoose = (myMoose) => this.setState({myMoose:myMoose})
 
   getClickCount=()=>{
     axios.get('/api/moose/clickcount')
@@ -34,6 +36,12 @@ export class AppProvider extends React.Component {
     )
   }
 
+  fetchMyMoose = () => {
+    axios.get('/api/user/myMoose')
+    .then(res => this.setMyMoose(res.data))
+    .catch()
+  }
+
   getActiveMoose = () => {
     axios.get('/api/moose/show')
     .then(res => this.setActiveMoose(res.data))
@@ -42,7 +50,7 @@ export class AppProvider extends React.Component {
 
   // Updates the user object from the UI (ex: when user is returned after clicking a moose)
   fetchUser = () => {
-    axios.get('/api/users/show')
+    axios.get('/api/user/show')
     .then(res => this.setUser(res.data))
     .catch(res => console.log(res))
   }
@@ -56,7 +64,8 @@ export class AppProvider extends React.Component {
       getActiveMoose:this.getActiveMoose,
       clearMoose:this.clearMoose,
       getUser:this.getUser,
-      fetchUser:this.fetchUser, 
+      fetchUser:this.fetchUser,
+      fetchMyMoose:this.fetchMyMoose,
     }}>
       {this.props.children}
     </AppContext.Provider>

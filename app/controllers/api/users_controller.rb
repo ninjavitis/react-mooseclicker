@@ -11,9 +11,13 @@ class Api::UsersController < ApplicationController
 
   def click
     Moose.click(current_user, active_moose)
-    current_user
+    # current_user
     render json: {moose:active_moose, user:current_user}
     # {mooseClicks:active_moose.clicks, user:current_user.remainingClicks}
+  end
+
+  def myMoose
+    render json: current_user.mooses
   end
 
   private

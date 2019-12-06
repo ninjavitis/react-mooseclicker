@@ -10,6 +10,8 @@ import {ReactComponent as Placeholder} from '../Icons/Moose_loose.svg'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 
+import ShopItem from './ShopItem'
+
 const styles = (theme =>(
   {
     gridList:{
@@ -76,44 +78,41 @@ export default withStyles(styles)(({classes}) => {
   ]
 
   const shopItems =[
-    {items:tempPointsPackArray, currency:'$'},
-    {items:tempArray, currency:'MP '},
-    {items:tempClickPacks, currency:'MP '}
+    {name:'Points Shop', items:tempPointsPackArray, currency:'$'},
+    {name:'Moose Shop', items:tempArray, currency:'MP '},
+    {name:'Clicks Shop', items:tempClickPacks, currency:'MP '}
   ]
 
   return(
     <>
-        <ToolBar>
-          <Grid
-            className={classes.grid}
-            container
-            direction="row"
-            spacing={5}
-          >
-              <Grid item xs={4} lg={4}>
-                <Button onClick={(e)=>setShopIndex(0)} size={'small'}>Points Shop</Button>
-              </Grid>
-              <Grid item xs={4} lg={4}>
-                <Button onClick={(e)=>setShopIndex(1)} size={'small'}>Moose Shop</Button>
-              </Grid>
-              <Grid item xs={4} lg={4}>
-                <Button onClick={(e)=>setShopIndex(2)} size={'small'}>Clicks Shop</Button>
-              </Grid>
-          </Grid>
-        </ToolBar>
-      <Paper>
-        <GridList cellHeight={180} className={classes.gridList}>
-            {shopItems[shopIndex].items.map(item=>
-              <GridListTile className={classes.item} onClick={()=>alert('click')}>
-                <Placeholder />
-                <GridListTileBar 
-                  title={item.itemName}
-                  subtitle={<span>{shopItems[shopIndex].currency}{item.price}</span>}
-                />
-              </GridListTile>
-            )}
-          </GridList>
-        </Paper>
-      </>
-    )
+      <ToolBar>
+        <Grid
+          className={classes.grid}
+          container
+          direction="row"
+          spacing={5}
+        >
+          {shopItems.map((shop,i) =>
+            <Grid item xs={4} lg={4}>
+              <Button onClick={(e)=>setShopIndex(i)} size={'small'}>{shop.name}</Button>
+            </Grid>
+          )}
+        </Grid>
+      </ToolBar>
+    <Paper>
+      <GridList cellHeight={10} className={classes.gridList}>
+          {shopItems[shopIndex].items.map(item=>
+            <ShopItem name={item.name} currency={shopItems[shopIndex].currency} price={item.price} />
+            // <GridListTile className={classes.item} onClick={()=>alert('click')}>
+            //   <Placeholder />
+            //   <GridListTileBar 
+            //     title={item.itemName}
+            //     subtitle={<span>{shopItems[shopIndex].currency}{item.price}</span>}
+            //   />
+            // </GridListTile>
+          )}
+        </GridList>
+      </Paper>
+    </>
+  )
 })

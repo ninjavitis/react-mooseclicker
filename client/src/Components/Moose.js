@@ -52,8 +52,18 @@ const styles = (theme => ({
 
 export default withStyles(styles)(({classes}) => {
   const {authenticated, user, updateUser} = useContext(AuthContext)
-  const {activeMoose, getActiveMoose, mooseInteraction, clearMoose, updatedUser} = useContext(AppContext)
+  const {
+    activeMoose, 
+    getActiveMoose, 
+    mooseInteraction, 
+    clearMoose, 
+    fetchMyMoose, 
+    myMoose
+  } = useContext(AppContext)
 
+  useEffect(()=>{
+    authenticated && fetchMyMoose()
+  },[])
   
   useEffect(()=>{
     if (authenticated){
