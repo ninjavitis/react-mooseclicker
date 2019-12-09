@@ -10,6 +10,7 @@ export class AppProvider extends React.Component {
     clicks:0,
     defaultMoose:{name:'', type:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0 }, 
     activeMoose:{name:'', type:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0 },
+    newMoose:{},
     user:{remainingClicks:0,points:0},
     myMoose:[]
   }
@@ -18,6 +19,13 @@ export class AppProvider extends React.Component {
   setActiveMoose = (moose) => this.setState({activeMoose:moose})
   clearMoose = () => this.setState({activeMoose:this.state.defaultMoose})
   setMyMoose = (myMoose) => this.setState({myMoose:myMoose})
+  setNewMoose = (newMoose) => this.setState({newMoose:newMoose})
+
+  newMoose = () => {
+    axios.post()
+    .then(res => this.setNewMoose(res.data))
+    .catch(console.log(res))
+  }
 
   getClickCount=()=>{
     axios.get('/api/moose/clickcount')

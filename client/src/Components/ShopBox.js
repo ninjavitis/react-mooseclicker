@@ -2,15 +2,17 @@ import React, {useState} from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList'
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ToolBar from '@material-ui/core/ToolBar'
 import Paper from '@material-ui/core/Paper'
-import {ReactComponent as Placeholder} from '../Icons/Moose_loose.svg'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-
 import ShopItem from './ShopItem'
+
+//TODO remove imports once grid item size is resolved
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import {ReactComponent as Placeholder} from '../Icons/Moose_loose.svg'
+
 
 const styles = (theme =>(
   {
@@ -100,16 +102,18 @@ export default withStyles(styles)(({classes}) => {
         </Grid>
       </ToolBar>
     <Paper>
-      <GridList cellHeight={10} className={classes.gridList}>
-          {shopItems[shopIndex].items.map(item=>
-            <ShopItem name={item.name} currency={shopItems[shopIndex].currency} price={item.price} />
-            // <GridListTile className={classes.item} onClick={()=>alert('click')}>
-            //   <Placeholder />
-            //   <GridListTileBar 
-            //     title={item.itemName}
-            //     subtitle={<span>{shopItems[shopIndex].currency}{item.price}</span>}
-            //   />
-            // </GridListTile>
+      <GridList cellHeight={150} className={classes.gridList} cols={2}>
+          {shopItems[shopIndex].items.map(item =>
+            // <ShopItem name={item.name} currency={shopItems[shopIndex].currency} price={item.price} cols={1}/>
+            
+            // TODO remove this once grid list item size issue is resolved
+            <GridListTile className={classes.item} onClick={()=>alert('click')}>
+              <Placeholder />
+              <GridListTileBar 
+                title={item.itemName}
+                subtitle={<span>{shopItems[shopIndex].currency}{item.price}</span>}
+              />
+            </GridListTile>
           )}
         </GridList>
       </Paper>

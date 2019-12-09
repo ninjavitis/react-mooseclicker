@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 // Material UI 
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -10,6 +9,7 @@ import grey from '@material-ui/core/colors/grey';
 // Mooseclicker components
 import Moose from './Moose'
 import ShopBox from './ShopBox'
+import Collection from './Collection'
 
 const styles = (theme => (
   {
@@ -39,6 +39,7 @@ export default withStyles(styles)(({classes}) => {
     >
       <Grid item xs={12} lg={8}>
         <Moose className={classes.moosePanel}/>
+        <Collection className={classes.collection} />
       </Grid>
       <Grid item xs={12} lg={4}>
         <ShopBox className={classes.shopPanel}/>
