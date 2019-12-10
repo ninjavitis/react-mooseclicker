@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react'
+import {ShopContext} from '../Providers/ShopProvider'
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles'
 import GridList from '@material-ui/core/GridList'
 import ToolBar from '@material-ui/core/ToolBar'
 import Paper from '@material-ui/core/Paper'
@@ -9,8 +10,8 @@ import Button from '@material-ui/core/Button'
 import ShopItem from './ShopItem'
 
 //TODO remove imports once grid item size is resolved
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
+import GridListTile from '@material-ui/core/GridListTile'
+import GridListTileBar from '@material-ui/core/GridListTileBar'
 import {ReactComponent as Placeholder} from '../Icons/Moose_loose.svg'
 
 
@@ -44,44 +45,44 @@ const styles = (theme =>(
 ))
 
 export default withStyles(styles)(({classes}) => {
+  const {collectibles, fetchCollectibles, wrappedCollectibles} = useContext(ShopContext)
+
+
   const [shopIndex, setShopIndex] = useState(0)
   const [value, setValue] = useState('')
 
+  useEffect(()=>{
+    fetchCollectibles()
+  },[])
+
   const tempPointsPackArray = [
-    {itemName: 'Get 1000 MoosePoints!', desc:'', price:'1.00'},
-    {itemName: '3000 MoosePoints', desc:'', price:'3.00'},
-    {itemName: '5000 MoosePoints', desc:'', price:'5.00'},
-    {itemName: '10000 MoosePoints', desc:'', price:'10.00'},
-    {itemName: '25000 MoosePoints', desc:'', price:'25.00'},
-    {itemName: '50000 MoosePoints', desc:'', price:'50.00'},
-    {itemName: '75000 MoosePoints', desc:'', price:'75.00'},
-    {itemName: '100000 MoosePoints', desc:'', price:'100.00'},
+    {item:{name:'Get 1000 MoosePoints!', description:'', imageURL:''},price:'1.00'},
+    {item:{name:'Get 3000 MoosePoints!', description:'', imageURL:''},price:'3.00'},
+    {item:{name:'Get 5000 MoosePoints!', description:'', imageURL:''},price:'5.00'},
+    {item:{name:'Get 10000 MoosePoints!', description:'', imageURL:''},price:'10.00'},
+    {item:{name:'Get 25000 MoosePoints!', description:'', imageURL:''},price:'25.00'},
+    {item:{name:'Get 50000 MoosePoints!', description:'', imageURL:''},price:'50.00'},
+    {item:{name:'Get 75000 MoosePoints!', description:'', imageURL:''},price:'75.00'},
+    {item:{name:'Get 100000 MoosePoints!', description:'', imageURL:''},price:'100.00'},
   ]
 
-  const tempArray = [
-    {itemName:'Standard Moose', desc: 'A standard moose.', price:1000},
-    {itemName:'Limited Edition Moose', desc: 'A limted edition moose.', price:5000},
-    {itemName:'Mega Moose', desc: 'Five times larger than a standard moose.', price:2000},
-    {itemName:'Bog Standard Moose', desc: 'A standard moose native to boggy areas.', price:1500},
-    {itemName:'Mangy Moose', desc: 'This moose has quite a bit of mange', price:1000},
-    {itemName:'Darling Moose', desc: 'The most darling moose.', price:3000},
-  ]
+
 
   const tempClickPacks = [
-    {itemName:'5 Clicks', desc: '', price:700},
-    {itemName:'10 Clicks', desc: '', price:1000},
-    {itemName:'20 Clicks', desc: '', price:1900},
-    {itemName:'50 Clicks', desc: '', price:4500},
-    {itemName:'100 Clicks', desc: '', price:9500},
-    {itemName:'200 Clicks', desc: '', price:18000},
-    {itemName:'500 Clicks', desc: '', price:37000},
-    {itemName:'1000 Clicks', desc: '', price:70000},
-    {itemName:'5000 Clicks', desc: '', price:300000},
+    {item:{name:'5 Clicks', description:''}, price:700},
+    {item:{name:'10 Clicks', description:''}, price:1000},
+    {item:{name:'20 Clicks', description:''}, price:1900},
+    {item:{name:'50 Clicks', description:''}, price:4500},
+    {item:{name:'100 Clicks', description:''}, price:9500},
+    {item:{name:'200 Clicks', description:''}, price:18000},
+    {item:{name:'500 Clicks', description:''}, price:37000},
+    {item:{name:'1000 Clicks', description:''}, price:70000},
+    {item:{name:'5000 Clicks', description:''}, price:300000},
   ]
 
   const shopItems =[
     {name:'Points Shop', items:tempPointsPackArray, currency:'$'},
-    {name:'Moose Shop', items:tempArray, currency:'MP '},
+    {name:'Moose Shop', items:wrappedCollectibles, currency:'MP '},
     {name:'Clicks Shop', items:tempClickPacks, currency:'MP '}
   ]
 
@@ -104,14 +105,15 @@ export default withStyles(styles)(({classes}) => {
     <Paper>
       <GridList cellHeight={150} className={classes.gridList} cols={2}>
           {shopItems[shopIndex].items.map(item =>
-            // <ShopItem name={item.name} currency={shopItems[shopIndex].currency} price={item.price} cols={1}/>
+            // TODO enable this once grid list item size issue is resolved
+            // <ShopItem name={item.item.name} currency={shopItems[shopIndex].currency} price={item.price || '9999.99'} cols={1}/>
             
             // TODO remove this once grid list item size issue is resolved
             <GridListTile className={classes.item} onClick={()=>alert('click')}>
               <Placeholder />
               <GridListTileBar 
-                title={item.itemName}
-                subtitle={<span>{shopItems[shopIndex].currency}{item.price}</span>}
+                title={item.item.name}
+                subtitle={<span>{shopItems[shopIndex].currency}{item.price || '9999.99'}</span>}
               />
             </GridListTile>
           )}

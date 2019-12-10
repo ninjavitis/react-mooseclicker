@@ -24,7 +24,7 @@ export class AppProvider extends React.Component {
   newMoose = () => {
     axios.post()
     .then(res => this.setNewMoose(res.data))
-    .catch(console.log(res))
+    .catch(res => console.log(res))
   }
 
   getClickCount=()=>{
