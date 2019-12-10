@@ -1,10 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {AuthContext} from '../Providers/AuthProvider'
 
 // Material UI 
 import { withStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import grey from '@material-ui/core/colors/grey';
 
 // Mooseclicker components
 import Moose from './Moose'
@@ -30,6 +29,8 @@ const styles = (theme => (
   ))
 
 export default withStyles(styles)(({classes}) => { 
+  const {authenticated} = useContext(AuthContext)
+
   return(
     <Grid
       className={classes.grid}
@@ -39,7 +40,9 @@ export default withStyles(styles)(({classes}) => {
     >
       <Grid item xs={12} lg={8}>
         <Moose className={classes.moosePanel}/>
-        <Collection className={classes.collection} />
+        {
+          authenticated && <Collection className={classes.collection} />
+        }
       </Grid>
       <Grid item xs={12} lg={4}>
         <ShopBox className={classes.shopPanel}/>
