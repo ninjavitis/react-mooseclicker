@@ -1,0 +1,2 @@
+class CType < ApplicationRecord
+end

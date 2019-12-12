@@ -16,11 +16,11 @@ collectibleData = [
   ['Mangy Moose', 'Moose', 'This moose has quite a bit of mange', '']
 ]
 
-collectibleData.each do |name,collectible_type,description,imageURL|
-  Collectible.create(
+collectibleData.each do |name,cType,desc,image|
+  CType.create(
     name:name, 
-    collectible_type:collectible_type,
-    description:description, 
-    imageURL:imageURL,
+    cType:cType,
+    desc:desc, 
+    image:image,
   )
 end

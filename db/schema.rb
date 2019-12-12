@@ -10,18 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_09_220206) do
+ActiveRecord::Schema.define(version: 2019_12_12_221920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "collectibles", force: :cascade do |t|
+  create_table "c_types", force: :cascade do |t|
+    t.string "cType"
     t.string "name"
-    t.string "collectible_type"
-    t.text "description"
-    t.string "imageURL"
+    t.string "desc"
+    t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "collectibles", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "cType_id"
+    t.bigint "clicks"
+    t.bigint "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cType_id"], name: "index_collectibles_on_cType_id"
+    t.index ["user_id"], name: "index_collectibles_on_user_id"
   end
 
   create_table "mooses", force: :cascade do |t|
@@ -75,5 +86,7 @@ ActiveRecord::Schema.define(version: 2019_12_09_220206) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "collectibles", "c_types", column: "cType_id"
+  add_foreign_key "collectibles", "users"
   add_foreign_key "mooses", "users"
 end
