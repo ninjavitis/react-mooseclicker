@@ -96,7 +96,7 @@ export default withStyles(styles)(({classes}) => {
           spacing={5}
         >
           {shopItems.map((shop,i) =>
-            <Grid item xs={4} lg={4}>
+            <Grid item xs={4} lg={4} key={i}>
               <Button onClick={(e)=>setShopIndex(i)} size={'small'}>{shop.name}</Button>
             </Grid>
           )}
@@ -104,12 +104,12 @@ export default withStyles(styles)(({classes}) => {
       </ToolBar>
     <Paper>
       <GridList cellHeight={150} className={classes.gridList} cols={2}>
-          {shopItems[shopIndex].items.map(item =>
+          {shopItems[shopIndex].items.map((item,i) =>
             // TODO enable this once grid list item size issue is resolved
             // <ShopItem name={item.item.name} currency={shopItems[shopIndex].currency} price={item.price || '9999.99'} cols={1}/>
             
             // TODO remove this once grid list item size issue is resolved
-            <GridListTile className={classes.item} onClick={()=>alert('click')}>
+            <GridListTile key={i} className={classes.item} onClick={()=>alert('click')}>
               <Placeholder />
               <GridListTileBar 
                 title={item.item.name}
