@@ -22,8 +22,14 @@ export class ShopProvider extends React.Component {
     .catch(res => console.log(res))
   }
 
+  // wraps collectible item with additional shop data
   wrappedItems = (items) => {
-    return items.map(item => {return {item:{item}, price:null}})
+    return items.map(item => {return {item, price:7777.77}})
+  }
+
+  newCollectible=(cType) => {
+    axios.post('/api/collectibles/create/', {cType_id:cType})
+    .then(res => console.log(res.data))
   }
 
 
@@ -33,6 +39,7 @@ export class ShopProvider extends React.Component {
       ...this.state,
       fetchCollectibles:this.fetchCollectibles,
       wrappedCollectibles:this.wrappedItems(this.state.collectibles),
+      newCollectible:this.newCollectible
     
     }}>
       {this.props.children}

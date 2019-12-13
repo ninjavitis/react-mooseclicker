@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'ctypes/index'
   namespace :api do
   end
   mount_devise_token_auth_for 'User', at: 'api/auth', controllers:
@@ -11,6 +10,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   get 'api/collectibles', to: 'api/ctypes#index'
+  post 'api/collectibles/create', to: 'api/collectibles#create'
   post 'api/moose/new', to: 'api/moose#newMoose'
   get 'api/moose/show', to: 'api/moose#show'
   get 'api/user/show', to: 'api/users#show'
