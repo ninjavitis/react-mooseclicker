@@ -17,7 +17,7 @@ collectibleData = [
 ]
 
 collectibleData.each do |name,desc,image|
-  CType.create(
+  Ctype.create(
     name:name, 
     desc:desc, 
     image:image,

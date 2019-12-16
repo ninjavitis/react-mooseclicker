@@ -1,10 +1,10 @@
 class CreateCollectibles < ActiveRecord::Migration[5.2]
   def change
     create_table :collectibles do |t|
-      t.string :name
-      t.string :type
-      t.text :description
-      t.string :imageURL
+      t.belongs_to :user, foreign_key: true
+      t.belongs_to :ctype, foreign_key: true
+      t.bigint :clicks
+      t.bigint :level
 
       t.timestamps
     end

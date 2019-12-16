@@ -1,5 +1,5 @@
 class Api::CtypesController < ApplicationController
   def index
-    render json: CType.all
+    render json: Ctype.all
   end
 end

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   get 'api/collectibles', to: 'api/ctypes#index'
   post 'api/collectibles/create', to: 'api/collectibles#create'
+  get 'api/collectibles/myCollection', to: 'api/collectibles#collection'
+
   post 'api/moose/new', to: 'api/moose#newMoose'
   get 'api/moose/show', to: 'api/moose#show'
   get 'api/user/show', to: 'api/users#show'

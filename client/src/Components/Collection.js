@@ -21,22 +21,19 @@ const styles = (theme =>(
 
 export default withStyles(styles)(({items, classes}) => {
   const {authenticated} = useContext(AuthContext)
-  const { 
-    fetchMyMoose, 
-    myMoose
-  } = useContext(AppContext)
+  const { collection, fetchCollection } = useContext(AppContext)
 
   const [myCollection, setMyCollection] = useState([])
 
   useEffect(()=>{
-    authenticated && fetchMyMoose()
-    setMyCollection(myMoose)
+    authenticated && fetchCollection()
+    setMyCollection(collection)
   },[authenticated])
 
   return(
     <Paper>
       <GridList  className={classes.gridList} cols={5}>
-          {myMoose.map(item =>
+          {myCollection.map(item =>
             <GridListTile className={classes.item} onClick={()=>alert('click')} key={item.id} cols={1}>
             <Placeholder />
             <GridListTileBar 

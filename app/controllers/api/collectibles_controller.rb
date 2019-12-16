@@ -2,12 +2,19 @@ class Api::CollectiblesController < ApplicationController
   def index
   end
 
+  def collection
+    if current_user
+      render json: current_user.collectibles.joins(:ctype)
+    else
+      render json: current_user.errors, status:422
+    end
+  end
+
   def create
-    collectible = Collectible.new(
-      user_id:current_user.id,
+    collectible = current_user.collectibles.new(
       cType_id:collectible_params[:cType_id],
       clicks:0,
-      level:1
+      level:0
     )
 
     if collectible.save

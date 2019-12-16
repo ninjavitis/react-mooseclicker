@@ -12,7 +12,8 @@ export class AppProvider extends React.Component {
     activeMoose:{name:'', type:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0 },
     newMoose:{},
     user:{remainingClicks:0,points:0},
-    myMoose:[]
+    collection:[],
+    myMoose:[], 
   }
 
   setUser = (user) => this.setState({user:user})
@@ -20,6 +21,7 @@ export class AppProvider extends React.Component {
   clearMoose = () => this.setState({activeMoose:this.state.defaultMoose})
   setMyMoose = (myMoose) => this.setState({myMoose:myMoose})
   setNewMoose = (newMoose) => this.setState({newMoose:newMoose})
+  setCollection = (collection) => this.setState({collection:collection})
 
   newMoose = () => {
     axios.post()
@@ -56,10 +58,16 @@ export class AppProvider extends React.Component {
     .catch(res => console.log(res))
   }
 
-  // Updates the user object from the UI (ex: when user is returned after clicking a moose)
+  // Updates the user object (ex: when user is returned after clicking a moose)
   fetchUser = () => {
     axios.get('/api/user/show')
     .then(res => this.setUser(res.data))
+    .catch(res => console.log(res))
+  }
+
+  fetchCollection = () => {
+    axios.get('api/collectibles/myCollection')
+    .then(res => console.log(res.data))
     .catch(res => console.log(res))
   }
 
@@ -74,6 +82,7 @@ export class AppProvider extends React.Component {
       getUser:this.getUser,
       fetchUser:this.fetchUser,
       fetchMyMoose:this.fetchMyMoose,
+      fetchCollection:this.fetchCollection
     }}>
       {this.props.children}
     </AppContext.Provider>
