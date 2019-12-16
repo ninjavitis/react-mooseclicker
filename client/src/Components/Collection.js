@@ -33,7 +33,7 @@ export default withStyles(styles)(({items, classes}) => {
   return(
     <Paper>
       <GridList  className={classes.gridList} cols={5}>
-          {myCollection.map(item =>
+          {collection.map(item =>
             <GridListTile className={classes.item} onClick={()=>alert('click')} key={item.id} cols={1}>
             <Placeholder />
             <GridListTileBar 

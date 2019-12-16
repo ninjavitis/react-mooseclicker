@@ -12,7 +12,7 @@ class Api::CollectiblesController < ApplicationController
 
   def create
     collectible = current_user.collectibles.new(
-      cType_id:collectible_params[:cType_id],
+      ctype_id:collectible_params[:ctype_id],
       clicks:0,
       level:0
     )
@@ -27,7 +27,7 @@ class Api::CollectiblesController < ApplicationController
   private
 
   def collectible_params
-    params.require(:collectible).permit(:cType_id)
+    params.require(:collectible).permit(:ctype_id)
   end
 
 end

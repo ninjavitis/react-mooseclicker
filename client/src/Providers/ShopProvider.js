@@ -28,7 +28,7 @@ export class ShopProvider extends React.Component {
   }
 
   newCollectible=(cType) => {
-    axios.post('/api/collectibles/create/', {cType_id:cType})
+    axios.post('/api/collectibles/create/', {ctype_id:cType})
     .then(res => console.log(res.data))
   }
 
