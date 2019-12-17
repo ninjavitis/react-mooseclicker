@@ -67,7 +67,7 @@ export class AppProvider extends React.Component {
 
   fetchCollection = () => {
     axios.get('api/collectibles/myCollection')
-    .then(res => console.log(res.data))
+    .then(res => this.setCollection(res.data))
     .catch(res => console.log(res))
   }
 

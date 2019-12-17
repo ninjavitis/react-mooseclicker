@@ -16,7 +16,7 @@ collectibleData = [
   ['Mangy Moose', 'Moose', 'This moose has quite a bit of mange', '']
 ]
 
-collectibleData.each do |name,desc,image|
+collectibleData.each do |name,type,desc,image|
   Ctype.create(
     name:name, 
     desc:desc, 
