@@ -17,6 +17,7 @@ import Paper from '@material-ui/core/Paper'
 import ToolBar from '@material-ui/core/ToolBar'
 import Chip from '@material-ui/core/Chip'
 import Avatar from '@material-ui/core/Avatar';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 // Other Imports
 import {ReactComponent as Moose} from '../Icons/Moose_loose.svg'
@@ -45,6 +46,9 @@ const styles = (theme => ({
     justify:'center',
     margin:'auto'
   },
+  toolBar:{
+    minHeight:'32px'
+  },
   chip: {
     margin: theme.spacing(1)
   },
@@ -58,7 +62,6 @@ export default withStyles(styles)(({classes}) => {
     mooseInteraction, 
     clearMoose, 
     fetchMyMoose, 
-    myMoose
   } = useContext(AppContext)
 
   useEffect(()=>{
@@ -127,14 +130,16 @@ export default withStyles(styles)(({classes}) => {
   return(
     <>
       <Card className={classes.mooseCard} border={0} >
-        <ToolBar>
-          <Chip 
+        <ToolBar className={classes.toolBar}>
+        <Chip 
+            variant="outlined"
             avatar={<Avatar>LV</Avatar>}
             label={activeMoose.level}
             className={classes.chip}
           />
           <Chip 
-            avatar={<Avatar>XP</Avatar>}
+            variant="outlined"
+            icon={<FavoriteIcon />}
             label={activeMoose.clicks + ' / ' + activeMoose.clicksToLevel}
             className={classes.chip}
           />

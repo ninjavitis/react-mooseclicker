@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 // Mooseclicker components
-import Moose from './Moose'
+import Collectible from './Collectible'
 import ShopBox from './ShopBox'
 import Collection from './Collection'
 
@@ -15,7 +15,7 @@ const styles = (theme => (
     displayArea:{},
     grid:{
       flexWrap: 'wrap',
-      padding: '25px',
+      padding: '10px',
     },
     shopPanel:{
       display: 'flex',
@@ -23,7 +23,7 @@ const styles = (theme => (
       justifyContent: 'space-around',
       overflow: 'hidden',
     },
-    moosePanel:{
+    activeCollectible:{
     }
   }
   ))
@@ -39,7 +39,14 @@ export default withStyles(styles)(({classes}) => {
       spacing={5}
     >
       <Grid item xs={12} lg={8}>
-        <Moose className={classes.moosePanel}/>
+        <Grid container direction="row">
+        <Grid item xs="auto" lg={2} />
+        <Grid item xs={12} lg={8}>
+          <Collectible className={classes.activeCollectible}/>
+        </Grid>
+        <Grid item xs="auto" lg={2} />
+        </Grid>
+        
         {
           authenticated && <Collection className={classes.collection} />
         }

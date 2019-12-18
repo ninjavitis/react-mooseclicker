@@ -14,7 +14,7 @@ import {ReactComponent as Placeholder} from '../Icons/Moose_loose.svg'
 const styles = (theme =>(
   {
     gridList:{
-      height:'630px'
+      height:'500px'
     },
   }
 ))
@@ -23,17 +23,14 @@ export default withStyles(styles)(({items, classes}) => {
   const {authenticated} = useContext(AuthContext)
   const { collection, fetchCollection } = useContext(AppContext)
 
-  const [myCollection, setMyCollection] = useState([])
-
   useEffect(()=>{
     authenticated && fetchCollection()
-    setMyCollection(collection)
   },[authenticated])
 
   return(
     <Paper>
       <GridList  className={classes.gridList} cols={5}>
-          {collection.map(item =>
+          {collection.map((item,i) =>
             <GridListTile className={classes.item} onClick={()=>alert('click')} key={item.id} cols={1}>
             <Placeholder />
             <GridListTileBar 
