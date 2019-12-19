@@ -7,7 +7,8 @@ import ToolBar from '@material-ui/core/ToolBar'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import ShopItem from './ShopItem'
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 //TODO remove imports once grid item size is resolved
 import GridListTile from '@material-ui/core/GridListTile'
@@ -18,7 +19,6 @@ import {ReactComponent as Placeholder} from '../Icons/Moose_loose.svg'
 const styles = (theme =>(
   {
     gridList:{
-      height:'630px'
     },
     subheader:{
 
@@ -49,7 +49,12 @@ export default withStyles(styles)(({classes}) => {
 
 
   const [shopIndex, setShopIndex] = useState(0)
-  const [value, setValue] = useState('')
+  const [tab, setTab] = useState(0)
+
+  // handles tab switching
+  const handleChange = (event, newTab) => {
+    setTab(newTab);
+  };
 
   useEffect(()=>{
     fetchCollectibles()
@@ -82,7 +87,7 @@ export default withStyles(styles)(({classes}) => {
 
   const shops =[
     {name:'Points Shop', items:tempPointsPackArray, currency:'$'},
-    {name:'Moose Shop', items:wrappedCollectibles, currency:'MP '},
+    {name:'Collectibles Shop', items:wrappedCollectibles, currency:'MP '},
     {name:'Clicks Shop', items:tempClickPacks, currency:'MP '}
   ]
 
@@ -94,6 +99,30 @@ export default withStyles(styles)(({classes}) => {
       case 2:
     }
   }
+
+  const display = (tab) => {
+    switch(tab){
+      case 0:
+        return 
+        break
+      case 1:
+        return 
+        break
+      case 2:
+        return 
+        break
+      default:
+        return 
+    }
+  }
+
+  function tabProps(index) {
+    return {
+      id: `wrapped-tab-${index}`,
+      'aria-controls': `wrapped-tabpanel-${index}`,
+    };
+  }
+
 
   const shopTile = (id, name, price, currency) => {
     return(
@@ -110,22 +139,15 @@ export default withStyles(styles)(({classes}) => {
   return(
     <>
       <ToolBar>
-        <Grid
-          className={classes.grid}
-          container
-          direction="row"
-          spacing={5}
-        >
-          {shops.map((shop,i) =>
-            <Grid item xs={4} lg={4} key={i}>
-              <Button onClick={(e)=>setShopIndex(i)} size={'small'}>{shop.name}</Button>
-            </Grid>
+        <Tabs value={tab} onChange={handleChange} aria-label="simple tabs example">
+          {shops.map((shop,i) => 
+            <Tab label={shop.name} {...tabProps(i)} />
           )}
-        </Grid>
+        </Tabs>
       </ToolBar>
     <Paper>
       <GridList cellHeight={150} className={classes.gridList} cols={2}>
-          {shops[shopIndex].items.map((item,i) =>
+          {shops[tab].items.map((item,i) =>
             // TODO enable this once grid list item size issue is resolved
             // <ShopItem name={item.item.name} currency={shops[shopIndex].currency} price={item.price || '9999.99'} cols={1}/>
             

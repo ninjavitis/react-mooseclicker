@@ -75,27 +75,27 @@ export default withStyles(styles)(({classes}) => {
 
   return(
     <>
-    <Grid
-      className={classes.grid}
-      container
-      direction="row"
-      spacing={1}
-      >
-      <Grid item xs={12} lg={8}>
-        <ToolBar className={classes.toolBar}>
-        <Tabs value={tab} onChange={handleChange} aria-label="simple tabs example">
-          <Tab label="Main" {...tabProps(0)} />
-          {
-            authenticated && <Tab label="Collection" {...tabProps(1)} />
-          }
-        </Tabs>
-        </ToolBar>
-          {display(tab)}
-      </Grid>  
-      <Grid item xs={12} lg={4}>
-        <ShopBox className={classes.shopPanel}/>
+      <Grid
+        className={classes.grid}
+        container
+        direction="row"
+        spacing={1}
+        >
+        <Grid item xs={12} lg={8}>
+          <ToolBar className={classes.toolBar}>
+          <Tabs value={tab} onChange={handleChange} aria-label="simple tabs example">
+            <Tab label="Main" {...tabProps(0)} />
+            {
+              authenticated && <Tab label="Collection" {...tabProps(1)} />
+            }
+          </Tabs>
+          </ToolBar>
+            {display(tab)}
+        </Grid>  
+        <Grid item xs={12} lg={4}>
+          <ShopBox className={classes.shopPanel}/>
+        </Grid>
       </Grid>
-    </Grid>
     </>
   )
 })
