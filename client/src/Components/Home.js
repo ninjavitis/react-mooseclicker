@@ -31,6 +31,8 @@ const styles = (theme => (
     toolBar:{
       minHeight:"32px",
     },
+    collection:{
+    }
   }
   ))
 
@@ -79,8 +81,8 @@ export default withStyles(styles)(({classes}) => {
         className={classes.grid}
         container
         direction="row"
-        spacing={1}
-        >
+        spacing={3}
+      >
         <Grid item xs={12} lg={8}>
           <ToolBar className={classes.toolBar}>
           <Tabs value={tab} onChange={handleChange} aria-label="simple tabs example">

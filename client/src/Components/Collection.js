@@ -14,8 +14,9 @@ import {ReactComponent as Placeholder} from '../Icons/Moose_loose.svg'
 const styles = (theme =>(
   {
     gridList:{
-      height:'500px'
+      height:'500px',
     },
+
   }
 ))
 

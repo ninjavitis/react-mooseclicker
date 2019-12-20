@@ -8,26 +8,16 @@ export const AppConsumer = AppContext.Consumer
 export class AppProvider extends React.Component {
   state={
     clicks:0,
-    defaultMoose:{name:'', type:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0 }, 
-    activeMoose:{name:'', type:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0 },
-    newMoose:{},
     user:{remainingClicks:0,points:0},
+    defaultCollectible:{name:'', type:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0},
+    activeCollectible:{name:'', type:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0},
     collection:[],
-    myMoose:[], 
   }
 
   setUser = (user) => this.setState({user:user})
-  setActiveMoose = (moose) => this.setState({activeMoose:moose})
-  clearMoose = () => this.setState({activeMoose:this.state.defaultMoose})
-  setMyMoose = (myMoose) => this.setState({myMoose:myMoose})
-  setNewMoose = (newMoose) => this.setState({newMoose:newMoose})
   setCollection = (collection) => this.setState({collection:collection})
-
-  newMoose = () => {
-    axios.post()
-    .then(res => this.setNewMoose(res.data))
-    .catch(res => console.log(res))
-  }
+  setActiveCollectible = (collectible) => this.setState({activeCollectible:collectible})
+  clearCollectible = () => this.setState({collectible:this.state.defaultCollectible})
 
   getClickCount=()=>{
     axios.get('/api/moose/clickcount')
@@ -35,26 +25,21 @@ export class AppProvider extends React.Component {
     return this.state.clicks
   }
 
-  mooseInteraction = () => {
-    axios.get("/api/user/click")
+  clickCollectible = () => {
+    axios.put("/api/collectibles/click")
     .then(res => 
       {
         // console.log(res.data)
-        this.setActiveMoose(res.data.moose)
+        this.setActiveCollectible(res.data.collectible)
         this.setUser(res.data.user)
       }
     )
   }
 
-  fetchMyMoose = () => {
-    axios.get('/api/user/myMoose')
-    .then(res => this.setMyMoose(res.data))
-    .catch()
-  }
-
-  getActiveMoose = () => {
-    axios.get('/api/moose/show')
-    .then(res => this.setActiveMoose(res.data))
+  // Gets the currently active collectible from the database
+  fetchActiveCollecitble = () => {
+    axios.get('/api/collectibles/show')
+    .then(res => this.setActiveCollectible(res.data))
     .catch(res => console.log(res))
   }
 
@@ -76,13 +61,12 @@ export class AppProvider extends React.Component {
     <AppContext.Provider value ={{
       ...this.state,
       getClickCount:this.getClickCount,
-      mooseInteraction:this.mooseInteraction,
-      getActiveMoose:this.getActiveMoose,
-      clearMoose:this.clearMoose,
       getUser:this.getUser,
       fetchUser:this.fetchUser,
-      fetchMyMoose:this.fetchMyMoose,
-      fetchCollection:this.fetchCollection
+      fetchCollection:this.fetchCollection,
+      fetchActiveCollectible:this.fetchActiveCollecitble,
+      clearCollectible:this.clearCollectible,
+      clickCollectible:this.clickCollectible,
     }}>
       {this.props.children}
     </AppContext.Provider>

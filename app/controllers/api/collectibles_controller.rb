@@ -27,15 +27,28 @@ class Api::CollectiblesController < ApplicationController
     collectible = current_user.collectibles.new(
       ctype_id:collectible_params[:ctype_id],
       clicks:0,
-      level:0
+      level:1
     )
 
     if collectible.save
+      # set as the displayed collectible
+      current_user.activeCollectible = collectible.id
+      current_user.save
       render json: collectible
     else
       render json: collectible.errors, status:422
     end
   end
+
+  def show
+    render json: Collectible.find_by(id:current_user.activeCollectible)
+  end
+
+  def click
+    Collectible.click(current_user, active_collectible)
+    render json: {collectible:active_collectible, user:current_user}
+  end
+
 
   private
 
@@ -46,6 +59,10 @@ class Api::CollectiblesController < ApplicationController
   def collectible_object(level, clicks, created_at, type, desc, image)
     # name:type is the name of the ctype
     {level:level, clicks:clicks, created_at:created_at, name:type, desc:desc, image:image}
+  end
+
+  def active_collectible
+    active_collectible = Collectible.find_by(id:current_user.activeCollectible)
   end
 
 end

@@ -57,43 +57,33 @@ const styles = (theme => ({
 export default withStyles(styles)(({classes}) => {
   const {authenticated, user, updateUser} = useContext(AuthContext)
   const {
-    activeMoose, 
-    getActiveMoose, 
-    mooseInteraction, 
-    clearMoose, 
-    fetchMyMoose, 
+    activeCollectible,
+    fetchActiveCollectible,
+    clearCollectible,
+    clickCollectible,
   } = useContext(AppContext)
-
-  useEffect(()=>{
-    authenticated && fetchMyMoose()
-  },[])
   
   useEffect(()=>{
     if (authenticated){
-      getActiveMoose()
+      fetchActiveCollectible()
     } else {
-      clearMoose()
+      clearCollectible()
     }
   },[authenticated])
 
   const handleClick = () => {
     if(authenticated){
       if(user.remainingClicks > 0){
-        // process the click, then update the user in the auth provider
-        mooseInteraction()
-        // updateUser(updatedUser)
+        // process the click, then update the user in the app provider
+        clickCollectible()
       } else {
         alert('no clicks remaining')
       }
     } else {
+      // Ask the user to register a new account
       handleModalOpen()
     }
   }
-
-  const asyncInteract = async ()=>{
-    await mooseInteraction()
-  }
-
 
   // Registration Modal Section
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -134,13 +124,13 @@ export default withStyles(styles)(({classes}) => {
         <Chip 
             variant="outlined"
             avatar={<Avatar>LV</Avatar>}
-            label={activeMoose.level}
+            label={activeCollectible.level}
             className={classes.chip}
           />
           <Chip 
             variant="outlined"
             icon={<FavoriteIcon />}
-            label={activeMoose.clicks + ' / ' + activeMoose.clicksToLevel}
+            label={activeCollectible.clicks + ' / ' + activeCollectible.clicksToLevel}
             className={classes.chip}
           />
         </ToolBar>
