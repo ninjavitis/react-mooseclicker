@@ -1,5 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react'
 import {ShopContext} from '../Providers/ShopProvider'
+import {AppContext} from '../Providers/AppProvider'
 
 import { withStyles } from '@material-ui/core/styles'
 import GridList from '@material-ui/core/GridList'
@@ -46,13 +47,14 @@ const styles = (theme =>(
 
 export default withStyles(styles)(({classes}) => {
   const {newCollectible, fetchCollectibles, wrappedCollectibles} = useContext(ShopContext)
+  const {fetchCollection} = useContext(AppContext)
 
 
   const [shopIndex, setShopIndex] = useState(0)
   const [tab, setTab] = useState(0)
 
   // handles tab switching
-  const handleChange = (event, newTab) => {
+  const handleChange = (e, newTab) => {
     setTab(newTab);
   };
 
@@ -95,8 +97,13 @@ export default withStyles(styles)(({classes}) => {
     
     switch (shopId){
       case 0: 
-      case 1: newCollectible(itemId)
+        return
+      case 1: 
+        newCollectible(itemId)
+        fetchCollection()
+        break
       case 2:
+        return
     }
   }
 
@@ -104,13 +111,10 @@ export default withStyles(styles)(({classes}) => {
     switch(tab){
       case 0:
         return 
-        break
       case 1:
         return 
-        break
       case 2:
         return 
-        break
       default:
         return 
     }

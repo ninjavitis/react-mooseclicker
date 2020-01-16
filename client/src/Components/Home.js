@@ -66,10 +66,8 @@ export default withStyles(styles)(({classes}) => {
     switch(tab){
       case 0:
         return main
-        break
       case 1:
         return <Collection className={classes.collection} />
-        break
       default:
         return main
     }
