@@ -43,16 +43,20 @@ class Api::CollectiblesController < ApplicationController
 
   def show
     # render json: Collectible.find_by(id:current_user.activeCollectible)
-    render json: active_collectible
+    render json: complete_collectible
   end
 
   def click
     Collectible.click(current_user, active_collectible)
-    render json: {collectible:active_collectible.ctype, user:current_user}
+    render json: {collectible:complete_collectible, user:current_user}
   end
 
 
   private
+
+  def complete_collectible
+    complete_collectible = {c:active_collectible, t:active_collectible.ctype}
+  end
 
   def collectible_params
     params.require(:collectible).permit(:ctype_id)
@@ -65,7 +69,7 @@ class Api::CollectiblesController < ApplicationController
 
   def active_collectible
     # active_collectible = Collectible.find_by(id:current_user.activeCollectible)
-    active_collectible = Collectible.includes(:ctype).find_by(id:current_user.activeCollectible)
+    active_collectible = Collectible.find_by(id:current_user.activeCollectible)
 
     # active_collectible = Collectible.find_by_sql
     # "

@@ -16,9 +16,14 @@ export class AppProvider extends React.Component {
 
   setUser = (user) => this.setState({user:user})
   setCollection = (collection) => this.setState({collection:collection})
-  setActiveCollectible = (collectible) => this.setState({activeCollectible:collectible})
   clearCollectible = () => this.setState({collectible:this.state.defaultCollectible})
-
+  
+  setActiveCollectible = (collectible) => {
+    let merged = {...collectible.c, ...collectible.t}
+    console.log(merged)
+    this.setState({activeCollectible:merged})
+  }
+  
   getClickCount=()=>{
     axios.get('/api/moose/clickcount')
     .then(res => this.setState({clicks:res.data}))
@@ -38,13 +43,13 @@ export class AppProvider extends React.Component {
 
   updateActiveCollectible = (id) => {
     axios.put('/api/users/updateActive', {activeCollectible:id})
-    .then()
     .catch(res => console.log(res))
   }
 
   // Gets the currently active collectible from the database
   fetchActiveCollecitble = () => {
     axios.get('/api/collectibles/show')
+    // .then(res => console.log(res.data))
     .then(res => this.setActiveCollectible(res.data))
     .catch(res => console.log(res))
   }
