@@ -6,8 +6,7 @@ import { withStyles } from '@material-ui/core/styles'
 import GridList from '@material-ui/core/GridList'
 import ToolBar from '@material-ui/core/ToolBar'
 import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
+
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
@@ -97,13 +96,13 @@ export default withStyles(styles)(({classes}) => {
     
     switch (shopId){
       case 0: 
-        return
       case 1: 
         newCollectible(itemId)
-        fetchCollection()
+        // TODO async/await to update the collection display after adding a new collectible
         break
       case 2:
-        return
+        default:
+          {console.log('Shop Item: Invalid Selection')}
     }
   }
 

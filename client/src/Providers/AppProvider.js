@@ -20,7 +20,6 @@ export class AppProvider extends React.Component {
   
   setActiveCollectible = (collectible) => {
     let merged = {...collectible.c, ...collectible.t}
-    console.log(merged)
     this.setState({activeCollectible:merged})
   }
   
