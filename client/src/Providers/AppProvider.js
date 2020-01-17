@@ -36,6 +36,12 @@ export class AppProvider extends React.Component {
     )
   }
 
+  updateActiveCollectible = (id) => {
+    axios.put('/api/users/updateActive', {activeCollectible:id})
+    .then()
+    .catch(res => console.log(res))
+  }
+
   // Gets the currently active collectible from the database
   fetchActiveCollecitble = () => {
     axios.get('/api/collectibles/show')
@@ -67,6 +73,7 @@ export class AppProvider extends React.Component {
       fetchActiveCollectible:this.fetchActiveCollecitble,
       clearCollectible:this.clearCollectible,
       clickCollectible:this.clickCollectible,
+      updateActiveCollectible:this.updateActiveCollectible,
     }}>
       {this.props.children}
     </AppContext.Provider>

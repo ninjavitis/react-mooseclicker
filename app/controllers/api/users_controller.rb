@@ -1,5 +1,5 @@
 class Api::UsersController < ApplicationController
-  # Uncomment this when user registrations are working
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   def show
     if current_user
@@ -7,6 +7,11 @@ class Api::UsersController < ApplicationController
     else
       render json: current_user.errors, status:422
     end
+  end
+
+  def updateActive()
+    current_user.activeCollectible = active_collectible_params[:activeCollectible]
+    current_user.save
   end
 
   #TODO remove this
@@ -23,6 +28,14 @@ class Api::UsersController < ApplicationController
   # END TODO
 
   private
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:activeCollectible)
+  end
+
+  def active_collectible_params
+    params.permit(:activeCollectible)
+  end
 
   #TODO remove this
   # def active_moose

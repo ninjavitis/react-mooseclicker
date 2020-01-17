@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'api/collectibles/myCollection', to: 'api/collectibles#collection'
   get 'api/collectibles/show', to: 'api/collectibles#show'
   put 'api/collectibles/click', to: 'api/collectibles#click'
+  put 'api/users/updateActive', to: 'api/users#updateActive'
 
   # TODO remove when transition to collectible schema is complete
   post 'api/moose/new', to: 'api/moose#newMoose'

@@ -4,10 +4,11 @@ class Api::CollectiblesController < ApplicationController
 
   def collection
     if current_user
-      collection = current_user.collectibles.includes(:ctype)
+      collection = current_user.collectibles.includes(:ctype).order(created_at: :desc)
       .map{ |collectible| 
         {
           # collectible_object(collectible.level,collectible.clicks,collectible.created_at,collectible.ctype.name, collectible.ctype.desc,collectible.ctype.image)
+          id:collectible.id,
           level:collectible.level,
           clicks:collectible.clicks,
           created:collectible.created_at, 
@@ -41,12 +42,13 @@ class Api::CollectiblesController < ApplicationController
   end
 
   def show
-    render json: Collectible.find_by(id:current_user.activeCollectible)
+    # render json: Collectible.find_by(id:current_user.activeCollectible)
+    render json: active_collectible
   end
 
   def click
     Collectible.click(current_user, active_collectible)
-    render json: {collectible:active_collectible, user:current_user}
+    render json: {collectible:active_collectible.ctype, user:current_user}
   end
 
 
@@ -62,7 +64,17 @@ class Api::CollectiblesController < ApplicationController
   end
 
   def active_collectible
-    active_collectible = Collectible.find_by(id:current_user.activeCollectible)
+    # active_collectible = Collectible.find_by(id:current_user.activeCollectible)
+    active_collectible = Collectible.includes(:ctype).find_by(id:current_user.activeCollectible)
+
+    # active_collectible = Collectible.find_by_sql
+    # "
+    #   SELECT *
+    #   FROM collectibles
+    #   JOIN ctypes
+    #   ON collectibles.ctype_id = ctypes.id
+    #   WHERE collectibles.id = 35
+    # "
   end
 
 end

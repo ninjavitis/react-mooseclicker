@@ -17,6 +17,7 @@ import Paper from '@material-ui/core/Paper'
 import ToolBar from '@material-ui/core/ToolBar'
 import Chip from '@material-ui/core/Chip'
 import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography'
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
 // Other Imports
@@ -120,6 +121,9 @@ export default withStyles(styles)(({classes}) => {
   return(
     <>
       <Card className={classes.mooseCard} border={0} >
+        <ToolBar className={classes.toolBar}>
+          <Typography variant="h6" component="h6">{activeCollectible.name}</Typography>
+        </ToolBar>
         <ToolBar className={classes.toolBar}>
         <Chip 
             variant="outlined"
