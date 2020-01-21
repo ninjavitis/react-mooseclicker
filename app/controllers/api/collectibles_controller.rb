@@ -68,17 +68,7 @@ class Api::CollectiblesController < ApplicationController
   end
 
   def active_collectible
-    # active_collectible = Collectible.find_by(id:current_user.activeCollectible)
     active_collectible = Collectible.find_by(id:current_user.activeCollectible)
-
-    # active_collectible = Collectible.find_by_sql
-    # "
-    #   SELECT *
-    #   FROM collectibles
-    #   JOIN ctypes
-    #   ON collectibles.ctype_id = ctypes.id
-    #   WHERE collectibles.id = 35
-    # "
   end
 
 end

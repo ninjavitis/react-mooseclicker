@@ -26,19 +26,31 @@ export default withStyles(styles)(({items, classes}) => {
     authenticated && fetchCollection()
   },[authenticated])
 
+  const Main = () => {
+    if (collection.length > 0) {
+      return (
+        <GridList  className={classes.gridList} cols={5}>
+            {collection.map((item,i) =>
+              <GridListTile className={classes.item} onClick={()=>updateActiveCollectible(item.id)} key={item.id} cols={1}>
+                <Placeholder />
+                <GridListTileBar 
+                  title={item.name}
+                  subtitle={<span>Level:{item.level} Clicks:{item.clicks}</span>}
+                />
+              </GridListTile>
+            )}
+          </GridList>
+      )
+    } else {
+      return(
+        'Loading'
+      )
+    }
+  }
+
   return(
     <Paper>
-      <GridList  className={classes.gridList} cols={5}>
-          {collection.map((item,i) =>
-            <GridListTile className={classes.item} onClick={()=>updateActiveCollectible(item.id)} key={item.id} cols={1}>
-            <Placeholder />
-            <GridListTileBar 
-              title={item.name}
-              subtitle={<span>Level:{item.level} Clicks:{item.clicks}</span>}
-            />
-          </GridListTile>
-          )}
-        </GridList>
+      <Main />
     </Paper>
   )
 })
