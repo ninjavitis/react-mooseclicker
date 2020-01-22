@@ -8,13 +8,13 @@ import Paper from '@material-ui/core/Paper'
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import {ReactComponent as Placeholder} from '../Icons/Moose_loose.svg'
+import Typography from '@material-ui/core/Typography'
 
 const styles = (theme =>(
   {
     gridList:{
       height:'500px',
     },
-
   }
 ))
 
@@ -43,7 +43,7 @@ export default withStyles(styles)(({items, classes}) => {
       )
     } else {
       return(
-        'Loading'
+        <Typography>Loading Collection...</Typography>
       )
     }
   }

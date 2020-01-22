@@ -19,6 +19,12 @@ import Chip from '@material-ui/core/Chip'
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography'
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import teal from '@material-ui/core/colors/teal'
+import cyan from '@material-ui/core/colors/cyan'
+import blue from '@material-ui/core/colors/blue'
+import indigo from '@material-ui/core/colors/indigo'
+import pink from '@material-ui/core/colors/pink'
+
 
 // Other Imports
 import {ReactComponent as Moose} from '../Icons/Moose_loose.svg'
@@ -30,7 +36,7 @@ const styles = (theme => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  paper: {
+  registrationBox: {
     backgroundColor: theme.palette.background.paper,
     border: theme.palette.background.border,
     boxShadow: theme.shadows[5],
@@ -39,7 +45,10 @@ const styles = (theme => ({
     outline: 'none',
   },
   mooseCard: {
-    padding:'10px'
+    padding:'10px',
+    borderStyle: 'solid',
+    borderWidth: '2px',
+    borderColor: indigo[600],
   },
   center: {
     alignItems:'center',
@@ -53,6 +62,26 @@ const styles = (theme => ({
   chip: {
     margin: theme.spacing(1)
   },
+  heartIcon:{
+    color: pink[500],
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  cardTitle :{
+    fontSize: '18px'
+  },
+  cardBorder:{
+    padding: '5px',
+  },
+  t2: {
+    backgroundColor: teal['A200'],
+  }, 
+  t3: {
+    backgroundColor: indigo['A200'],
+  }, 
+
+
 }))
 
 export default withStyles(styles)(({classes}) => {
@@ -97,6 +126,7 @@ export default withStyles(styles)(({classes}) => {
     setModalOpen(false);
   };
 
+  // prompts the user to register when default collectible is clicked
   const registerModal = (
     <Modal
         aria-labelledby="transition-modal-title"
@@ -111,7 +141,7 @@ export default withStyles(styles)(({classes}) => {
         }}
       >
       <Fade in={modalOpen}>
-        <Paper className={classes.paper}>
+        <Paper className={classes.registrationBox}>
           <RegistrationForm handleClose={()=>handleModalClose()}/>
         </Paper>
       </Fade>
@@ -119,12 +149,11 @@ export default withStyles(styles)(({classes}) => {
   )
 
   return(
-    <>
-      <Card className={classes.mooseCard} border={0} >
+  <Paper className={`${classes.cardBorder} ${classes.t3}`} elevation={5}>
+      <Card className={classes.mooseCard} variant='outlined' elevation={0}>
         <ToolBar className={classes.toolBar}>
-          <Typography variant="h6" component="h6">{activeCollectible.name}</Typography>
-        </ToolBar>
-        <ToolBar className={classes.toolBar}>
+          <Typography className={classes.cardTitle} variant="h6">{activeCollectible.name}</Typography>
+          <div className={classes.grow} />
         <Chip 
             variant="outlined"
             avatar={<Avatar>LV</Avatar>}
@@ -133,7 +162,7 @@ export default withStyles(styles)(({classes}) => {
           />
           <Chip 
             variant="outlined"
-            icon={<FavoriteIcon />}
+            icon={<FavoriteIcon className={classes.heartIcon}/>}
             label={activeCollectible.clicks + ' / ' + activeCollectible.clicksToLevel}
             className={classes.chip}
           />
@@ -150,7 +179,7 @@ export default withStyles(styles)(({classes}) => {
         </CardContent>
       </Card>
       {registerModal}
-    </>
+    </Paper>
   )
 })
 

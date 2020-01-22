@@ -7,10 +7,12 @@ import {ShopProvider} from './Providers/ShopProvider'
 import './index.css';
 import App from './App';
 import {MuiThemeProvider, createMuiTheme, responsiveFontSizes} from '@material-ui/core'
-import deepPurple from '@material-ui/core/colors/deepPurple';
+
+// Colors
+import deepPurple from '@material-ui/core/colors/deepPurple'
 import amber from '@material-ui/core/colors/amber'
 
-import { initMiddleware, } from 'devise-axios';
+import { initMiddleware, } from 'devise-axios'
 
 // initialize the devise-axios middleware for token refreshing
 initMiddleware();
@@ -23,8 +25,9 @@ let theme = createMuiTheme({
     },
     secondary: {
       main: amber[800],
-      light:  amber[500]
+      light:  amber[500],
     }, 
+    
     background:{
 
     }
