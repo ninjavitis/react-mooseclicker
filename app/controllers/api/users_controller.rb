@@ -9,9 +9,26 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  #this sets the collectible that is considered 'active' for display and interaction
   def updateActive()
     current_user.activeCollectible = active_collectible_params[:activeCollectible]
     current_user.save
+  end
+
+  def add_points
+    User.add_points(current_user, points_params[:points])
+  end
+
+  def sub_points
+    User.sub_points(current_user, points_params[:points])
+  end
+
+  def add_clicks
+    User.add_clicks(current_user, clicks_params[:remainingClicks])
+  end
+
+  def sub_clicks
+    User.sub_clicks(current_user, clicks_params[:remainingClicks])
   end
 
   #TODO remove this
@@ -30,11 +47,19 @@ class Api::UsersController < ApplicationController
   private
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:activeCollectible)
+    devise_parameter_sanitizer.permit(:activeCollectible,:points,:remainingClicks)
   end
 
   def active_collectible_params
     params.permit(:activeCollectible)
+  end
+
+  def points_params
+    params.permit(:points)
+  end
+
+  def clicks_params
+    params.permit(:remainingClicks)
   end
 
   #TODO remove this

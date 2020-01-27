@@ -23,4 +23,23 @@ class User < ActiveRecord::Base
     )
   end
 
+  def self.add_points(user, points)
+    user.points += points
+    user.save
+  end
+
+  def self.sub_points(user, points)
+    user.points -= points
+    user.save
+  end
+
+  def self.add_clicks(user, clicks)
+    user.remainingClicks += clicks
+    user.save
+  end
+
+  def self.sub_clicks(user, clicks)
+    user.remainingClicks -= clicks
+    user.save
+  end
 end

@@ -45,16 +45,23 @@ const styles = (theme =>(
 ))
 
 export default withStyles(styles)(({classes}) => {
-  const {newCollectible, fetchCollectibles, wrappedCollectibles} = useContext(ShopContext)
-  const {fetchCollection} = useContext(AppContext)
+  const {
+    newCollectible, 
+    fetchCollectibles, 
+    wrappedCollectibles, 
+    addPoints, 
+    subPoints,
+    addClicks,
+    subClicks
+  } = useContext(ShopContext)
 
-
+  const {fetchCollection, fetchUser} = useContext(AppContext)
   const [shopIndex, setShopIndex] = useState(0)
   const [tab, setTab] = useState(0)
 
   // handles tab switching
   const handleChange = (e, newTab) => {
-    setTab(newTab);
+    setShopIndex(newTab);
   };
 
   useEffect(()=>{
@@ -88,21 +95,33 @@ export default withStyles(styles)(({classes}) => {
 
   const shops =[
     {name:'Points Shop', items:tempPointsPackArray, currency:'$'},
-    {name:'Collectibles Shop', items:wrappedCollectibles, currency:'MP '},
-    {name:'Clicks Shop', items:tempClickPacks, currency:'MP '}
+    {name:'Collectibles Shop', items:wrappedCollectibles, currency:'CP'},
+    {name:'Clicks Shop', items:tempClickPacks, currency:'CP'}
   ]
 
+  // this whole method is bad.  needs to be jettisoned into space when DB handles orders
   const handleClick = (shopId, itemId) => {
-    
     switch (shopId){
+      // Item is points pack
       case 0: 
+        addPoints(5)
+        fetchUser()
+        break
+
+      // Item is a collectible
       case 1: 
         newCollectible(itemId)
-        // TODO async/await to update the collection display after adding a new collectible
+        fetchCollection()
         break
+
+       // Item is clicks pack
       case 2:
-        default:
-          {console.log('Shop Item: Invalid Selection')}
+        addClicks(5)
+        fetchUser()
+        break
+        
+      default:
+        {console.log('Shop Item: Invalid Selection')}
     }
   }
 
@@ -142,7 +161,7 @@ export default withStyles(styles)(({classes}) => {
   return(
     <>
       <ToolBar>
-        <Tabs value={tab} onChange={handleChange} aria-label="simple tabs example">
+        <Tabs value={shopIndex} onChange={handleChange} aria-label="simple tabs example">
           {shops.map((shop,i) => 
             <Tab label={shop.name} {...tabProps(i)} />
           )}
@@ -150,7 +169,7 @@ export default withStyles(styles)(({classes}) => {
       </ToolBar>
     <Paper>
       <GridList cellHeight={150} className={classes.gridList} cols={2}>
-          {shops[tab].items.map((item,i) =>
+          {shops[shopIndex].items.map((item,i) =>
             // TODO enable this once grid list item size issue is resolved
             // <ShopItem name={item.item.name} currency={shops[shopIndex].currency} price={item.price || '9999.99'} cols={1}/>
             
@@ -159,7 +178,7 @@ export default withStyles(styles)(({classes}) => {
               <Placeholder />
               <GridListTileBar 
                 title={item.item.name}
-                subtitle={<span>{shops[shopIndex].currency}{item.price || '9999.99'}</span>}
+                subtitle={<span>{shops[shopIndex].currency} {item.price || '9999.99'}</span>}
               />
             </GridListTile>
           )}

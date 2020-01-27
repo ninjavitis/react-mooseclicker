@@ -7,6 +7,7 @@ export const ShopConsumer = ShopContext.Consumer
 export class ShopProvider extends React.Component {
   state ={
     collectibles:[],
+
   }
 
   setCollectibles = (collectibles) => this.setState({collectibles:collectibles})
@@ -32,6 +33,29 @@ export class ShopProvider extends React.Component {
     .then(res => console.log(res.data))
   }
 
+  // only here for testing the endpoint.  adding points should handled server side
+  addPoints = (points) => {
+    axios.put('/api/users/addPoints/', {points:points})
+    .then(res => console.log(res.data))
+  }
+
+    // only here for testing the endpoint.  removing points should handled server side
+  subPoints = (points) => {
+    axios.put('/api/users/subPoints/', {points:points})
+    .then(res => console.log(res.data))
+  }
+
+  // only here for testing the endpoint.  adding points should handled server side
+  addClicks = (clicks) => {
+    axios.put('/api/users/addClicks/', {remainingClicks:clicks})
+    .then(res => console.log(res.data))
+  }
+
+    // only here for testing the endpoint.  removing points should handled server side
+  subClicks = (clicks) => {
+    axios.put('/api/users/subClicks/', {remaining_clicks:clicks})
+    .then(res => console.log(res.data))
+  }
 
   render(){
     return(
@@ -39,7 +63,11 @@ export class ShopProvider extends React.Component {
       ...this.state,
       fetchCollectibles:this.fetchCollectibles,
       wrappedCollectibles:this.wrappedItems(this.state.collectibles),
-      newCollectible:this.newCollectible
+      newCollectible:this.newCollectible,
+      addPoints:this.addPoints,
+      subPoints:this.subPoints,
+      addClicks:this.addClicks,
+      subPoints:this.subClicks,
     
     }}>
       {this.props.children}
