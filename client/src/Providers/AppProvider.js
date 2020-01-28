@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-
 export const AppContext = React.createContext()
 export const AppConsumer = AppContext.Consumer
 
@@ -12,9 +11,11 @@ export class AppProvider extends React.Component {
     defaultCollectible:{name:'', type:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0},
     activeCollectible:{name:'', type:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0},
     collection:[],
+    collectibles:[],
   }
 
   setUser = (user) => this.setState({user:user})
+  setCollectibles = (collectibles) => this.setState({collectibles:collectibles})
   setCollection = (collection) => this.setState({collection:collection})
   clearCollectible = () => this.setState({collectible:this.state.defaultCollectible})
   
@@ -66,6 +67,46 @@ export class AppProvider extends React.Component {
     .catch(res => console.log(res))
   }
 
+  //  old shop provider methods
+  fetchCollectibles = () => {
+    axios.get('api/collectibles')
+    .then(res => this.setCollectibles(res.data))
+    .catch(res => console.log(res))
+  }
+
+  // wraps collectible item with additional shop data
+  wrappedItems = (items) => {
+    return items.map(item => {return {item, price:7777.77}})
+  }
+
+  newCollectible=(cType) => {
+    axios.post('/api/collectibles/create/', {ctype_id:cType})
+    .then(res => console.log(res.data))
+  }
+
+  // only here for testing the endpoint.  adding points should handled server side
+  addPoints = (points) => {
+    axios.put('/api/users/addPoints/', {points:points})
+    .then(res => console.log(res.data))
+  }
+
+    // only here for testing the endpoint.  removing points should handled server side
+  subPoints = (points) => {
+    axios.put('/api/users/subPoints/', {points:points})
+    .then(res => console.log(res.data))
+  }
+
+  // only here for testing the endpoint.  adding points should handled server side
+  addClicks = (clicks) => {
+    axios.put('/api/users/addClicks/', {remainingClicks:clicks})
+    .then(res => console.log(res.data))
+  }
+
+    // only here for testing the endpoint.  removing points should handled server side
+  subClicks = (clicks) => {
+    axios.put('/api/users/subClicks/', {remaining_clicks:clicks})
+    .then(res => console.log(res.data))
+  }
 
   render(){
     return(
@@ -79,6 +120,13 @@ export class AppProvider extends React.Component {
       clearCollectible:this.clearCollectible,
       clickCollectible:this.clickCollectible,
       updateActiveCollectible:this.updateActiveCollectible,
+      fetchCollectibles:this.fetchCollectibles,
+      wrappedCollectibles:this.wrappedItems(this.state.collectibles),
+      newCollectible:this.newCollectible,
+      addPoints:this.addPoints,
+      subPoints:this.subPoints,
+      addClicks:this.addClicks,
+      subPoints:this.subClicks,
     }}>
       {this.props.children}
     </AppContext.Provider>

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, } from 'react-router-dom';
 import { AuthProvider } from "./Providers/AuthProvider";
 import {AppProvider} from './Providers/AppProvider'
-import {ShopProvider} from './Providers/ShopProvider'
 import './index.css';
 import App from './App';
 import {MuiThemeProvider, createMuiTheme, responsiveFontSizes} from '@material-ui/core'
@@ -39,13 +38,11 @@ theme = responsiveFontSizes(theme)
 ReactDOM.render(
   <AuthProvider>
     <AppProvider>
-      <ShopProvider>
         <MuiThemeProvider theme={theme}>
           <BrowserRouter>
             <App />
           </BrowserRouter>
         </MuiThemeProvider>
-      </ShopProvider>
     </AppProvider>
   </AuthProvider>
   , 

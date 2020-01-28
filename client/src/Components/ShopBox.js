@@ -1,12 +1,9 @@
 import React, {useState, useContext, useEffect} from 'react'
-import {ShopContext} from '../Providers/ShopProvider'
 import {AppContext} from '../Providers/AppProvider'
-
 import { withStyles } from '@material-ui/core/styles'
 import GridList from '@material-ui/core/GridList'
 import ToolBar from '@material-ui/core/ToolBar'
 import Paper from '@material-ui/core/Paper'
-
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
@@ -53,7 +50,7 @@ export default withStyles(styles)(({classes}) => {
     subPoints,
     addClicks,
     subClicks
-  } = useContext(ShopContext)
+  } = useContext(AppContext)
 
   const {fetchCollection, fetchUser} = useContext(AppContext)
   const [shopIndex, setShopIndex] = useState(0)
