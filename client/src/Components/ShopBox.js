@@ -66,14 +66,14 @@ export default withStyles(styles)(({classes}) => {
   },[])
 
   const tempPointsPackArray = [
-    {item:{id:1,name:'Get 1000 MoosePoints!', description:'', imageURL:''},price:'1.00'},
-    {item:{id:2,name:'Get 3000 MoosePoints!', description:'', imageURL:''},price:'3.00'},
-    {item:{id:3,name:'Get 5000 MoosePoints!', description:'', imageURL:''},price:'5.00'},
-    {item:{id:4,name:'Get 10000 MoosePoints!', description:'', imageURL:''},price:'10.00'},
-    {item:{id:5,name:'Get 25000 MoosePoints!', description:'', imageURL:''},price:'25.00'},
-    {item:{id:6,name:'Get 50000 MoosePoints!', description:'', imageURL:''},price:'50.00'},
-    {item:{id:7,name:'Get 75000 MoosePoints!', description:'', imageURL:''},price:'75.00'},
-    {item:{id:8,name:'Get 100000 MoosePoints!', description:'', imageURL:''},price:'100.00'},
+    {item:{id:1,name:'Get 1000 CP!', description:'', imageURL:''},price:'1.00'},
+    {item:{id:2,name:'Get 3000 CP!', description:'', imageURL:''},price:'3.00'},
+    {item:{id:3,name:'Get 5000 CP!', description:'', imageURL:''},price:'5.00'},
+    {item:{id:4,name:'Get 10000 CP!', description:'', imageURL:''},price:'10.00'},
+    {item:{id:5,name:'Get 25000 CP!', description:'', imageURL:''},price:'25.00'},
+    {item:{id:6,name:'Get 50000 CP!', description:'', imageURL:''},price:'50.00'},
+    {item:{id:7,name:'Get 75000 CP!', description:'', imageURL:''},price:'75.00'},
+    {item:{id:8,name:'Get 100000 CP!', description:'', imageURL:''},price:'100.00'},
   ]
 
 

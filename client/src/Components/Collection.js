@@ -3,12 +3,15 @@ import { AuthContext } from '../Providers/AuthProvider'
 import { AppContext } from '../Providers/AppProvider'
 import { withStyles } from '@material-ui/core/styles';
 
+import Grid from '@material-ui/core/Grid'
+
 import GridList from '@material-ui/core/GridList'
 import Paper from '@material-ui/core/Paper'
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import {ReactComponent as Placeholder} from '../Icons/Moose_loose.svg'
 import Typography from '@material-ui/core/Typography'
+import Collectible from './Collectible'
 
 const styles = (theme =>(
   {
@@ -29,17 +32,13 @@ export default withStyles(styles)(({items, classes}) => {
   const Main = () => {
     if (collection.length > 0) {
       return (
-        <GridList  className={classes.gridList} cols={5}>
+          <Grid container spacing={1}>
             {collection.map((item,i) =>
-              <GridListTile className={classes.item} onClick={()=>updateActiveCollectible(item.id)} key={item.id} cols={1}>
-                <Placeholder />
-                <GridListTileBar 
-                  title={item.name}
-                  subtitle={<span>Level:{item.level} Clicks:{item.clicks}</span>}
-                />
-              </GridListTile>
+            <Grid item md={3}>
+            <Collectible className={classes.item} key={item.id} name={item.name} level={item.level} clicks={item.clicks} clicksToLevel={1} artist={'Artist: Moose Ross'}/>
+            </Grid>
             )}
-          </GridList>
+            </Grid>
       )
     } else {
       return(

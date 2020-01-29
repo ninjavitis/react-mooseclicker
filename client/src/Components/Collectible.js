@@ -9,10 +9,7 @@ import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import RegistrationForm from './RegistrationForm'
+
 import Paper from '@material-ui/core/Paper'
 import ToolBar from '@material-ui/core/ToolBar'
 import Chip from '@material-ui/core/Chip'
@@ -31,21 +28,9 @@ import {ReactComponent as Moose} from '../Icons/Moose_loose.svg'
 
 
 const styles = (theme => ({
-  registrationModal:{
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  registrationBox: {
-    backgroundColor: theme.palette.background.paper,
-    border: theme.palette.background.border,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    borderRadius: theme.palette.background.borderRadius,
-    outline: 'none',
-  },
-  mooseCard: {
-    padding:'10px',
+
+  card: {
+    padding:'5px',
     borderStyle: 'solid',
     borderWidth: '2px',
     borderColor: indigo[600],
@@ -57,7 +42,8 @@ const styles = (theme => ({
     margin:'auto'
   },
   toolBar:{
-    minHeight:'32px'
+    minHeight:'32px',
+ 
   },
   chip: {
     margin: theme.spacing(1)
@@ -71,8 +57,12 @@ const styles = (theme => ({
   cardTitle :{
     fontSize: '18px'
   },
-  cardBorder:{
-    padding: '5px',
+  outerBorder:{
+    padding: '10px',
+    borderColor: '#fffff',
+  },
+  innerBorder:{
+    padding: '10px'
   },
   t2: {
     backgroundColor: teal['A200'],
@@ -84,101 +74,41 @@ const styles = (theme => ({
 
 }))
 
-export default withStyles(styles)(({classes}) => {
-  const {authenticated, user, updateUser} = useContext(AuthContext)
-  const {
-    activeCollectible,
-    fetchActiveCollectible,
-    clearCollectible,
-    clickCollectible,
-  } = useContext(AppContext)
-  
-  useEffect(()=>{
-    if (authenticated){
-      fetchActiveCollectible()
-    } else {
-      clearCollectible()
-    }
-  },[authenticated])
+export default withStyles(styles)(({classes, ...props}) => {
+  const {authenticated,  updateUser} = useContext(AuthContext)
 
-  const handleClick = () => {
-    if(authenticated){
-      if(user.remainingClicks > 0){
-        // process the click, then update the user in the app provider
-        clickCollectible()
-      } else {
-        alert('no clicks remaining')
-      }
-    } else {
-      // Ask the user to register a new account
-      handleModalOpen()
-    }
-  }
-
-  // Registration Modal Section
-  const [modalOpen, setModalOpen] = React.useState(false);
-
-  const handleModalOpen = () => {
-    setModalOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setModalOpen(false);
-  };
-
-  // prompts the user to register when default collectible is clicked
-  const registerModal = (
-    <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.registrationModal}
-        open={modalOpen}
-        onClose={handleModalClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-      <Fade in={modalOpen}>
-        <Paper className={classes.registrationBox}>
-          <RegistrationForm handleClose={()=>handleModalClose()}/>
-        </Paper>
-      </Fade>
-    </Modal>
-  )
-
+ 
   return(
-  <Paper className={`${classes.cardBorder} ${classes.t3}`} elevation={5}>
-      <Card className={classes.mooseCard} variant='outlined' elevation={0}>
+  <Paper className={classes.outerBorder} elevation={10}>
+    <Paper className={`${classes.innerBorder} ${classes.t3}`} elevation={0}>
+      <Card className={classes.card} variant='outlined' elevation={0}>
         <ToolBar className={classes.toolBar}>
-          <Typography className={classes.cardTitle} variant="h6">{activeCollectible.name}</Typography>
-          <div className={classes.grow} />
+          <Typography className={classes.cardTitle} variant="h6">{props.name}</Typography>
         <Chip 
             variant="outlined"
             avatar={<Avatar>LV</Avatar>}
-            label={activeCollectible.level}
+            label={props.level}
             className={classes.chip}
           />
           <Chip 
             variant="outlined"
             icon={<FavoriteIcon className={classes.heartIcon}/>}
-            label={activeCollectible.clicks + ' / ' + activeCollectible.clicksToLevel}
+            label={props.clicks + ' / ' + props.clicksToLevel}
             className={classes.chip}
           />
         </ToolBar>
         <CardActionArea
-          onClick={handleClick}
+          onClick={props.action}
         >
           <CardMedia>
             <Moose />
           </CardMedia>
         </CardActionArea>
         <CardContent>
-          Artist: Rick Moosetly
+          {props.artist}
         </CardContent>
       </Card>
-      {registerModal}
+      </Paper>
     </Paper>
   )
 })

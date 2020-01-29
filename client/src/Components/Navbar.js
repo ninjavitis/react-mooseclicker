@@ -182,7 +182,7 @@ export default withStyles(styles)(({classes}) => {
    return(
      <>
       <Chip label={'Clicks Remaining: ' + user.remainingClicks} className={classes.chip} />
-      <Chip label={'MoosePoints: ' + user.points} className={classes.chip} />
+      <Chip label={'CP: ' + user.points} className={classes.chip} />
     </>
    )
    }
@@ -269,12 +269,12 @@ export default withStyles(styles)(({classes}) => {
             edge="start"
             className={classes.menuButton}
             color="inherit"
-            aria-label="Mooseclicker Deluxe"
+            aria-label="CollectOS"
           >
             <Logo />
           </IconButton>
           <Typography className={classes.title} variant='h6' noWrap>
-            Mooseclicker Deluxe
+            CollectOS
           </Typography>
           <div className={classes.grow} />
           {authenticated? <PlayerStatus /> : <LoginForm2 />}
