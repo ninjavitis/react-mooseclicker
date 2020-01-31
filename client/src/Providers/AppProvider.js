@@ -20,8 +20,7 @@ export class AppProvider extends React.Component {
   clearCollectible = () => this.setState({collectible:this.state.defaultCollectible})
   
   setActiveCollectible = (collectible) => {
-    let merged = {...collectible.c, ...collectible.t}
-    this.setState({activeCollectible:merged})
+    this.setState({activeCollectible:collectible})
   }
   
   getClickCount=()=>{
@@ -43,6 +42,7 @@ export class AppProvider extends React.Component {
 
   updateActiveCollectible = (id) => {
     axios.put('/api/users/updateActive', {activeCollectible:id})
+    .then(res=>this.setActiveCollectible(res.data))
     .catch(res => console.log(res))
   }
 

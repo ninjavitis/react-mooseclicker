@@ -12,7 +12,19 @@ class Api::UsersController < ApplicationController
   #this sets the collectible that is considered 'active' for display and interaction
   def updateActive()
     current_user.activeCollectible = active_collectible_params[:activeCollectible]
-    current_user.save
+    c = Collectible.find(current_user.activeCollectible)
+    collectible = Collectible.make(
+      c.id, 
+      c.level, 
+      c.clicks, 
+      c.created_at, 
+      c.ctype.name, 
+      c.ctype.desc, 
+      c.ctype.image
+    )
+    if current_user.save
+      render json: collectible
+    end
   end
 
   def add_points
@@ -51,7 +63,7 @@ class Api::UsersController < ApplicationController
   end
 
   def active_collectible_params
-    params.permit(:activeCollectible)
+    params.require(:user).permit(:activeCollectible)
   end
 
   def points_params

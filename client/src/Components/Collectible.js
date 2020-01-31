@@ -58,11 +58,11 @@ const styles = (theme => ({
     fontSize: '18px'
   },
   outerBorder:{
-    padding: '10px',
+    padding: '.75em',
     borderColor: '#fffff',
   },
   innerBorder:{
-    padding: '10px'
+    padding: '1em'
   },
   t2: {
     backgroundColor: teal['A200'],
@@ -70,20 +70,19 @@ const styles = (theme => ({
   t3: {
     backgroundColor: indigo['A200'],
   }, 
-
-
 }))
 
-export default withStyles(styles)(({classes, ...props}) => {
-  const {authenticated,  updateUser} = useContext(AuthContext)
+// dimensions are for a standard MTG card
+const scale = 2.49 / 3.48
 
- 
+export default withStyles(styles)(({classes, ...props}) => {
   return(
   <Paper className={classes.outerBorder} elevation={10}>
     <Paper className={`${classes.innerBorder} ${classes.t3}`} elevation={0}>
       <Card className={classes.card} variant='outlined' elevation={0}>
         <ToolBar className={classes.toolBar}>
           <Typography className={classes.cardTitle} variant="h6">{props.name}</Typography>
+        <div className={classes.grow}/>
         <Chip 
             variant="outlined"
             avatar={<Avatar>LV</Avatar>}

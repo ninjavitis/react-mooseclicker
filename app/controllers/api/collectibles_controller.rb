@@ -7,7 +7,6 @@ class Api::CollectiblesController < ApplicationController
       collection = current_user.collectibles.includes(:ctype).order(created_at: :desc)
       .map{ |collectible| 
         {
-          # collectible_object(collectible.level,collectible.clicks,collectible.created_at,collectible.ctype.name, collectible.ctype.desc,collectible.ctype.image)
           id:collectible.id,
           level:collectible.level,
           clicks:collectible.clicks,
@@ -43,7 +42,18 @@ class Api::CollectiblesController < ApplicationController
 
   def show
     # render json: Collectible.find_by(id:current_user.activeCollectible)
-    render json: complete_collectible
+    c = active_collectible
+    collectible = Collectible.make(
+      c.id, 
+      c.level, 
+      c.clicks, 
+      c.created_at, 
+      c.ctype.name, 
+      c.ctype.desc, 
+      c.ctype.image
+    )
+
+    render json: collectible
   end
 
   def click
@@ -62,9 +72,9 @@ class Api::CollectiblesController < ApplicationController
     params.require(:collectible).permit(:ctype_id)
   end
 
-  def collectible_object(level, clicks, created_at, type, desc, image)
+  def makeCollectible(id, level, clicks, created_at, type, desc, image)
     # name:type is the name of the ctype
-    {level:level, clicks:clicks, created_at:created_at, name:type, desc:desc, image:image}
+    collectible = {level:level, clicks:clicks, created_at:created_at, name:type, desc:desc, image:image}
   end
 
   def active_collectible

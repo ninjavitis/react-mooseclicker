@@ -29,13 +29,24 @@ export default withStyles(styles)(({items, classes}) => {
     authenticated && fetchCollection()
   },[authenticated])
 
+
+
   const Main = () => {
     if (collection.length > 0) {
       return (
           <Grid container spacing={1}>
             {collection.map((item,i) =>
             <Grid item md={3}>
-            <Collectible className={classes.item} key={item.id} name={item.name} level={item.level} clicks={item.clicks} clicksToLevel={1} artist={'Artist: Moose Ross'}/>
+              <Collectible 
+                className={classes.item} 
+                key={item.id} 
+                name={item.name} 
+                level={item.level} 
+                clicks={item.clicks} 
+                clicksToLevel={1} 
+                artist={'Artist: Moose Ross'}
+                action={()=>updateActiveCollectible(item.id)}
+              />
             </Grid>
             )}
             </Grid>
