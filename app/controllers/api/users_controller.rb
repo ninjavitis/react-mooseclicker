@@ -13,15 +13,8 @@ class Api::UsersController < ApplicationController
   def updateActive()
     current_user.activeCollectible = active_collectible_params[:activeCollectible]
     c = Collectible.find(current_user.activeCollectible)
-    collectible = Collectible.make(
-      c.id, 
-      c.level, 
-      c.clicks, 
-      c.created_at, 
-      c.ctype.name, 
-      c.ctype.desc, 
-      c.ctype.image
-    )
+    collectible = Collectible.make_from_object(c)
+    
     if current_user.save
       render json: collectible
     end
@@ -43,18 +36,6 @@ class Api::UsersController < ApplicationController
     User.sub_clicks(current_user, clicks_params[:remainingClicks])
   end
 
-  #TODO remove this
-  # def click
-  #   Moose.click(current_user, active_moose)
-  #   # current_user
-  #   render json: {moose:active_moose, user:current_user}
-  #   # {mooseClicks:active_moose.clicks, user:current_user.remainingClicks}
-  # end
-
-  # def myMoose
-  #   render json: current_user.mooses
-  # end
-  # END TODO
 
   private
 

@@ -42,23 +42,17 @@ class Api::CollectiblesController < ApplicationController
 
   def show
     # render json: Collectible.find_by(id:current_user.activeCollectible)
-    c = active_collectible
-    collectible = Collectible.make(
-      c.id, 
-      c.level, 
-      c.clicks, 
-      c.created_at, 
-      c.ctype.name, 
-      c.ctype.desc, 
-      c.ctype.image
-    )
+    collectible = Collectible.make_from_object(active_collectible)
+
 
     render json: collectible
   end
 
   def click
     Collectible.click(current_user, active_collectible)
-    render json: {collectible:complete_collectible, user:current_user}
+    collectible = Collectible.make_from_object(active_collectible)
+
+    render json: {collectible:collectible, user:current_user}
   end
 
 
@@ -72,13 +66,8 @@ class Api::CollectiblesController < ApplicationController
     params.require(:collectible).permit(:ctype_id)
   end
 
-  def makeCollectible(id, level, clicks, created_at, type, desc, image)
-    # name:type is the name of the ctype
-    collectible = {level:level, clicks:clicks, created_at:created_at, name:type, desc:desc, image:image}
-  end
-
   def active_collectible
-    active_collectible = Collectible.find_by(id:current_user.activeCollectible)
+    active_collectible = Collectible.find(current_user.activeCollectible)
   end
 
 end

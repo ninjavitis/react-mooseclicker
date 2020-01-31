@@ -13,9 +13,32 @@ class Collectible < ApplicationRecord
       active_collectible.save
     end
   end
+  
+  # wrapper for make that takes an activerecord collecible object
+  def self.make_from_object(c)
+    collectible = make(
+      c.id, 
+      c.level, 
+      c.clicks, 
+      c.clicksToLevel,
+      c.created_at, 
+      c.ctype.name, 
+      c.ctype.desc, 
+      c.ctype.image
+    )
+  end
 
-  def self.make(id, level, clicks, created_at, type, desc, image)
-    collectible = {level:level, clicks:clicks, created_at:created_at, name:type, desc:desc, image:image}
+  # packages a flat collectible object from arbitrary inputs for display in the front end
+  def self.make(id, level, clicks, clicksToLevel, created_at, type, desc, image)
+    collectible = {
+      level:level, 
+      clicks:clicks, 
+      created_at:created_at, 
+      name:type, 
+      desc:desc, 
+      image:image,
+      clicksToLevel:clicksToLevel
+    }
   end
 
   private
