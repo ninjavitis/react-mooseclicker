@@ -126,7 +126,7 @@ export class AppProvider extends React.Component {
       addPoints:this.addPoints,
       subPoints:this.subPoints,
       addClicks:this.addClicks,
-      subPoints:this.subClicks,
+      subClicks:this.subClicks,
     }}>
       {this.props.children}
     </AppContext.Provider>

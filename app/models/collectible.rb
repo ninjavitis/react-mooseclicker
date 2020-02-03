@@ -24,7 +24,7 @@ class Collectible < ApplicationRecord
       c.created_at, 
       c.ctype.name, 
       c.ctype.desc, 
-      c.ctype.image
+      c.ctype.image, 
     )
   end
 
@@ -37,7 +37,7 @@ class Collectible < ApplicationRecord
       name:type, 
       desc:desc, 
       image:image,
-      clicksToLevel:clicksToLevel
+      clicksToLevel:clicksToLevel,
     }
   end
 

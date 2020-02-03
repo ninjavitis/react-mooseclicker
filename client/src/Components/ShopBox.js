@@ -47,14 +47,11 @@ export default withStyles(styles)(({classes}) => {
     fetchCollectibles, 
     wrappedCollectibles, 
     addPoints, 
-    subPoints,
     addClicks,
-    subClicks
   } = useContext(AppContext)
 
   const {fetchCollection, fetchUser} = useContext(AppContext)
   const [shopIndex, setShopIndex] = useState(0)
-  const [tab, setTab] = useState(0)
 
   // handles tab switching
   const handleChange = (e, newTab) => {
@@ -75,8 +72,6 @@ export default withStyles(styles)(({classes}) => {
     {item:{id:7,name:'Get 75000 CP!', description:'', imageURL:''},price:'75.00'},
     {item:{id:8,name:'Get 100000 CP!', description:'', imageURL:''},price:'100.00'},
   ]
-
-
 
   const tempClickPacks = [
     {item:{id:1,name:'5 Clicks', description:''}, price:700},
@@ -122,19 +117,6 @@ export default withStyles(styles)(({classes}) => {
     }
   }
 
-  const display = (tab) => {
-    switch(tab){
-      case 0:
-        return 
-      case 1:
-        return 
-      case 2:
-        return 
-      default:
-        return 
-    }
-  }
-
   function tabProps(index) {
     return {
       id: `wrapped-tab-${index}`,
@@ -142,18 +124,17 @@ export default withStyles(styles)(({classes}) => {
     };
   }
 
-
-  const shopTile = (id, name, price, currency) => {
-    return(
-      <GridListTile key={id} className={classes.item} onClick={()=>console.log(id)}>
-        <Placeholder />
-        <GridListTileBar 
-          title={name}
-          subtitle={<span>{currency}{price || '9999.99'}</span>}
-        />
-      </GridListTile>
-    )
-  }
+  // const shopTile = (id, name, price, currency) => {
+  //   return(
+  //     <GridListTile key={id} className={classes.item} onClick={()=>console.log(id)}>
+  //       <Placeholder />
+  //       <GridListTileBar 
+  //         title={name}
+  //         subtitle={<span>{currency}{price || '9999.99'}</span>}
+  //       />
+  //     </GridListTile>
+  //   )
+  // }
 
   return(
     <>
