@@ -42,12 +42,12 @@ class Collectible < ApplicationRecord
   end
 
   private
-  @clickProgression = [1,2,3,4,5,7,9,11,13,15,17,19,21,23,25,27,30,33,36]
+  @xp_table = [1,2,3,4,5,6,7,8,9,10,12,14,16,18,20,22,24,26,28,30,33,36,39,42,45,48,51,54,57,60,64,68,72,76,80,84,88,92,96,100]
 
   def self.levelUp(collectible)
-    if collectible.clicks >= @clickProgression[collectible.level - 1]
+    if collectible.clicks >= (@xp_table[collectible.level - 1] || 9999)
       collectible.level = collectible.level + 1
-      collectible.clicksToLevel = @clickProgression[collectible.level - 1]
+      collectible.clicksToLevel = @xp_table[collectible.level - 1]
     end
   end
 end

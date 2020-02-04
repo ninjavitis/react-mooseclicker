@@ -43,8 +43,6 @@ class Api::CollectiblesController < ApplicationController
   def show
     # render json: Collectible.find_by(id:current_user.activeCollectible)
     collectible = Collectible.make_from_object(active_collectible)
-
-
     render json: collectible
   end
 
@@ -57,10 +55,6 @@ class Api::CollectiblesController < ApplicationController
 
 
   private
-
-  def complete_collectible
-    complete_collectible = {c:active_collectible, t:active_collectible.ctype}
-  end
 
   def collectible_params
     params.require(:collectible).permit(:ctype_id)

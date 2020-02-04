@@ -88,7 +88,7 @@ export default withStyles(styles)(({classes, ...props}) => {
             <Chip 
               variant="outlined"
               icon={<FavoriteIcon className={classes.heartIcon}/>}
-              label={props.clicks + ' / ' + props.clicksToLevel}
+              label={props.clicks + ' / ' + (props.clicksToLevel || '-')}
               className={classes.chip}
             />
           </Paper>
