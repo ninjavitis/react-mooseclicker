@@ -10,6 +10,7 @@ class Api::CollectiblesController < ApplicationController
           id:collectible.id,
           level:collectible.level,
           clicks:collectible.clicks,
+          clicksToLevel:collectible.clicksToLevel,
           created:collectible.created_at, 
           name:collectible.ctype.name, 
           desc:collectible.ctype.desc, 

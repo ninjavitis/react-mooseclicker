@@ -6,6 +6,7 @@ import {AppContext} from '../Providers/AppProvider'
 // Material UI 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box'
 import ToolBar from '@material-ui/core/ToolBar'
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -140,7 +141,6 @@ export default withStyles(styles)(({classes}) => {
     <Grid container direction="row">
       <Grid item xs="auto" lg={3} />
       <Grid item xs={12} lg={6}>
-      {/* <Collectible className={classes.activeCollectible} key={item.id} name={} level={} clicks={} clicksToLevel={}/> */}
         <Collectible 
           className={classes.activeCollectible} 
           name={activeCollectible.name} 
@@ -150,7 +150,7 @@ export default withStyles(styles)(({classes}) => {
           artist={'Artist: Moose Ross'}
           action={handleClick}
           />
-      </Grid>
+        </Grid>
       <Grid item xs="auto" lg={3} />
     </Grid>
     {registerModal}

@@ -12,12 +12,14 @@ export class AppProvider extends React.Component {
     activeCollectible:{name:'', type:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0},
     collection:[],
     collectibles:[],
+    shopItems:[],
   }
 
   setUser = (user) => this.setState({user:user})
   setCollectibles = (collectibles) => this.setState({collectibles:collectibles})
   setCollection = (collection) => this.setState({collection:collection})
   clearCollectible = () => this.setState({collectible:this.state.defaultCollectible})
+  setShopItems = () => this.setState({collectible:this.state.shopItems})
   
   setActiveCollectible = (collectible) => {
     this.setState({activeCollectible:collectible})
@@ -82,6 +84,12 @@ export class AppProvider extends React.Component {
   newCollectible=(cType) => {
     axios.post('/api/collectibles/create/', {ctype_id:cType})
     .then(res => console.log(res.data))
+  }
+
+  fetchShopItems = () => {
+    axios.get()
+    .then(res => this.setShopItems(res.data))
+    .catch(res => console.log(res))
   }
 
   // only here for testing the endpoint.  adding points should handled server side

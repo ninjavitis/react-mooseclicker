@@ -37,7 +37,7 @@ export default withStyles(styles)(({items, classes}) => {
                 name={item.name} 
                 level={item.level} 
                 clicks={item.clicks} 
-                clicksToLevel={1} 
+                clicksToLevel={item.clicksToLevel} 
                 artist={'Artist: Moose Ross'}
                 action={()=>updateActiveCollectible(item.id)}
               />

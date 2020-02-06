@@ -48,6 +48,7 @@ const styles = (theme => ({
   },
   chip: {
     margin: '2px',
+    backgroundColor: 'white',
   },
   heartIcon:{
     color: pink[500],
@@ -73,6 +74,7 @@ const styles = (theme => ({
 
 export default withStyles(styles)(({classes, ...props}) => {
   return(
+
     <Card  className={classes.card} variant='outlined' elevation={10}>
       <Paper className={classes.outerBorder} >
         <Paper className={`${classes.innerBorder} ${classes.t3}`}>
