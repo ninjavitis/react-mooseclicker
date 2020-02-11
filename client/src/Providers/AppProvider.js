@@ -8,8 +8,8 @@ export class AppProvider extends React.Component {
   state={
     clicks:0,
     user:{remainingClicks:0,points:0},
-    defaultCollectible:{name:'', type:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0},
-    activeCollectible:{name:'', type:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0},
+    defaultCollectible:{name:'', type:'', tier:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0},
+    activeCollectible:{name:'', type:'', tier:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0},
     collection:[],
     collectibles:[],
     shopItems:[],

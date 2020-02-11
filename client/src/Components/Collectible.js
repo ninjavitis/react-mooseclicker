@@ -18,6 +18,11 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import teal from '@material-ui/core/colors/teal'
 import indigo from '@material-ui/core/colors/indigo'
 import pink from '@material-ui/core/colors/pink'
+import purple from '@material-ui/core/colors/purple'
+import deepPurple from '@material-ui/core/colors/deepPurple'
+import lightGreen from '@material-ui/core/colors/lightGreen'
+import orange from '@material-ui/core/colors/orange'
+import grey from '@material-ui/core/colors/grey'
 
 
 // Other Imports
@@ -27,8 +32,12 @@ import {ReactComponent as Moose} from '../Icons/Moose_loose.svg'
 const styles = (theme => ({
   card:{
   },
+  cardNameBackground:{
+    paddingLeft: '10px',
+    paddingRight: '10px',
+  },
   cardText:{
-    fontSize: 16,
+    fontSize: 14,
   },
   center: {
     alignItems:'center',
@@ -61,25 +70,67 @@ const styles = (theme => ({
     borderColor: '#fffff',
   },
   innerBorder:{
-    padding: '10px'
   },
-  t2: {
-    backgroundColor: teal['A200'],
-  }, 
-  t3: {
-    backgroundColor: indigo['A200'],
-  }, 
+    t0:{
+      padding: '10px',
+      backgroundColor: '#ffffff'
+    },
+    t1:{
+      padding: '10px',
+      backgroundColor: grey['400']
+    },
+    t2:{
+      padding: '10px',
+      backgroundColor: lightGreen['A700']
+    },
+    t3:{
+      padding: '10px',
+      backgroundColor: indigo['A700']
+    },
+    t4:{
+      padding: '10px',
+      backgroundColor: deepPurple['A700']
+    },
+    t5:{
+      padding: '10px',
+      backgroundColor: orange['A400']
+    },
 }))
 
 
 export default withStyles(styles)(({classes, ...props}) => {
-  return(
+  const borderTier = (tier) => {
+    switch (tier) {
+      case 1:
+        return classes.t1
+        break;
+      case 2:
+        return classes.t2
+        break;
+      case 3:
+        return classes.t3
+        break;
+      case 4:
+        return classes.t4
+        break;
+      case 5:
+        return classes.t5
+        break;
+    
+      default:
+        return classes.t0
+        break;
+    }
+  }
 
-    <Card  className={classes.card} variant='outlined' elevation={10}>
+  return(
+    <Card  className={classes.card} variant='outlined' elevation={7}>
       <Paper className={classes.outerBorder} >
-        <Paper className={`${classes.innerBorder} ${classes.t3}`}>
+        <Paper className={borderTier(props.tier)}>
           <Paper className={classes.toolBar} elevation={0}>
-            <Typography className={classes.cardText} variant="h6">{props.name}</Typography>
+            <Paper className={classes.cardNameBackground} elevation={5}>
+              <Typography className={classes.cardText} variant="h6">{props.name}</Typography>
+            </Paper>
             <div className={classes.grow}/>
             <Chip 
               variant="outlined"

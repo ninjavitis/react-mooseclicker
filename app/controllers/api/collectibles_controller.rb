@@ -14,7 +14,8 @@ class Api::CollectiblesController < ApplicationController
           created:collectible.created_at, 
           name:collectible.ctype.name, 
           desc:collectible.ctype.desc, 
-          image:collectible.ctype.image
+          image:collectible.ctype.image,
+          tier:collectible.ctype.tier,
         }
       }
 

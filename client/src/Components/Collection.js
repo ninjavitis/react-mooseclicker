@@ -36,6 +36,7 @@ export default withStyles(styles)(({items, classes}) => {
                 key={item.id} 
                 name={item.name} 
                 level={item.level} 
+                tier={item.tier}
                 clicks={item.clicks} 
                 clicksToLevel={item.clicksToLevel} 
                 artist={'Artist: Moose Ross'}

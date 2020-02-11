@@ -143,7 +143,8 @@ export default withStyles(styles)(({classes}) => {
       <Grid item xs={12} lg={6}>
         <Collectible 
           className={classes.activeCollectible} 
-          name={activeCollectible.name} 
+          name={activeCollectible.name}
+          tier={activeCollectible.tier} 
           level={activeCollectible.level} 
           clicks={activeCollectible.clicks} 
           clicksToLevel={activeCollectible.clicksToLevel}
