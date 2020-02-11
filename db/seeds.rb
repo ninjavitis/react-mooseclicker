@@ -8,19 +8,21 @@
 
 
 collectibleData = [
-  ['Standard Moose', 'Moose', 'A standard moose', '', 0],
-  ['Bog Standard Moose', 'Moose',  'A moose native to boggy areas', 1],
-  ['Mega Moose', 'Moose', 'Five times larger than a standard moose', 3],
-  ['Mangy Moose', 'Moose', 'This moose has quite a bit of mange', 3]
-  ['Christmas Moose', 'Moose', 'A festive moose for the holidays', 4],
-  ['Limited Edition Moose', 'Moose', 'A limited edition moose', 5],
+  ['Standard Moose', 'A standard moose', '', 0, 'Bob Ross'],
+  ['Bog Standard Moose', 'A moose native to boggy areas', 1, ''],
+  ['Mega Moose', 'Five times larger than a standard moose', 2, ''],
+  ['Mangy Moose', 'This moose has quite a bit of mange', 3, '']
+  ['Christmas Moose', 'A festive moose for the holidays', 4, ''],
+  ['Ultra Moose', 'The ultimate in moose evolution', 5, ''],
+  ['Moose w/ Squirrel', '', 5, ''],
 ]
 
-collectibleData.each do |name,type,desc,image,tier|
+collectibleData.each do |name,desc,image,tier,artist|
   Ctype.create(
     name:name, 
     desc:desc, 
     image:image,
     tier:tier,
+    artist:artist,
   )
 end

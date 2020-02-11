@@ -39,7 +39,8 @@ export default withStyles(styles)(({items, classes}) => {
                 tier={item.tier}
                 clicks={item.clicks} 
                 clicksToLevel={item.clicksToLevel} 
-                artist={'Artist: Moose Ross'}
+                artist={item.artist}
+                created_at={item.created_at}
                 action={()=>updateActiveCollectible(item.id)}
               />
             </Grid>

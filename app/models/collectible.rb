@@ -25,12 +25,13 @@ class Collectible < ApplicationRecord
       c.ctype.name, 
       c.ctype.desc, 
       c.ctype.image, 
+      c.ctype.artist,
       c.ctype.tier,
     )
   end
 
   # packages a flat collectible object from arbitrary inputs for display in the front end
-  def self.make(id, level, clicks, clicksToLevel, created_at, type, desc, image, tier)
+  def self.make(id, level, clicks, clicksToLevel, created_at, type, desc, image, artist, tier)
     collectible = {
       level:level, 
       clicks:clicks, 
@@ -38,6 +39,7 @@ class Collectible < ApplicationRecord
       name:type, 
       desc:desc, 
       image:image,
+      artist:artist,
       tier:tier,
       clicksToLevel:clicksToLevel,
     }

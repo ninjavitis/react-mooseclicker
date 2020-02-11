@@ -148,7 +148,8 @@ export default withStyles(styles)(({classes}) => {
           level={activeCollectible.level} 
           clicks={activeCollectible.clicks} 
           clicksToLevel={activeCollectible.clicksToLevel}
-          artist={'Artist: Moose Ross'}
+          artist={activeCollectible.artist}
+          created_at={activeCollectible.created_at}
           action={handleClick}
           />
         </Grid>

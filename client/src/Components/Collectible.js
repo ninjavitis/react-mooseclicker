@@ -1,6 +1,7 @@
 // React Imports
 import React from 'react';
 
+import Moment from 'react-moment';
 
 // Material UI Imports
 import { withStyles } from '@material-ui/styles';
@@ -9,20 +10,22 @@ import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-
 import Paper from '@material-ui/core/Paper'
 import Chip from '@material-ui/core/Chip'
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography'
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import teal from '@material-ui/core/colors/teal'
+
+// Colors
 import indigo from '@material-ui/core/colors/indigo'
 import pink from '@material-ui/core/colors/pink'
-import purple from '@material-ui/core/colors/purple'
 import deepPurple from '@material-ui/core/colors/deepPurple'
 import lightGreen from '@material-ui/core/colors/lightGreen'
 import orange from '@material-ui/core/colors/orange'
 import grey from '@material-ui/core/colors/grey'
+
+// Icons
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import TodayIcon from '@material-ui/icons/Today';
 
 
 // Other Imports
@@ -61,6 +64,9 @@ const styles = (theme => ({
   },
   heartIcon:{
     color: pink[500],
+  },
+  todayIcon:{
+    color: indigo[500],
   },
   grow: {
     flexGrow: 1,
@@ -103,23 +109,17 @@ export default withStyles(styles)(({classes, ...props}) => {
     switch (tier) {
       case 1:
         return classes.t1
-        break;
       case 2:
         return classes.t2
-        break;
       case 3:
         return classes.t3
-        break;
       case 4:
         return classes.t4
-        break;
       case 5:
         return classes.t5
-        break;
     
       default:
         return classes.t0
-        break;
     }
   }
 
@@ -153,9 +153,18 @@ export default withStyles(styles)(({classes, ...props}) => {
             </CardMedia>
           </CardActionArea>
           <CardContent>
+          <Paper className={classes.toolBar} elevation={0}>
             <Typography className={classes.cardText}>
-              {props.artist}
+              Artist: {props.artist}
             </Typography>
+            <div className={classes.grow}/>
+            <Chip 
+              variant="outlined"
+              icon={<TodayIcon className={classes.todayIcon}/>}
+              label={<Moment fromNow ago>{props.created_at}</Moment>}
+              className={classes.chip}
+            />
+          </Paper>
           </CardContent>
         </Paper>
       </Paper>

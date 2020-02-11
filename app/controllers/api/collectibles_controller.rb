@@ -11,10 +11,11 @@ class Api::CollectiblesController < ApplicationController
           level:collectible.level,
           clicks:collectible.clicks,
           clicksToLevel:collectible.clicksToLevel,
-          created:collectible.created_at, 
+          created_at:collectible.created_at, 
           name:collectible.ctype.name, 
           desc:collectible.ctype.desc, 
           image:collectible.ctype.image,
+          artist:collectible.ctype.artist,
           tier:collectible.ctype.tier,
         }
       }
