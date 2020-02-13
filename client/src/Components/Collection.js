@@ -4,6 +4,7 @@ import { AppContext } from '../Providers/AppProvider'
 import { withStyles } from '@material-ui/core/styles';
 
 import Grid from '@material-ui/core/Grid'
+import Grow from '@material-ui/core/Grow'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import Collectible from './Collectible'
@@ -13,7 +14,9 @@ const styles = (theme =>(
     gridList:{
       height:'500px',
     },
-    
+    item:{
+      
+    },
   }
 ))
 
@@ -22,14 +25,23 @@ export default withStyles(styles)(({items, classes}) => {
   const { collection, fetchCollection, updateActiveCollectible } = useContext(AppContext)
 
   useEffect(()=>{
-    authenticated && fetchCollection()
+    if (authenticated && collection.length === 0){
+      fetchCollection()
+    }
   },[authenticated])
+
+  const delay = (step,interval) => {
+    let base = 0;
+
+    return `${base + (interval * (step - 1))}ms`
+  }
 
   const Main = () => {
     if (collection.length > 0) {
       return (
-          <Grid container spacing={1}>
+        <Grid container spacing={1}>
             {collection.map((item,i) =>
+              <Grow in={true} style={{ transitionDelay: delay(i,100)}}>
             <Grid item xs={12} sm={6} md={4}>
               <Collectible 
                 className={classes.item} 
@@ -44,6 +56,7 @@ export default withStyles(styles)(({items, classes}) => {
                 action={()=>updateActiveCollectible(item.id)}
               />
             </Grid>
+            </Grow>
             )}
             </Grid>
       )

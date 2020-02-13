@@ -76,6 +76,8 @@ export class AppProvider extends React.Component {
     .catch(res => console.log(res))
   }
 
+  collectionSize = () => this.state.collection.length
+
   // wraps collectible item with additional shop data
   wrappedItems = (items) => {
     return items.map(item => {return {item, price:7777.77}})
@@ -129,6 +131,7 @@ export class AppProvider extends React.Component {
       clickCollectible:this.clickCollectible,
       updateActiveCollectible:this.updateActiveCollectible,
       fetchCollectibles:this.fetchCollectibles,
+      collectionSize:this.collectionSize,
       wrappedCollectibles:this.wrappedItems(this.state.collectibles),
       newCollectible:this.newCollectible,
       addPoints:this.addPoints,

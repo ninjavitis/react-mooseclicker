@@ -48,7 +48,7 @@ const styles = (theme => ({
     justify:'center',
     margin:'auto'
   },
-  toolBar:{
+  topToolBar:{
     display: 'flex',
     alignItems:'center',
     height:'30px',
@@ -56,7 +56,15 @@ const styles = (theme => ({
     paddingRight:'5px',
     paddingBottom:'10px',
     backgroundColor:'transparent',
- 
+  },
+  bottomToolBar:{
+    display: 'flex',
+    alignItems:'center',
+    height:'30px',
+    paddingLeft:'5px',
+    paddingRight:'5px',
+    paddingTop:'10px',
+    backgroundColor:'transparent',
   },
   chip: {
     margin: '2px',
@@ -127,10 +135,8 @@ export default withStyles(styles)(({classes, ...props}) => {
     <Card  className={classes.card} variant='outlined' elevation={7}>
       <Paper className={classes.outerBorder} >
         <Paper className={borderTier(props.tier)}>
-          <Paper className={classes.toolBar} elevation={0}>
-            <Paper className={classes.cardNameBackground} elevation={5}>
+          <Paper className={classes.topToolBar} elevation={0}>
               <Typography className={classes.cardText} variant="h6">{props.name}</Typography>
-            </Paper>
             <div className={classes.grow}/>
             <Chip 
               variant="outlined"
@@ -152,8 +158,7 @@ export default withStyles(styles)(({classes, ...props}) => {
               <Moose />
             </CardMedia>
           </CardActionArea>
-          <CardContent>
-          <Paper className={classes.toolBar} elevation={0}>
+          <Paper className={classes.bottomToolBar} elevation={0}>
             <Typography className={classes.cardText}>
               Artist: {props.artist}
             </Typography>
@@ -165,7 +170,6 @@ export default withStyles(styles)(({classes, ...props}) => {
               className={classes.chip}
             />
           </Paper>
-          </CardContent>
         </Paper>
       </Paper>
     </Card>

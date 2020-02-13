@@ -74,11 +74,14 @@ export default withStyles(styles)(({classes}) => {
     fetchActiveCollectible,
     clearCollectible,
     clickCollectible,
+    collectionSize,
+    fetchCollection
   } = useContext(AppContext)
 
   useEffect(()=>{
     if (authenticated){
       fetchActiveCollectible()
+      fetchCollection()
     } else {
       clearCollectible()
     }
@@ -113,6 +116,8 @@ export default withStyles(styles)(({classes}) => {
   const handleModalClose = () => {
     setModalOpen(false);
   };
+
+  const collectionLabel = () => `Collection (${collectionSize()})`
 
   // prompts the user to register when default collectible is clicked
   const registerModal = (
@@ -183,7 +188,7 @@ export default withStyles(styles)(({classes}) => {
           <Tabs value={tab} onChange={handleChange} aria-label="simple tabs example">
             <Tab label="Main" {...tabProps(0)} />
             {
-              authenticated && <Tab label="Collection" {...tabProps(1)} />
+              authenticated && <Tab label={collectionLabel()} {...tabProps(1)} />
             }
           </Tabs>
           </ToolBar>
