@@ -31,7 +31,7 @@ export default withStyles(styles)(({items, classes}) => {
   },[authenticated])
 
   const delay = (step,interval) => {
-    let base = 0;
+    let base = 200;
 
     return `${base + (interval * (step - 1))}ms`
   }

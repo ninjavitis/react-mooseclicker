@@ -68,7 +68,7 @@ const styles = (theme => (
 export default withStyles(styles)(({classes}) => { 
   const {authenticated, user,} = useContext(AuthContext)
   const [tab, setTab] = useState(0)
-
+  
   const {
     activeCollectible,
     fetchActiveCollectible,
@@ -77,6 +77,8 @@ export default withStyles(styles)(({classes}) => {
     collectionSize,
     fetchCollection
   } = useContext(AppContext)
+  
+  const [collectible, setCollectible] = useState(activeCollectible)
 
   useEffect(()=>{
     if (authenticated){
@@ -84,6 +86,7 @@ export default withStyles(styles)(({classes}) => {
       fetchCollection()
     } else {
       clearCollectible()
+      console.log(activeCollectible)
     }
   },[authenticated])
 

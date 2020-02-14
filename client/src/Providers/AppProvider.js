@@ -8,8 +8,8 @@ export class AppProvider extends React.Component {
   state={
     clicks:0,
     user:{remainingClicks:0,points:0},
-    defaultCollectible:{name:'', type:'', tier:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0},
-    activeCollectible:{name:'', type:'', tier:'', clicks:0, variant:'', magic:false, clicksToLevel:0, level:0, age:0},
+    defaultCollectible:{name:'Cool-lectible', type:'', tier:'0', clicks:0, variant:'', magic:false, clicksToLevel:1, level:1},
+    activeCollectible:{name:'Cool-lectible', type:'', tier:'0', clicks:0, variant:'', magic:false, clicksToLevel:1, level:1,},
     collection:[],
     collectibles:[],
     shopItems:[],
@@ -18,7 +18,7 @@ export class AppProvider extends React.Component {
   setUser = (user) => this.setState({user:user})
   setCollectibles = (collectibles) => this.setState({collectibles:collectibles})
   setCollection = (collection) => this.setState({collection:collection})
-  clearCollectible = () => this.setState({collectible:this.state.defaultCollectible})
+  clearCollectible = () => this.setState({activeCollectible:this.state.defaultCollectible})
   setShopItems = () => this.setState({collectible:this.state.shopItems})
   
   setActiveCollectible = (collectible) => {
