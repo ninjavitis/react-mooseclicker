@@ -165,7 +165,6 @@ export default withStyles(styles)(({classes, ...props}) => {
           </Grid>
         </CardContent>
         <CardMedia>
-          <Moose />
         </CardMedia>
       </CardActionArea>
       </Paper>
