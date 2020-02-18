@@ -85,6 +85,7 @@ export default withStyles(styles)(({classes}) => {
     {item:{id:9,name:'5000 Clicks', description:''}, price:300000},
   ]
 
+
   const shops =[
     {name:'Points Shop', items:tempPointsPackArray, currency:'$'},
     {name:'Collectibles Shop', items:wrappedCollectibles, currency:'CP'},

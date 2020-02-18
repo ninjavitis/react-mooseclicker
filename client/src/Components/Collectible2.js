@@ -12,8 +12,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Paper from '@material-ui/core/Paper'
 import Chip from '@material-ui/core/Chip'
-import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography'
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Grid from '@material-ui/core/Grid'
+
+
 
 // Colors
 import indigo from '@material-ui/core/colors/indigo'
@@ -34,13 +37,17 @@ import {ReactComponent as Moose} from '../Icons/Moose_loose.svg'
 
 const styles = (theme => ({
   card:{
-    
+    position: 'relative',
   },
-  cardNameBackground:{
-    paddingLeft: '4%',
-    paddingRight: '5%',
+  overlayBox:{
+    position: 'absolute',
+    top: '66.67%',
+    paddingRight: '7%',
+    paddingLeft: '7%',
+
   },
-  cardText:{
+  
+  headerText:{
     fontSize: 14,
   },
   center: {
@@ -87,27 +94,27 @@ const styles = (theme => ({
   innerBorder:{
   },
     t0:{
-      padding: '4%',
+      padding: '1%',
       backgroundColor: '#ffffff'
     },
     t1:{
-      padding: '4%',
+      padding: '1%',
       backgroundColor: grey['400']
     },
     t2:{
-      padding: '4%',
+      padding: '1%',
       backgroundColor: lightGreen['A700']
     },
     t3:{
-      padding: '4%',
+      padding: '1%',
       backgroundColor: indigo['A700']
     },
     t4:{
-      padding: '4%',
+      padding: '1%',
       backgroundColor: deepPurple['A700']
     },
     t5:{
-      padding: '4%',
+      padding: '1%',
       backgroundColor: orange['A400']
     },
 }))
@@ -132,46 +139,35 @@ export default withStyles(styles)(({classes, ...props}) => {
     }
   }
 
+  // MUI uses integer values for progress
+  const progress = (cur,max) => {
+    return Math.floor((cur/max) * 100)
+  }
+
   return(
-    <Card  className={classes.card} variant='outlined' elevation={7}>
-      <Paper className={classes.outerBorder} >
-        <Paper className={borderTier(props.tier)}>
-          <Paper className={classes.topToolBar} elevation={0}>
-              <Typography className={classes.cardText} variant="h6">{props.name}</Typography>
-            <div className={classes.grow}/>
-            <Chip 
-              variant="outlined"
-              avatar={<Avatar>LV</Avatar>}
-              label={props.level}
-              className={classes.chip}
-            />
-            <Chip 
-              variant="outlined"
-              icon={<FavoriteIcon className={classes.heartIcon}/>}
-              label={props.clicks + ' / ' + (props.clicksToLevel || '-')}
-              className={classes.chip}
-            />
-          </Paper>
-          <CardActionArea
-            onClick={props.action}
-          >
-            <CardMedia>
-              <Moose />
-            </CardMedia>
-          </CardActionArea>
-          <Paper className={classes.bottomToolBar} elevation={0}>
-            <Typography className={classes.cardText}>
-              Artist: {props.artist}
-            </Typography>
-            <div className={classes.grow}/>
-            <Chip 
-              variant="outlined"
-              icon={<TodayIcon className={classes.todayIcon}/>}
-              label={<Moment fromNow ago>{props.created_at}</Moment>}
-              className={classes.chip}
-            />
-          </Paper>
-        </Paper>
+    <Card className={classes.card}  elevation={7}>
+      <Paper className={borderTier(props.tier)}>
+
+      <CardActionArea
+        onClick={props.action}
+      >
+        <CardContent className={classes.overlayBox}>
+          <Typography className={classes.headerText} variant="h6">{props.name}</Typography>
+          <Grid container spacing={1}>
+            <Grid item>
+              <LinearProgress variant="determinate" value={progress(props.clicks,props.clicksToLevel)}/>
+              <Typography className={classes.headerText} variant="h6">Click Progress</Typography>
+            </Grid>
+            <Grid item>
+              <LinearProgress variant="determinate" value={progress(props.clicks,props.clicksToLevel)}/>
+              <Typography className={classes.headerText} variant="h6">Level Progress</Typography>
+            </Grid>
+          </Grid>
+        </CardContent>
+        <CardMedia>
+          <Moose />
+        </CardMedia>
+      </CardActionArea>
       </Paper>
     </Card>
   )

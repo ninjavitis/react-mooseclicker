@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid'
 import Grow from '@material-ui/core/Grow'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
-import Collectible from './Collectible'
+import Collectible from './Collectible2'
 
 const styles = (theme =>(
   {

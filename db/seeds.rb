@@ -1,12 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
-
+#  Example collectible data
 collectibleData = [
   ['Standard Moose', 'A standard moose', '', 0, 'Bob Ross'],
   ['Bog Standard Moose', 'A moose native to boggy areas', 1, ''],
@@ -17,12 +9,36 @@ collectibleData = [
   ['Moose w/ Squirrel', '', 5, '']
 ]
 
-collectibleData.each do |name,desc,image,tier,artist|
-  Ctype.create(
-    name:name, 
-    desc:desc, 
-    image:image,
-    tier:tier,
-    artist:artist,
-  )
-end
+# Example item data
+itemData = [
+  ['100 CP','This pack gives you 100 CP to spend on collectibles!',1.00,100,'points'],
+  ['300 CP','This pack gives you 300 CP to spend on collectibles!',1.00,300,'points'],
+  ['500 CP','This pack gives you 500 CP to spend on collectibles!',1.00,500,'points'],
+  ['750 CP','This pack gives you 750 CP to spend on collectibles!',1.00,750,'points'],
+  ['1000 CP','This pack gives you 1000 CP to spend on collectibles!',1.00,1000,'points'],
+  ['10 Clicks','Get 10 more clicks to advance your collectibles!',10,10,'clicks'],
+  ['30 Clicks','Get 30 more clicks to advance your collectibles!',28,30,'clicks'],
+  ['50 Clicks','Get 50 more clicks to advance your collectibles!',45,50,'clicks'],
+  ['75 Clicks','Get 75 more clicks to advance your collectibles!',69,75,'clicks'],
+  ['100 Clicks','Get 100 more clicks to advance your collectibles!',90,100,'clicks'],
+]
+
+# itemData.each do |name, desc, price, value, item_type|
+#   Item.create(
+#     name:name,
+#     desc:desc,
+#     price:price,
+#     value:value,
+#     item_type:item_type,
+#   )
+# end
+
+# collectibleData.each do |name,desc,image,tier,artist|
+#   Ctype.create(
+#     name:name, 
+#     desc:desc, 
+#     image:image,
+#     tier:tier,
+#     artist:artist,
+#   )
+#end
