@@ -78,15 +78,12 @@ export default withStyles(styles)(({classes}) => {
     fetchCollection
   } = useContext(AppContext)
   
-  const [collectible, setCollectible] = useState(activeCollectible)
-
   useEffect(()=>{
     if (authenticated){
       fetchActiveCollectible()
       fetchCollection()
     } else {
       clearCollectible()
-      console.log(activeCollectible)
     }
   },[authenticated])
 
