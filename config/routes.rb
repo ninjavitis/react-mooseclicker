@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   get 'api/user/show', to: 'api/users#show'
   
   get 'api/items/', to: 'api/items#index'
+  get 'api/items/clicks', to: 'api/items#clicks'
+  get 'api/items/points', to: 'api/items#points'
   
   # TODO remove when transition to collectible schema is complete
   # get 'api/user/click', to: 'api/users#click'

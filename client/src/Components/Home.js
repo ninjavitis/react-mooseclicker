@@ -75,13 +75,17 @@ export default withStyles(styles)(({classes}) => {
     clearCollectible,
     clickCollectible,
     collectionSize,
-    fetchCollection
+    fetchCollection,
+    fetchItems,
   } = useContext(AppContext)
+
+
   
   useEffect(()=>{
     if (authenticated){
       fetchActiveCollectible()
       fetchCollection()
+      fetchItems()
     } else {
       clearCollectible()
     }
@@ -177,6 +181,7 @@ export default withStyles(styles)(({classes}) => {
 
   return(
     <>
+    {console.log('render home')}
       <Grid
         className={classes.grid}
         container

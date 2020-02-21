@@ -6,7 +6,6 @@ import ToolBar from '@material-ui/core/ToolBar'
 import Paper from '@material-ui/core/Paper'
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import ShopTab from './ShopTab'
 
 //TODO remove imports once grid item size is resolved
 import GridListTile from '@material-ui/core/GridListTile'
@@ -42,70 +41,37 @@ const styles = (theme =>(
   }
 ))
 
-export default withStyles(styles)(({classes}) => {
-  const {
-    newCollectible, 
-    inventories,
-    shops
-  } = useContext(AppContext)
+export default withStyles(styles)(({classes, ...props}) => {
 
-  const [shopIndex, setShopIndex] = useState(0)
-
-  // handles tab switching
-  const handleChange = (e, newTab) => {
-    setShopIndex(newTab);
-  };
-
-  function tabProps(index) {
-    return {
-      id: `wrapped-tab-${index}`,
-      'aria-controls': `wrapped-tabpanel-${index}`,
-    };
-  }
-
-  const ShopItems = () => {
-    const items = shops[shopIndex].items
-
-    if (items > 0){
-      return(
-        items.map((item,i) => 
-          <GridListTile key={item.id} className={classes.item}>
-            <Placeholder />
-            <GridListTileBar 
-              title={item.name}
-              subtitle={<span>{shops[shopIndex].curr} {item.price || '9999.99'}</span>}
-            />
-          </GridListTile>
-        )
-      )
-    }
-  }
-
+  // const shopTile = (id, name, price, currency) => {
+  //   return(
+  //     <GridListTile key={id} className={classes.item} onClick={()=>console.log(id)}>
+  //       <Placeholder />
+  //       <GridListTileBar 
+  //         title={name}
+  //         subtitle={<span>{currency}{price || '9999.99'}</span>}
+  //       />
+  //     </GridListTile>
+  //   )
+  // }
 
   return(
-    <>
-      <ToolBar>
-        <Tabs value={shopIndex} onChange={handleChange} aria-label="simple tabs example">
-          {shops.map((shop,i) => 
-            <Tab label={shop.name} {...tabProps(i)} />
-          )}
-        </Tabs>
-      </ToolBar>
+    <Paper>
       <GridList cellHeight={150} className={classes.gridList} cols={2}>
-      {shops[shopIndex].items.map((item,i) =>
+          {props.items.map((item,i) =>
             // TODO enable this once grid list item size issue is resolved
             // <ShopItem name={item.item.name} currency={shops[shopIndex].currency} price={item.price || '9999.99'} cols={1}/>
             
             // TODO remove this once grid list item size issue is resolved
-            <GridListTile key={item.id} className={classes.item}>
+            <GridListTile key={item.id} className={classes.item} >
               <Placeholder />
               <GridListTileBar 
                 title={item.name}
-                subtitle={<span>{shops[shopIndex].curr} {item.price || '9999.99'}</span>}
+                subtitle={<span>{item.price}</span>}
               />
             </GridListTile>
           )}
-      </GridList>
-    </>
+        </GridList>
+      </Paper>
   )
 })

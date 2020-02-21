@@ -1,0 +1,2 @@
+class ClicksItem < ApplicationRecord
+end

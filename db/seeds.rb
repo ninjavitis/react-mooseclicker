@@ -10,26 +10,37 @@ collectibleData = [
 ]
 
 # Example item data
-itemData = [
-  ['100 CP','This pack gives you 100 CP to spend on collectibles!',1.00,100,'points'],
-  ['300 CP','This pack gives you 300 CP to spend on collectibles!',1.00,300,'points'],
-  ['500 CP','This pack gives you 500 CP to spend on collectibles!',1.00,500,'points'],
-  ['750 CP','This pack gives you 750 CP to spend on collectibles!',1.00,750,'points'],
-  ['1000 CP','This pack gives you 1000 CP to spend on collectibles!',1.00,1000,'points'],
-  ['10 Clicks','Get 10 more clicks to advance your collectibles!',10,10,'clicks'],
-  ['30 Clicks','Get 30 more clicks to advance your collectibles!',28,30,'clicks'],
-  ['50 Clicks','Get 50 more clicks to advance your collectibles!',45,50,'clicks'],
-  ['75 Clicks','Get 75 more clicks to advance your collectibles!',69,75,'clicks'],
-  ['100 Clicks','Get 100 more clicks to advance your collectibles!',90,100,'clicks'],
+clicks_item_data = [
+  ['10 Clicks','Get 10 more clicks to advance your collectibles!',10,10],
+  ['30 Clicks','Get 30 more clicks to advance your collectibles!',28,30],
+  ['50 Clicks','Get 50 more clicks to advance your collectibles!',45,50],
+  ['75 Clicks','Get 75 more clicks to advance your collectibles!',69,75],
+  ['100 Clicks','Get 100 more clicks to advance your collectibles!',90,100]
 ]
 
-# itemData.each do |name, desc, price, value, item_type|
-#   Item.create(
+points_item_data = [
+  ['100 CP','This pack gives you 100 CP to spend on collectibles!',1.00,100],
+  ['300 CP','This pack gives you 300 CP to spend on collectibles!',3.00,300],
+  ['500 CP','This pack gives you 500 CP to spend on collectibles!',5.00,500],
+  ['750 CP','This pack gives you 750 CP to spend on collectibles!',7.00,750],
+  ['1000 CP','This pack gives you 1000 CP to spend on collectibles!',9.00,1000]
+]
+
+# points_item_data.each do |name, desc, price, value|
+#   PointsItem.create(
 #     name:name,
 #     desc:desc,
 #     price:price,
 #     value:value,
-#     item_type:item_type,
+#   )
+# end
+
+# clicks_item_data.each do |name, desc, price, value|
+#   ClicksItem.create(
+#     name:name,
+#     desc:desc,
+#     price:price,
+#     value:value,
 #   )
 # end
 

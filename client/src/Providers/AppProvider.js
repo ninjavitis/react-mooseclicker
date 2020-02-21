@@ -12,14 +12,18 @@ export class AppProvider extends React.Component {
     activeCollectible:{name:'Cool-lectible', type:'', tier:'0', clicks:0, variant:'', magic:false, clicksToLevel:1, level:1,},
     collection:[],
     collectibles:[],
-    shopItems:[],
+    shops:[
+      {name:'',items:[]},
+      {name:'',items:[]},
+      {name:'',items:[]},
+    ]
   }
 
   setUser = (user) => this.setState({user:user})
   setCollectibles = (collectibles) => this.setState({collectibles:collectibles})
   setCollection = (collection) => this.setState({collection:collection})
   clearCollectible = () => this.setState({activeCollectible:this.state.defaultCollectible})
-  setShopItems = () => this.setState({collectible:this.state.shopItems})
+  setShops = (shops) => this.setState({shops:shops})
   
   setActiveCollectible = (collectible) => {
     this.setState({activeCollectible:collectible})
@@ -88,11 +92,12 @@ export class AppProvider extends React.Component {
     .then(res => console.log(res.data))
   }
 
-  fetchShopItems = () => {
-    axios.get()
-    .then(res => this.setShopItems(res.data))
+  fetchItems =() => {
+    axios.get('api/items')
+    .then(res => this.setShops(res.data))
     .catch(res => console.log(res))
   }
+
 
   // only here for testing the endpoint.  adding points should handled server side
   addPoints = (points) => {
@@ -134,6 +139,12 @@ export class AppProvider extends React.Component {
       collectionSize:this.collectionSize,
       wrappedCollectibles:this.wrappedItems(this.state.collectibles),
       newCollectible:this.newCollectible,
+      fetchItems:this.fetchItems,
+      inventories:[
+        {name:'Points',items:this.state.pointsItems}, 
+        {name:'Collectibles',items:this.state.collectibleItems}, 
+        {name:'Clicks',items:this.state.clicksItems},
+      ],
       addPoints:this.addPoints,
       subPoints:this.subPoints,
       addClicks:this.addClicks,
