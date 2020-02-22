@@ -24,23 +24,22 @@ import RegistrationForm from './RegistrationForm'
 
 const styles = (theme => (
   {
-    displayArea:{},
     grid:{
       flexWrap: 'wrap',
-      padding: '10px',
+    },
+    leftPane:{
+      padding:'0px',
+      margin:'0px'
     },
     shopPanel:{
       display: 'flex',
       flexWrap: 'wrap',
       justifyContent: 'space-around',
       overflow: 'hidden',
-    },
-    activeCollectible:{
+      height: '100%'
     },
     toolBar:{
       minHeight:"32px",
-    },
-    collection:{
     },
     registrationModal:{
       display: 'flex',
@@ -147,7 +146,7 @@ export default withStyles(styles)(({classes}) => {
 
   const main = (
     <>
-    <Grid container direction="row">
+    <Grid className={classes.main} container direction="row">
       <Grid item xs="auto" lg={3} />
       <Grid item xs={12} lg={6}>
         <Collectible 
@@ -181,16 +180,14 @@ export default withStyles(styles)(({classes}) => {
 
   return(
     <>
-    {console.log('render home')}
       <Grid
         className={classes.grid}
         container
         direction="row"
-        spacing={3}
       >
-        <Grid item xs={12} lg={8}>
+        <Grid className={classes.leftPane} item xs={12} lg={8}>
           <ToolBar className={classes.toolBar}>
-          <Tabs value={tab} onChange={handleChange} aria-label="simple tabs example">
+          <Tabs value={tab} onChange={handleChange}>
             <Tab label="Main" {...tabProps(0)} />
             {
               authenticated && <Tab label={collectionLabel()} {...tabProps(1)} />
