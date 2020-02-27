@@ -12,7 +12,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation'
 const styles = (theme =>(
   {
     footer:{
-      padding: '25px 50px 100px 50px',
+      padding: '20px 30px 40px 30px',
       flexShrink: 0,
     },
     link:{

@@ -91,7 +91,7 @@ export default withStyles(styles)(({classes}) => {
           )}
         </Tabs>
       </ToolBar>
-      <GridList cellHeight={150} className={classes.gridList} cols={2}>
+      <GridList cellHeight={'auto'} className={classes.gridList} cols={5}>
       {shops[shopIndex].items.map((item,i) =>
             // TODO enable this once grid list item size issue is resolved
             // <ShopItem name={item.item.name} currency={shops[shopIndex].currency} price={item.price || '9999.99'} cols={1}/>
