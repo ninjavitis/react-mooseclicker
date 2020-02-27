@@ -186,6 +186,38 @@ export default withStyles(styles)(({classes}) => {
     <MenuItem onClick={handleLogout} key={'2'}>Log Out</MenuItem>
  ]
 
+ const navigationButtons = (
+   <>
+    <IconButton
+      edge="start"
+      className={classes.menuButton}
+      color="inherit"
+      aria-label="CollectOS"
+      onClick={()=>handleTabChange(0)}
+    >
+      <HomeIcn isActive={tab === 0} />
+    </IconButton>
+    <IconButton
+      edge="start"
+      className={classes.menuButton}
+      color="inherit"
+      aria-label="CollectOS"
+      onClick={()=>handleTabChange(1)}
+    >
+      <CollectionIcn isActive={tab === 1}/>
+    </IconButton>
+    <IconButton
+      edge="start"
+      className={classes.menuButton}
+      color="inherit"
+      aria-label="CollectOS"
+      onClick={()=>handleTabChange(2)}
+    >
+      <StoreIcn isActive={tab === 2}/>
+    </IconButton>
+  </>
+ )
+
  const PlayerStatus = () => {
    return(
      <>
@@ -285,36 +317,9 @@ export default withStyles(styles)(({classes}) => {
             CollectOS
           </Typography>
           <div className={classes.grow} />
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="CollectOS"
-            onClick={()=>handleTabChange(0)}
-          >
-            <HomeIcn isActive={tab === 0} />
-          </IconButton>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="CollectOS"
-            onClick={()=>handleTabChange(1)}
-          >
-            <CollectionIcn isActive={tab === 1}/>
-          </IconButton>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="CollectOS"
-            onClick={()=>handleTabChange(2)}
-          >
-            <StoreIcn isActive={tab === 2}/>
-          </IconButton>
+          {authenticated && navigationButtons}
           <div className={classes.grow} />
           {authenticated? <PlayerStatus /> : <LoginForm2 />}
-
           <div className={classes.sectionDesktop}>
             {authenticated && <SectionDesktop />}
           </div>

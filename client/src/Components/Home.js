@@ -20,7 +20,7 @@ import RegistrationForm from './RegistrationForm'
 const styles = (theme => (
   {
     main:{
-      alignItems: 'center',
+      alignItems: 'flexStart',
     },
     registrationModal:{
       display: 'flex',

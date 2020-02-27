@@ -129,6 +129,9 @@ export default withStyles(styles)(({classes, ...props}) => {
 
   return(
     <Card  className={classes.card} variant='outlined' elevation={7}>
+      <CardActionArea
+        onClick={props.action}
+      >
       <Paper className={classes.outerBorder} >
         <Paper className={borderTier(props.tier)}>
           <Paper className={classes.topToolBar} elevation={0}>
@@ -147,13 +150,10 @@ export default withStyles(styles)(({classes, ...props}) => {
               className={classes.chip}
             />
           </Paper>
-          <CardActionArea
-            onClick={props.action}
-          >
+
             {/* <CardMedia>
               <Moose />
             </CardMedia> */}
-          </CardActionArea>
           <Paper className={classes.bottomToolBar} elevation={0}>
             <Typography className={classes.cardText}>
               Artist: {props.artist}
@@ -168,6 +168,7 @@ export default withStyles(styles)(({classes, ...props}) => {
           </Paper>
         </Paper>
       </Paper>
+      </CardActionArea>
     </Card>
   )
 })
