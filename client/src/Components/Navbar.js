@@ -16,7 +16,6 @@ import { fade, withStyles } from '@material-ui/core/styles';
 
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import AppsIcon from '@material-ui/icons/Apps';
 import IconButton from '@material-ui/core/IconButton';
 import {ReactComponent as Logo} from '../Icons/moose.svg'
 import LoginForm from './LoginForm';
@@ -27,7 +26,6 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper'
-import Chip from '@material-ui/core/Chip';
 
 // Material UI Theme
 const styles = (theme => ({
@@ -126,8 +124,6 @@ export default withStyles(styles)(({classes}) => {
     authenticated && fetchUser()
   },[authenticated])
 
-
-
   const handleProfileMenuOpen = (e) => {
     setAnchorEl(e.currentTarget)
   }
@@ -217,16 +213,6 @@ export default withStyles(styles)(({classes}) => {
     </IconButton>
   </>
  )
-
- const PlayerStatus = () => {
-   return(
-     <>
-      <Chip label={'Click Bank: ' + user.remainingClicks} className={classes.chip} />
-      <Chip label={'CP: ' + user.points} className={classes.chip} />
-    </>
-   )
-   }
-
 
   // Mobile Account Menu
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -319,7 +305,7 @@ export default withStyles(styles)(({classes}) => {
           <div className={classes.grow} />
           {authenticated && navigationButtons}
           <div className={classes.grow} />
-          {authenticated? <PlayerStatus /> : <LoginForm2 />}
+          {!authenticated && <LoginForm2 />}
           <div className={classes.sectionDesktop}>
             {authenticated && <SectionDesktop />}
           </div>
