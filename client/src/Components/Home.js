@@ -2,20 +2,15 @@ import React, {useContext, useState, useEffect} from 'react';
 import {AuthContext} from '../Providers/AuthProvider'
 import {AppContext} from '../Providers/AppProvider'
 
-
 // Material UI 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box'
-import ToolBar from '@material-ui/core/ToolBar'
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper'
 
-// Mooseclicker components
+// CollectOS components
 import Collectible from './Collectible'
 import ShopBox from './ShopBox'
 import Collection from './Collection'
@@ -24,22 +19,8 @@ import RegistrationForm from './RegistrationForm'
 
 const styles = (theme => (
   {
-    grid:{
-      flexWrap: 'wrap',
-    },
-    leftPane:{
-      padding:'0px',
-      margin:'0px'
-    },
-    shopPanel:{
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-      overflow: 'hidden',
-      height: '100%'
-    },
-    toolBar:{
-      minHeight:"32px",
+    main:{
+      alignItems: 'center',
     },
     registrationModal:{
       display: 'flex',
@@ -57,16 +38,9 @@ const styles = (theme => (
   }
   ))
 
-  function tabProps(index) {
-    return {
-      id: `wrapped-tab-${index}`,
-      'aria-controls': `wrapped-tabpanel-${index}`,
-    };
-  }
-
 export default withStyles(styles)(({classes}) => { 
   const {authenticated, user,} = useContext(AuthContext)
-  const [tab, setTab] = useState(0)
+  const {tab} = useContext(AppContext)
   
   const {
     activeCollectible,
@@ -78,8 +52,6 @@ export default withStyles(styles)(({classes}) => {
     fetchItems,
   } = useContext(AppContext)
 
-
-  
   useEffect(()=>{
     if (authenticated){
       fetchActiveCollectible()
@@ -89,11 +61,6 @@ export default withStyles(styles)(({classes}) => {
       clearCollectible()
     }
   },[authenticated])
-
-
-  const handleChange = (event, newTab) => {
-    setTab(newTab);
-  };
 
   const handleClick = () => {
     if(authenticated){
@@ -173,34 +140,15 @@ export default withStyles(styles)(({classes}) => {
         return main
       case 1:
         return <Collection className={classes.collection} />
+      case 2:
+        return <ShopBox />
       default:
         return main
     }
   }
 
   return(
-    <>
-      <Grid
-        className={classes.grid}
-        container
-        direction="row"
-      >
-        <Grid className={classes.leftPane} item xs={12} lg={8}>
-          <ToolBar className={classes.toolBar}>
-          <Tabs value={tab} onChange={handleChange}>
-            <Tab label="Main" {...tabProps(0)} />
-            {
-              authenticated && <Tab label={collectionLabel()} {...tabProps(1)} />
-            }
-          </Tabs>
-          </ToolBar>
-            {display(tab)}
-        </Grid>  
-        <Grid item xs={12} lg={4}>
-          <ShopBox className={classes.shopPanel}/>
-        </Grid>
-      </Grid>
-    </>
+    display(tab)
   )
 })
 

@@ -155,9 +155,9 @@ export default withStyles(styles)(({classes, ...props}) => {
           <CardActionArea
             onClick={props.action}
           >
-            <CardMedia>
+            {/* <CardMedia>
               <Moose />
-            </CardMedia>
+            </CardMedia> */}
           </CardActionArea>
           <Paper className={classes.bottomToolBar} elevation={0}>
             <Typography className={classes.cardText}>

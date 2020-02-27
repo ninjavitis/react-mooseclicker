@@ -12,6 +12,7 @@ export class AppProvider extends React.Component {
     activeCollectible:{name:'Cool-lectible', type:'', tier:'0', clicks:0, variant:'', magic:false, clicksToLevel:1, level:1,},
     collection:[],
     collectibles:[],
+    tab:0,
     shops:[
       {name:'',items:[]},
       {name:'',items:[]},
@@ -24,6 +25,7 @@ export class AppProvider extends React.Component {
   setCollection = (collection) => this.setState({collection:collection})
   clearCollectible = () => this.setState({activeCollectible:this.state.defaultCollectible})
   setShops = (shops) => this.setState({shops:shops})
+  setTab = (tab) => this.setState({tab:tab})
   
   setActiveCollectible = (collectible) => {
     this.setState({activeCollectible:collectible})
@@ -145,6 +147,7 @@ export class AppProvider extends React.Component {
         {name:'Collectibles',items:this.state.collectibleItems}, 
         {name:'Clicks',items:this.state.clicksItems},
       ],
+      setTab:this.setTab,
       addPoints:this.addPoints,
       subPoints:this.subPoints,
       addClicks:this.addClicks,

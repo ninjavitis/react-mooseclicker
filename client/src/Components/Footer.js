@@ -5,13 +5,15 @@ import AppBar from '@material-ui/core/AppBar'
 import ToolBar from '@material-ui/core/ToolBar'
 import Grid from '@material-ui/core/Grid'
 import Link from '@material-ui/core/Link'
+import BottomNavigation from '@material-ui/core/BottomNavigation'
 
 
 
 const styles = (theme =>(
   {
     footer:{
-      padding: '25px 50px 100px 50px'
+      padding: '25px 50px 100px 50px',
+      flexShrink: 0,
     },
     link:{
       textDecoration:'none',

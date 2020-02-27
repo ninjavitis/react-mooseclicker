@@ -3,6 +3,10 @@ import React, {useContext, useEffect, useState} from 'react';
 import {AuthContext} from '../Providers/AuthProvider'
 import {AppContext} from '../Providers/AppProvider'
 
+import HomeIcn from './HomeIcn'
+import CollectionIcn from './CollectionIcn'
+import StoreIcn from './StoreIcn'
+
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -12,6 +16,7 @@ import { fade, withStyles } from '@material-ui/core/styles';
 
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import AppsIcon from '@material-ui/icons/Apps';
 import IconButton from '@material-ui/core/IconButton';
 import {ReactComponent as Logo} from '../Icons/moose.svg'
 import LoginForm from './LoginForm';
@@ -107,12 +112,11 @@ const styles = (theme => ({
 export default withStyles(styles)(({classes}) => {
   //Context
   const {authenticated, handleLogout,} = useContext(AuthContext)
-  const {user, fetchUser} = useContext(AppContext)
+  const {user, fetchUser, tab, setTab} = useContext(AppContext)
 
   //State
   const [anchorEl, setAnchorEl] = useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);  
 
   //Local
   const isMenuOpen = Boolean(anchorEl)
@@ -139,6 +143,10 @@ export default withStyles(styles)(({classes}) => {
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null)
+  }
+
+  const handleTabChange = (e) => {
+    setTab(e)
   }
 
   // Registration Modal Section
@@ -181,7 +189,7 @@ export default withStyles(styles)(({classes}) => {
  const PlayerStatus = () => {
    return(
      <>
-      <Chip label={'Clicks Remaining: ' + user.remainingClicks} className={classes.chip} />
+      <Chip label={'Click Bank: ' + user.remainingClicks} className={classes.chip} />
       <Chip label={'CP: ' + user.points} className={classes.chip} />
     </>
    )
@@ -276,6 +284,34 @@ export default withStyles(styles)(({classes}) => {
           <Typography className={classes.title} variant='h6' noWrap>
             CollectOS
           </Typography>
+          <div className={classes.grow} />
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="CollectOS"
+            onClick={()=>handleTabChange(0)}
+          >
+            <HomeIcn isActive={tab === 0} />
+          </IconButton>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="CollectOS"
+            onClick={()=>handleTabChange(1)}
+          >
+            <CollectionIcn isActive={tab === 1}/>
+          </IconButton>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="CollectOS"
+            onClick={()=>handleTabChange(2)}
+          >
+            <StoreIcn isActive={tab === 2}/>
+          </IconButton>
           <div className={classes.grow} />
           {authenticated? <PlayerStatus /> : <LoginForm2 />}
 
