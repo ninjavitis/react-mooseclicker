@@ -18,15 +18,10 @@ import Typography from '@material-ui/core/Typography'
 // Colors
 import indigo from '@material-ui/core/colors/indigo'
 import pink from '@material-ui/core/colors/pink'
-import deepPurple from '@material-ui/core/colors/deepPurple'
-import lightGreen from '@material-ui/core/colors/lightGreen'
-import orange from '@material-ui/core/colors/orange'
-import grey from '@material-ui/core/colors/grey'
 
 // Icons
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import TodayIcon from '@material-ui/icons/Today';
-
 
 // Other Imports
 import {ReactComponent as Moose} from '../Icons/Moose_loose.svg'
@@ -34,7 +29,7 @@ import {ReactComponent as Moose} from '../Icons/Moose_loose.svg'
 
 const styles = (theme => ({
   card:{
-    
+    flexGrow:1
   },
   cardNameBackground:{
     paddingLeft: '4%',
@@ -92,23 +87,23 @@ const styles = (theme => ({
     },
     t1:{
       padding: '4%',
-      backgroundColor: grey['400']
+      background: 'linear-gradient(45deg, #9e9e9e 30%, #f5f5f5 90%)'
     },
     t2:{
       padding: '4%',
-      backgroundColor: lightGreen['A700']
+      background: 'linear-gradient(45deg, #aeea00 30%, #f4ff81 90%)'
     },
     t3:{
       padding: '4%',
-      backgroundColor: indigo['A700']
+      background: 'linear-gradient(45deg, #304ffe 30%, #8c9eff 90%)'
     },
     t4:{
       padding: '4%',
-      backgroundColor: deepPurple['A700']
+      background: 'linear-gradient(45deg, #6200ea 30%, #b388ff 90%)'
     },
     t5:{
       padding: '4%',
-      backgroundColor: orange['A400']
+      background: 'linear-gradient(45deg, #ffab00 30%, #ffe57f 90%)'
     },
 }))
 

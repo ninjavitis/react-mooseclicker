@@ -11,24 +11,6 @@ import FetchUser from './Components/FetchUser';
 
 import { withStyles } from '@material-ui/core/styles';
 
-
-
-// function App() {
-//   return (
-//     <>
-//       <Navbar />
-//       <FetchUser>
-//         <Switch>
-//           <Route exact path="/" component={Home} />
-//         </Switch>
-//       </FetchUser>
-//       <Footer />
-//     </>
-//   );
-// }
-
-// export default App;
-
 const styles = (theme => ({
   container:{
     display: 'flex',
@@ -36,7 +18,6 @@ const styles = (theme => ({
     flexDirection: 'column',
   },
 }))
-
 
 export default withStyles(styles)(({classes}) => {
   return (
