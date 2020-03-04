@@ -13,7 +13,7 @@ import lime from '@material-ui/core/colors/lime'
 
 const styles = (theme => ({
   statusBar:{
-    minHeight: '3%',
+    minHeight: '4vh',
     backgroundColor : lime[600],
   },
   chip: {
@@ -21,7 +21,8 @@ const styles = (theme => ({
   },
   grow:{
     flexGrow: 1,
-  }
+  },
+
 }))
 
 export default withStyles(styles)(({classes})=>{
