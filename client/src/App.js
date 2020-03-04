@@ -12,16 +12,12 @@ import FetchUser from './Components/FetchUser';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme => ({
-  container:{
-    display: 'flex',
-    minHeight: '100vh',
-    flexDirection: 'column',
-  },
+  
 }))
 
 export default withStyles(styles)(({classes}) => {
   return (
-    <div className={classes.container}>
+    <>
       <Navbar />
       <FetchUser>
         <Switch>
@@ -29,7 +25,6 @@ export default withStyles(styles)(({classes}) => {
           <Route component={NoMatch} />
         </Switch>
       </FetchUser>
-      <Footer />
-    </div>
+    </>
   );
   })

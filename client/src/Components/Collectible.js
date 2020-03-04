@@ -24,7 +24,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import TodayIcon from '@material-ui/icons/Today';
 
 // Other Imports
-import {ReactComponent as Moose} from '../Icons/Moose_loose.svg'
+import {ReactComponent as Image} from '../Icons/placeholder_400_400.svg'
 
 
 const styles = (theme => ({
@@ -79,7 +79,9 @@ const styles = (theme => ({
     padding: '2%',
     borderColor: '#fffff',
   },
-  innerBorder:{
+  cardMedia: {
+    width:'95%',
+    margin:'auto',
   },
     t0:{
       padding: '4%',
@@ -150,10 +152,9 @@ export default withStyles(styles)(({classes, ...props}) => {
               className={classes.chip}
             />
           </Paper>
-
-            {/* <CardMedia>
-              <Moose />
-            </CardMedia> */}
+            <CardMedia className={classes.cardMedia}>
+              <Image />
+            </CardMedia>
           <Paper className={classes.bottomToolBar} elevation={0}>
             <Typography className={classes.cardText}>
               Artist: {props.artist}

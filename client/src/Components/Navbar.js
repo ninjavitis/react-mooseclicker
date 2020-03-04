@@ -1,31 +1,37 @@
 import React, {useContext, useEffect, useState} from 'react';
 
+// React Context
 import {AuthContext} from '../Providers/AuthProvider'
 import {AppContext} from '../Providers/AppProvider'
 
-import HomeIcn from './HomeIcn'
-import CollectionIcn from './CollectionIcn'
-import StoreIcn from './StoreIcn'
+// Local
+import LoginForm from './LoginForm';
+import LoginForm2 from './LoginForm2';
+import Statusbar from './Statusbar'
 
+// Material UI
+import { fade, withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { fade, withStyles } from '@material-ui/core/styles';
-
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import IconButton from '@material-ui/core/IconButton';
-import {ReactComponent as Logo} from '../Icons/moose.svg'
-import LoginForm from './LoginForm';
-import LoginForm2 from './LoginForm2';
-
-
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper'
+import IconButton from '@material-ui/core/IconButton';
+
+// Material UI Icons
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MoreIcon from '@material-ui/icons/MoreVert';
+
+// Icons
+import {ReactComponent as Logo} from '../Icons/moose.svg'
+import HomeIcn from './HomeIcn'
+import CollectionIcn from './CollectionIcn'
+import StoreIcn from './StoreIcn'
+
 
 // Material UI Theme
 const styles = (theme => ({
@@ -313,6 +319,7 @@ export default withStyles(styles)(({classes}) => {
             {authenticated && <SectionMobile />}
           </div>
         </Toolbar>
+      <Statusbar />
       </AppBar>
       {renderMenu}
       {renderMobileMenu}

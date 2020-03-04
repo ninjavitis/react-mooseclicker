@@ -50,6 +50,8 @@ export default withStyles(styles)(({classes}) => {
           variant='outlined'
           color='secondary'
           onChange={(e)=>setEmail(e.target.value)}
+          type='email'
+          helperText='test'
         />
       <TextField
           required

@@ -42,7 +42,7 @@ export default withStyles(styles)(({items, classes}) => {
         <Grid container spacing={1}>
             {collection.map((item,i) =>
               <Grow in={true} style={{ transitionDelay: delay(i,100)}}>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={6} md={4} lg={3}>
               <Collectible 
                 className={classes.item} 
                 key={item.id} 

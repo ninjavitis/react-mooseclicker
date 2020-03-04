@@ -19,7 +19,7 @@ initMiddleware();
 let theme = createMuiTheme({
   palette: {
     primary: {
-      main: deepPurple[700],
+      main: deepPurple[900],
       light: deepPurple[600]
     },
     secondary: {

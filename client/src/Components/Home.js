@@ -19,9 +19,6 @@ import RegistrationForm from './RegistrationForm'
 
 const styles = (theme => (
   {
-    main:{
-      alignItems: 'flexStart',
-    },
     registrationModal:{
       display: 'flex',
       alignItems: 'center',
@@ -35,6 +32,14 @@ const styles = (theme => (
       borderRadius: theme.palette.background.borderRadius,
       outline: 'none',
     },
+    centerColumn:{
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    main:{
+      alignItems: 'center',
+      justifyContent: 'center',
+    }
   }
   ))
 
@@ -114,8 +119,8 @@ export default withStyles(styles)(({classes}) => {
   const main = (
     <>
     <Grid className={classes.main} container direction="row">
-      <Grid item xs="auto" lg={3} />
-      <Grid item xs={12} lg={6}>
+      <Grid item xs="auto" lg={4}/>
+      <Grid item xs={12} lg={4} >
         <Collectible 
           className={classes.activeCollectible} 
           name={activeCollectible.name}
@@ -128,7 +133,7 @@ export default withStyles(styles)(({classes}) => {
           action={handleClick}
           />
         </Grid>
-      <Grid item xs="auto" lg={3} />
+      <Grid item xs="auto" lg={4}/>
     </Grid>
     {registerModal}
     </>

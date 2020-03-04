@@ -3,15 +3,9 @@ import {AuthContext} from '../Providers/AuthProvider'
 import {AppContext} from '../Providers/AppProvider'
 
 import { withStyles } from '@material-ui/styles';
-import Typography from '@material-ui/core/Typography'
 import AppBar from '@material-ui/core/AppBar'
 import ToolBar from '@material-ui/core/ToolBar'
-import Grid from '@material-ui/core/Grid'
-import Link from '@material-ui/core/Link'
-import BottomNavigation from '@material-ui/core/BottomNavigation'
 import Chip from '@material-ui/core/Chip';
-
-
 
 
 const styles = (theme =>(
@@ -31,6 +25,8 @@ const styles = (theme =>(
     }
   }
 ))
+
+// Footer is deprecated
 
 export default withStyles(styles)(({classes}) => {
   const {authenticated} = useContext(AuthContext)
