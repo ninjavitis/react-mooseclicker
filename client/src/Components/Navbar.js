@@ -10,7 +10,7 @@ import LoginForm2 from './LoginForm2';
 import Statusbar from './Statusbar'
 
 // Material UI
-import { fade, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -47,41 +47,6 @@ const styles = (theme => ({
       display: 'block',
     },
   },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
-    },
-  },
-  searchIcon: {
-    width: theme.spacing(7),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputRoot: {
-    color: 'inherit',
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 7),
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: 200,
-    },
-  },
   sectionDesktop: {
     display: 'none',
     [theme.breakpoints.up('md')]: {
@@ -107,16 +72,13 @@ const styles = (theme => ({
     borderRadius: theme.palette.background.borderRadius,
     outline: 'none',
   },
-  chip: {
-    margin: theme.spacing(1)
-  },
 }));
 
 
 export default withStyles(styles)(({classes}) => {
   //Context
   const {authenticated, handleLogout,} = useContext(AuthContext)
-  const {user, fetchUser, tab, setTab} = useContext(AppContext)
+  const {fetchUser, tab, setTab} = useContext(AppContext)
 
   //State
   const [anchorEl, setAnchorEl] = useState(null);
