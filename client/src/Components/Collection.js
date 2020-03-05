@@ -12,6 +12,7 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
+import Tooltip from '@material-ui/core/Tooltip'
 
 import Collectible from './Collectible'
 
@@ -115,18 +116,22 @@ export default withStyles(styles)(({items, classes}) => {
             {collection.map((item,i) =>
               <Grow in={true} style={{ transitionDelay: delay(i,100)}}>
               <Grid item xs={12} sm={6} md={4} lg={3}>
-                <Collectible 
-                  className={classes.item} 
-                  key={item.id} 
-                  name={item.name} 
-                  level={item.level} 
-                  tier={item.tier}
-                  clicks={item.clicks} 
-                  clicksToLevel={item.clicksToLevel} 
-                  artist={item.artist}
-                  created_at={item.created_at}
-                  action={()=>updateActiveCollectible(item.id)}
-                />
+                <Tooltip title="Click to set this as your active collectible!">
+                  <div>
+                  <Collectible 
+                    className={classes.item} 
+                    key={item.id} 
+                    name={item.name} 
+                    level={item.level} 
+                    tier={item.tier}
+                    clicks={item.clicks} 
+                    clicksToLevel={item.clicksToLevel} 
+                    artist={item.artist}
+                    created_at={item.created_at}
+                    action={()=>updateActiveCollectible(item.id)}
+                  />
+                  </div>
+                </Tooltip>
               </Grid>
             </Grow>
             )}

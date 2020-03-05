@@ -21,9 +21,11 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip'
 
 // Material UI Colors
 import deepPurple from '@material-ui/core/colors/deepPurple'
+import lime from '@material-ui/core/colors/lime'
 
 // Material UI Icons
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -34,6 +36,9 @@ import {ReactComponent as Logo} from '../Icons/moose.svg'
 import HomeIcn from './HomeIcn'
 import CollectionIcn from './CollectionIcn'
 import StoreIcn from './StoreIcn'
+
+// COS Components
+import COSTooltip from './Tooltip'
 
 
 // Material UI Theme
@@ -157,33 +162,39 @@ export default withStyles(styles)(({classes}) => {
 
  const navigationButtons = (
    <>
-    <IconButton
-      edge="start"
-      className={classes.menuButton}
-      color="inherit"
-      aria-label="CollectOS"
-      onClick={()=>handleTabChange(0)}
-    >
-      <HomeIcn isActive={tab === 0} />
-    </IconButton>
-    <IconButton
-      edge="start"
-      className={classes.menuButton}
-      color="inherit"
-      aria-label="CollectOS"
-      onClick={()=>handleTabChange(1)}
-    >
-      <CollectionIcn isActive={tab === 1}/>
-    </IconButton>
-    <IconButton
-      edge="start"
-      className={classes.menuButton}
-      color="inherit"
-      aria-label="CollectOS"
-      onClick={()=>handleTabChange(2)}
-    >
-      <StoreIcn isActive={tab === 2}/>
-    </IconButton>
+    <COSTooltip title="Home">
+      <IconButton
+        edge="start"
+        className={classes.menuButton}
+        color="inherit"
+        aria-label="Home"
+        onClick={()=>handleTabChange(0)}
+      >
+        <HomeIcn isActive={tab === 0} />
+      </IconButton>
+    </COSTooltip>
+    <COSTooltip title="Collection">
+      <IconButton
+        edge="start"
+        className={classes.menuButton}
+        color="inherit"
+        aria-label="Collection"
+        onClick={()=>handleTabChange(1)}
+      >
+        <CollectionIcn isActive={tab === 1}/>
+      </IconButton>
+    </COSTooltip>
+    <COSTooltip title="Shop">
+      <IconButton
+        edge="start"
+        className={classes.menuButton}
+        color="inherit"
+        aria-label="Shop"
+        onClick={()=>handleTabChange(2)}
+      >
+        <StoreIcn isActive={tab === 2}/>
+      </IconButton>
+    </COSTooltip>
   </>
  )
 
