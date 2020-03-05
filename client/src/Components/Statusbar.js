@@ -5,16 +5,14 @@ import {AuthContext} from '../Providers/AuthProvider'
 import {AppContext} from '../Providers/AppProvider'
 
 import ToolBar from '@material-ui/core/ToolBar'
-import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography'
 
 import deepPurple from '@material-ui/core/colors/deepPurple'
-import lime from '@material-ui/core/colors/lime'
 
 const styles = (theme => ({
   statusBar:{
     minHeight: '4vh',
-    backgroundColor : lime[600],
+    backgroundColor : deepPurple[800],
   },
   chip: {
     margin: theme.spacing(1)

@@ -22,6 +22,9 @@ import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton';
 
+// Material UI Colors
+import deepPurple from '@material-ui/core/colors/deepPurple'
+
 // Material UI Icons
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
@@ -64,8 +67,10 @@ const styles = (theme => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  toolbar:{
+    backgroundColor: deepPurple[900],
+  },
   paper: {
-    backgroundColor: theme.palette.background.paper,
     border: theme.palette.background.border,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
@@ -258,7 +263,7 @@ export default withStyles(styles)(({classes}) => {
   return(
     <div className={classes.grow}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar className={classes.toolbar}>
           <IconButton
             edge="start"
             className={classes.menuButton}
