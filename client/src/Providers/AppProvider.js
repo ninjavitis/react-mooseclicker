@@ -82,6 +82,21 @@ export class AppProvider extends React.Component {
     .catch(res => console.log(res))
   }
 
+  sortCollection = (key, direction) => {
+    let sorted = this.state.collection.slice().sort((item1,item2) => {
+      if(typeof item1[key] == "number"){
+        return(
+          (item1[key] - item2[key]) * direction
+        )
+      } else {
+        return(
+          (item1[key] < item2[key]) ? -1 * direction: ((item1[key] > item2[key]) ? 1 * direction : 0)
+        )
+      }
+    })
+    this.setCollection(sorted)
+  }
+
   collectionSize = () => this.state.collection.length
 
   // wraps collectible item with additional shop data
@@ -133,6 +148,7 @@ export class AppProvider extends React.Component {
       getUser:this.getUser,
       fetchUser:this.fetchUser,
       fetchCollection:this.fetchCollection,
+      sortCollection:this.sortCollection,
       fetchActiveCollectible:this.fetchActiveCollecitble,
       clearCollectible:this.clearCollectible,
       clickCollectible:this.clickCollectible,
