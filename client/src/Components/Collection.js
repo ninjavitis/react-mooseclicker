@@ -117,6 +117,7 @@ export default withStyles(styles)(({items, classes}) => {
               <Grow in={true} style={{ transitionDelay: delay(i,100)}}>
               <Grid item xs={12} sm={6} md={4} lg={3}>
                 <Tooltip title="Click to set this as your active collectible!">
+                  {/* Collectible wrapped in div as functional components dont take refs (req'd for tooltip) */}
                   <div>
                   <Collectible 
                     className={classes.item} 

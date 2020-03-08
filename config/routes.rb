@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get 'transaction/index'
+  get 'transaction/show'
+  get 'transaction/create'
+  get 'transaction/update'
+  get 'transaction/destroy'
   get 'items_controller/index'
   get 'items_controller/create'
   get 'items_controller/show'
@@ -28,6 +33,9 @@ Rails.application.routes.draw do
   get 'api/items/', to: 'api/items#index'
   get 'api/items/clicks', to: 'api/items#clicks'
   get 'api/items/points', to: 'api/items#points'
+
+  get 'api/transactions/', to: 'api/transactions#index'
+  get 'api/transactions/user', to: 'api/transactions#index_by_user'
   
   # TODO remove when transition to collectible schema is complete
   # get 'api/user/click', to: 'api/users#click'

@@ -6,8 +6,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :mooses
+  # has_many :mooses
   has_many :collectibles
+  has_many :transactions
 
   include DeviseTokenAuth::Concerns::User
 
