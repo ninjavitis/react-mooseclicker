@@ -22,6 +22,7 @@ class Api::UsersController < ApplicationController
 
   def add_points
     User.add_points(current_user, points_params[:points])
+    Transaction.create(current_user, points_params[:points], 'points')
   end
 
   def sub_points
@@ -30,6 +31,7 @@ class Api::UsersController < ApplicationController
 
   def add_clicks
     User.add_clicks(current_user, clicks_params[:remainingClicks])
+    Transaction.create(current_user, clicks_params[:clicks], 'clicks')
   end
 
   def sub_clicks

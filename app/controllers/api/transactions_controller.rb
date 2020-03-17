@@ -13,13 +13,12 @@ class Api::TransactionsController < ApplicationController
   def show
   end
 
-  def create(user_id, category)
-    
+  def create(user_id, category, amount)
     transaction = transaction.new(
-      user
-      
+      user_id:user_id,
+      category:category? category : 'undefined',
+      amount:amount,
     )
-
   end
 
   def update
@@ -31,6 +30,6 @@ class Api::TransactionsController < ApplicationController
   private
 
   def transaction_params
-    params.require(:transaction).permit()
+    params.require(:transaction).permit(:user_id, :category)
   end
 end

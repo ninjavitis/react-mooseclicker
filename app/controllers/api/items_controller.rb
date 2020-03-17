@@ -17,8 +17,6 @@ class Api::ItemsController < ApplicationController
     render json: PointsItem.all
   end
 
-
-
   def create
 
   end

@@ -13,8 +13,6 @@ import GridListTile from '@material-ui/core/GridListTile'
 import GridListTileBar from '@material-ui/core/GridListTileBar'
 import {ReactComponent as Placeholder} from '../Icons/Moose_loose.svg'
 
-import StyledReactBuyButton from './shopify/ReactBuyButton'
-
 
 const styles = (theme =>(
   {
