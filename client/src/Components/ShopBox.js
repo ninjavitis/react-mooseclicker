@@ -13,6 +13,8 @@ import GridListTile from '@material-ui/core/GridListTile'
 import GridListTileBar from '@material-ui/core/GridListTileBar'
 import {ReactComponent as Placeholder} from '../Icons/Moose_loose.svg'
 
+import StyledReactBuyButton from './shopify/ReactBuyButton'
+
 
 const styles = (theme =>(
   {
@@ -46,8 +48,28 @@ export default withStyles(styles)(({classes}) => {
   const {
     newCollectible, 
     inventories,
+    shopify,
     shops
   } = useContext(AppContext)
+
+  const [client, setClient] = useState({})
+  const [ui, setUI] = useState({})
+  
+  
+  const shopifyProduct = () => {
+    let client = window.ShopifyBuy.buildClient({
+      domain: shopify.domain,
+      storefrontAccessToken: shopify.storefrontAccessToken,
+    });
+
+    let ui = window.ShopifyBuy.UI.init(client)
+
+    ui.createComponent('product', {
+      id: '4618152673411',
+      node: document.getElementById('product-component-1583776071693'),
+      moneyFormat: '%24%7B%7Bamount%7D%7D',
+    })
+  }
 
   const [shopIndex, setShopIndex] = useState(0)
 
@@ -103,6 +125,9 @@ export default withStyles(styles)(({classes}) => {
                 title={item.name}
                 subtitle={<span>{shops[shopIndex].curr} {item.price || '9999.99'}</span>}
               />
+              {
+              shopifyProduct
+              }
             </GridListTile>
           )}
       </GridList>

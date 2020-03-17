@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import {ReactComponent as Placeholder} from '../Icons/Moose_loose.svg'
 
 
+
 const styles = (theme =>(
   {
     item:{
@@ -13,7 +14,7 @@ const styles = (theme =>(
   }
 ))
 
-export default withStyles(styles)(({name, currency, price, classes}) => {
+ const ShopItem = withStyles(styles)(({name, currency, price, classes}) => {
   return(
     <GridListTile className={classes.item} onClick={()=>alert('click')}>
       <Placeholder />
@@ -24,3 +25,5 @@ export default withStyles(styles)(({name, currency, price, classes}) => {
     </GridListTile>
   )
 })
+
+export default ShopItem

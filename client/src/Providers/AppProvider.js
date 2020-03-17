@@ -13,6 +13,9 @@ export class AppProvider extends React.Component {
     collection:[],
     collectibles:[],
     tab:0,
+    shopify:{
+      accessToken:'3f20b508a4fa70afaabd9e0cbf87ff26',
+      domain:'collectos.myshopify.com'},
     shops:[
       {name:'',items:[]},
       {name:'',items:[]},
