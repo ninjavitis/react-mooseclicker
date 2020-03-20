@@ -1,15 +1,17 @@
 Rails.application.routes.draw do
-  get 'transaction/index'
-  get 'transaction/show'
-  get 'transaction/create'
-  get 'transaction/update'
-  get 'transaction/destroy'
-  get 'items_controller/index'
-  get 'items_controller/create'
-  get 'items_controller/show'
-  get 'items_controller/update'
+  # get 'transaction/index'
+  # get 'transaction/show'
+  # get 'transaction/create'
+  # get 'transaction/update'
+  # get 'transaction/destroy'
+  # get 'items_controller/index'
+  # get 'items_controller/create'
+  # get 'items_controller/show'
+  # get 'items_controller/update'
+  
   namespace :api do
   end
+
   mount_devise_token_auth_for 'User', at: 'api/auth', controllers:
   {
     registrations: 'registrations',
