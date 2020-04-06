@@ -6,6 +6,8 @@ import {AppProvider} from './Providers/AppProvider'
 import './index.css';
 import App from './App';
 import {MuiThemeProvider, createMuiTheme, responsiveFontSizes} from '@material-ui/core'
+import { DndProvider } from 'react-dnd'
+import Backend from 'react-dnd-html5-backend'
 
 // Colors
 import deepPurple from '@material-ui/core/colors/deepPurple'
@@ -38,11 +40,13 @@ theme = responsiveFontSizes(theme)
 ReactDOM.render(
   <AuthProvider>
     <AppProvider>
+      <DndProvider backend={Backend}>
         <MuiThemeProvider theme={theme}>
           <BrowserRouter>
             <App />
           </BrowserRouter>
         </MuiThemeProvider>
+       </DndProvider>
     </AppProvider>
   </AuthProvider>
   , 

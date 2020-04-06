@@ -14,6 +14,7 @@ import Paper from '@material-ui/core/Paper'
 import Chip from '@material-ui/core/Chip'
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography'
+import Badge from '@material-ui/core/Badge'
 
 // Colors
 import indigo from '@material-ui/core/colors/indigo'
@@ -36,7 +37,7 @@ const styles = (theme => ({
     paddingRight: '5%',
   },
   cardText:{
-    fontSize: 14,
+      fontSize: 18
   },
   center: {
     alignItems:'center',
@@ -139,34 +140,36 @@ export default withStyles(styles)(({classes, ...props}) => {
           <Paper className={classes.topToolBar} elevation={0}>
               <Typography className={classes.cardText} variant="h6">{props.name}</Typography>
             <div className={classes.grow}/>
-            <Chip 
-              variant="outlined"
-              avatar={<Avatar>LV</Avatar>}
-              label={props.level}
-              className={classes.chip}
-            />
-            <Chip 
-              variant="outlined"
-              icon={<FavoriteIcon className={classes.heartIcon}/>}
-              label={props.clicks + ' / ' + (props.clicksToLevel || '-')}
-              className={classes.chip}
-            />
           </Paper>
             <CardMedia className={classes.cardMedia}>
               <Image />
             </CardMedia>
-          <Paper className={classes.bottomToolBar} elevation={0}>
             <Typography className={classes.cardText}>
               Artist: {props.artist}
             </Typography>
-            <div className={classes.grow}/>
-            <Chip 
-              variant="outlined"
-              icon={<TodayIcon className={classes.todayIcon}/>}
-              label={<Moment fromNow ago>{props.created_at}</Moment>}
-              className={classes.chip}
-            />
-          </Paper>
+            <CardMedia className={classes.bottomToolBar} elevation={0}>
+              <Chip 
+                variant="outlined"
+                icon={<TodayIcon className={classes.todayIcon}/>}
+                label={<Moment fromNow ago>{props.created_at}</Moment>}
+                className={classes.chip}
+              />
+              </CardMedia>
+              <CardMedia>
+                <Chip 
+                  variant="outlined"
+                  avatar={<Avatar>LV</Avatar>}
+                  label={props.level}
+                  className={classes.chip}
+                />
+                <Chip 
+                  variant="outlined"
+                  icon={<FavoriteIcon className={classes.heartIcon}/>}
+                  label={props.clicks + ' / ' + (props.clicksToLevel || '-')}
+                  className={classes.chip}
+                />
+              </CardMedia>
+              <div className={classes.grow}/>
         </Paper>
       </Paper>
       </CardActionArea>
