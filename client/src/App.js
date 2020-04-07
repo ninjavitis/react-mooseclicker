@@ -5,7 +5,6 @@ import {Switch, Route} from 'react-router-dom'
 
 
 import Home from './Components/Home'
-import Home2 from './Components/testhome'
 import Navbar from './Components/Navbar'
 import NoMatch from './NoMatch'
 import FetchUser from './Components/FetchUser';

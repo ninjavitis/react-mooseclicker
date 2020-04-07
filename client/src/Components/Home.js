@@ -14,6 +14,7 @@ import Paper from '@material-ui/core/Paper'
 import Collectible from './Collectible'
 import ShopBox from './ShopBox'
 import Collection from './Collection'
+import CollectionManager from './CollectionManager'
 import RegistrationForm from './RegistrationForm'
 
 
@@ -37,8 +38,7 @@ const styles = (theme => (
       justifyContent: 'center',
     },
     main:{
-      alignItems: 'center',
-      justifyContent: 'center',
+      height:'calc(100vh - 104px)',
     }
   }
   ))
@@ -117,8 +117,8 @@ export default withStyles(styles)(({classes}) => {
   )
 
   const main = (
-    <>
-    <Grid className={classes.main} container direction="row">
+    <div className={classes.main}>
+    <Grid className={classes.main} alignItems='center' justifyItems='center' container direction="row">
       <Grid item xs="auto" lg={4}/>
       <Grid item xs={12} lg={4} >
         <Collectible 
@@ -136,7 +136,7 @@ export default withStyles(styles)(({classes}) => {
       <Grid item xs="auto" lg={4}/>
     </Grid>
     {registerModal}
-    </>
+    </div>
   )
 
   const display = (tab) => {
@@ -144,7 +144,8 @@ export default withStyles(styles)(({classes}) => {
       case 0:
         return main
       case 1:
-        return <Collection className={classes.collection} />
+        // return <Collection className={classes.collection} />
+        return <CollectionManager />
       case 2:
         return <ShopBox />
       default:

@@ -22,11 +22,14 @@ import Draggable from './Draggable'
 
 const styles = (theme =>(
   {
+    main:{
+      width: '50%',
+    },
     gridList:{
       height:'500px',
     },
-    item:{
-      
+    grid:{
+      padding: '0px 10px'
     },
     toolbar:{
       minHeight:'4vh',
@@ -116,18 +119,7 @@ export default withStyles(styles)(({items, classes}) => {
           <ToolBar className={classes.toolbar}>
             {SortControls}
           </ToolBar> 
-          <Draggable>
-            <Card><CardActionArea>Material UI Card</CardActionArea></Card>
-          </Draggable>
-          <Draggable>
-            <Typography>Material UI Paper</Typography>
-          </Draggable>
-          <Draggable>
-            <div>
-              <Typography>Div w/ text</Typography>
-            </div>
-          </Draggable>
-          <Grid container spacing={1}>
+          <Grid className={classes.grid} container spacing={1}>
             {collection.map((item,i) =>
               <Grow key={item.id} in={true} style={{ transitionDelay: delay(i,100)}}>
               <Grid item xs={12} sm={6} md={1} lg={2}>
@@ -165,7 +157,7 @@ export default withStyles(styles)(({items, classes}) => {
     
 
     return(
-    <Paper>
+    <Paper className={classes.main}>
       <Main />
     </Paper>
   )

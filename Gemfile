@@ -28,8 +28,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem "dotenv-rails"
 gem "devise_token_auth", "~> 1.0.0"
 # gem 'omniauth-facebook'
-gem 'omniauth-google-oauth2'
+# gem 'omniauth-google-oauth2'
 # gem 'omniauth-apple'
+
 
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
