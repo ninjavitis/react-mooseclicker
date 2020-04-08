@@ -111,7 +111,7 @@ const styles = (theme => ({
 }))
 
 
-export default withStyles(styles)(({classes, ...props}) => {
+const Collectible = withStyles(styles)(({classes, ...props}) => {
   const borderTier = (tier) => {
     switch (tier) {
       case 1:
@@ -138,42 +138,43 @@ export default withStyles(styles)(({classes, ...props}) => {
       <Paper className={classes.outerBorder} >
         <Paper className={borderTier(props.tier)}>
           <Paper className={classes.topToolBar} elevation={0}>
-              <Typography className={classes.cardText} variant="h6">{props.name}</Typography>
+            <Typography className={classes.cardText} variant="h6">{props.name}</Typography>
             <div className={classes.grow}/>
           </Paper>
-            <CardMedia className={classes.cardMedia}>
-              <Image />
-            </CardMedia>
-            <Typography className={classes.cardText}>
-              Artist: {props.artist}
-            </Typography>
-            <CardMedia className={classes.bottomToolBar} elevation={0}>
-              <Chip 
-                variant="outlined"
-                icon={<TodayIcon className={classes.todayIcon}/>}
-                label={<Moment fromNow ago>{props.created_at}</Moment>}
-                className={classes.chip}
-              />
-              </CardMedia>
-              <CardMedia>
-                <Chip 
-                  variant="outlined"
-                  avatar={<Avatar>LV</Avatar>}
-                  label={props.level}
-                  className={classes.chip}
-                />
-                <Chip 
-                  variant="outlined"
-                  icon={<FavoriteIcon className={classes.heartIcon}/>}
-                  label={props.clicks + ' / ' + (props.clicksToLevel || '-')}
-                  className={classes.chip}
-                />
-              </CardMedia>
-              <div className={classes.grow}/>
+          <CardMedia className={classes.cardMedia}>
+            <Image />
+          </CardMedia>
+          <Typography className={classes.cardText}>
+            Artist: {props.artist}
+          </Typography>
+          <CardMedia className={classes.bottomToolBar} elevation={0}>
+            <Chip 
+              variant="outlined"
+              icon={<TodayIcon className={classes.todayIcon}/>}
+              label={<Moment fromNow ago>{props.created_at}</Moment>}
+              className={classes.chip}
+            />
+          </CardMedia>
+          <CardMedia>
+            <Chip 
+              variant="outlined"
+              avatar={<Avatar>LV</Avatar>}
+              label={props.level}
+              className={classes.chip}
+            />
+            <Chip 
+              variant="outlined"
+              icon={<FavoriteIcon className={classes.heartIcon}/>}
+              label={props.clicks + ' / ' + (props.clicksToLevel || '-')}
+              className={classes.chip}
+            />
+          </CardMedia>
+          <div className={classes.grow}/>
+          </Paper>
         </Paper>
-      </Paper>
       </CardActionArea>
     </Card>
   )
 })
 
+export default Collectible

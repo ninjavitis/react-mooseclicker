@@ -85,7 +85,7 @@ const styles = (theme => ({
 }));
 
 
-export default withStyles(styles)(({classes}) => {
+ const Navbar = withStyles(styles)(({classes}) => {
   //Context
   const {authenticated, handleLogout,} = useContext(AuthContext)
   const {fetchUser, tab, setTab} = useContext(AppContext)
@@ -305,3 +305,5 @@ export default withStyles(styles)(({classes}) => {
     </div>
   )
   })
+
+  export default Navbar

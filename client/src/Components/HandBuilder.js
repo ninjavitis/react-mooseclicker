@@ -18,7 +18,7 @@ const styles = (theme=>({
     height: '100%',
     alignItems: 'center'
   },
-  grid: {
+  main:{
     padding: '20px'
   }
 }))
@@ -28,8 +28,6 @@ const styles = (theme=>({
     let base = 200;
     return `${base + (interval * (step - 1))}ms`
   }
-
-
 
 const HandBuilder = withStyles(styles)(({ classes }) => {
   const { hand, clearHand } = useContext(AppContext)
@@ -42,10 +40,10 @@ const HandBuilder = withStyles(styles)(({ classes }) => {
   )
 
 return(
-  <>
-    <Grid className={ classes.grid } container alignItems='center' justifyItems='center' spacing={1}>
+  <div className={ classes.main }>
+    <Grid container alignItems='center' justifyItems='center' spacing={1}>
       {hand.map((item,i) =>
-        <Grow key={ item.id } in={true} style={{ transitionDelay: delay(i,100)}}>
+        <Grow key={ item.id } in={ true } style={{ transitionDelay: delay(i,100)}}>
           <Grid item xs={12} sm={6} md={1} lg={2}>
             <Draggable>
               <Collectible 
@@ -65,7 +63,7 @@ return(
       )}
     </Grid>
     {clearButton}
-    </>
+    </div>
 )
 })
 

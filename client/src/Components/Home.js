@@ -46,7 +46,7 @@ const styles = (theme => (
   }
   ))
 
-export default withStyles(styles)(({classes}) => { 
+  const Home = withStyles(styles)(({classes}) => { 
   const {authenticated, user,} = useContext(AuthContext)
   const {tab} = useContext(AppContext)
   
@@ -161,3 +161,4 @@ export default withStyles(styles)(({classes}) => {
   )
 })
 
+export default Home
