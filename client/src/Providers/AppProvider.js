@@ -94,7 +94,7 @@ export class AppProvider extends React.Component {
         )
       } else {
         return(
-          (item1[key] < item2[key]) ? -1 * direction: ((item1[key] > item2[key]) ? 1 * direction : 0)
+          (item1[key] < item2[key]) ? -1 * direction : ((item1[key] > item2[key]) ? 1 * direction : 0)
         )
       }
     })
@@ -103,7 +103,7 @@ export class AppProvider extends React.Component {
 
   collectionSize = () => this.state.collection.length
 
-  // wraps collectible item with additional shop data
+  // TODO remove this - wraps collectible item with additional shop data
   wrappedItems = (items) => {
     return items.map(item => {return {item, price:7777.77}})
   }
@@ -130,6 +130,13 @@ export class AppProvider extends React.Component {
     }
   }
 
+  // remove a specific item from the hand
+  removeFromHand = (id) => {
+    const newHand = this.state.hand.filter(item => item.id !== id) 
+    this.setState({hand:newHand})
+  }
+
+  // remove all items from the hand
   clearHand = () => this.setState({hand:[]}) 
 
   // only here for testing the endpoint.  adding points should handled server side
