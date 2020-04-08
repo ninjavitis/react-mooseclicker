@@ -23,7 +23,7 @@ import Draggable from './Draggable'
 const styles = (theme =>(
   {
     main:{
-      width: '50%',
+      width: '1px',
     },
     gridList:{
       height:'500px',
@@ -115,7 +115,7 @@ export default withStyles(styles)(({items, classes}) => {
   const Main = () => {
     if (collection.length > 0) {
       return (
-        <>
+        <div clasName={classes.main}>
           <ToolBar className={classes.toolbar}>
             {SortControls}
           </ToolBar> 
@@ -126,7 +126,7 @@ export default withStyles(styles)(({items, classes}) => {
                 <Tooltip title="Click to set this as your active collectible!">
                   {/* Collectible wrapped in div as functional components dont take refs (req'd for tooltip) */}
                   <div>
-                    <Draggable>
+                    <Draggable id={item.id} type={'collectible'}>
                       <Collectible 
                         id={item.id}
                         className={classes.item} 
@@ -146,7 +146,7 @@ export default withStyles(styles)(({items, classes}) => {
             </Grow>
             )}
           </Grid>
-        </>
+        </div>
       )
     } else {
       return(
@@ -157,7 +157,7 @@ export default withStyles(styles)(({items, classes}) => {
     
 
     return(
-    <Paper className={classes.main}>
+    <Paper elevation={8}>
       <Main />
     </Paper>
   )

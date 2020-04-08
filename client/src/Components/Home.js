@@ -39,7 +39,10 @@ const styles = (theme => (
     },
     main:{
       height:'calc(100vh - 104px)',
-    }
+    },
+    collectionManager:{
+      display: 'flex'
+    },
   }
   ))
 
@@ -117,7 +120,7 @@ export default withStyles(styles)(({classes}) => {
   )
 
   const main = (
-    <div className={classes.main}>
+    <div>
     <Grid className={classes.main} alignItems='center' justifyItems='center' container direction="row">
       <Grid item xs="auto" lg={4}/>
       <Grid item xs={12} lg={4} >
@@ -145,7 +148,7 @@ export default withStyles(styles)(({classes}) => {
         return main
       case 1:
         // return <Collection className={classes.collection} />
-        return <CollectionManager />
+        return <CollectionManager className={classes.collectionManager}/>
       case 2:
         return <ShopBox />
       default:

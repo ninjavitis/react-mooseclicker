@@ -8,10 +8,11 @@ export class AppProvider extends React.Component {
   state={
     clicks:0,
     user:{remainingClicks:0,points:0},
-    defaultCollectible:{name:'Cool-lectible', type:'', tier:'0', clicks:0, variant:'', magic:false, clicksToLevel:1, level:1},
-    activeCollectible:{name:'Cool-lectible', type:'', tier:'0', clicks:0, variant:'', magic:false, clicksToLevel:1, level:1,},
+    defaultCollectible:{id:'', name:'Cool-lectible', type:'', tier:'0', clicks:0, variant:'', magic:false, clicksToLevel:1, level:1},
+    activeCollectible:{id:'', name:'Cool-lectible', type:'', tier:'0', clicks:0, variant:'', magic:false, clicksToLevel:1, level:1,},
     collection:[],
     collectibles:[],
+    hand:[],
     tab:0,
     shopify:{
       accessToken:'3f20b508a4fa70afaabd9e0cbf87ff26',
@@ -118,6 +119,18 @@ export class AppProvider extends React.Component {
     .catch(res => console.log(res))
   }
 
+  addToHand = (id) => {
+    // Each item can only be added to the hand once
+    const inHand = Boolean(this.state.hand.filter(i=> i.id === id).length)
+    if (inHand) {return} 
+
+    if (this.state.collection.length > 0){
+      const item = this.state.collection.filter(i => i.id === id)[0]
+      this.setState({hand:[item, ...this.state.hand]})
+    }
+  }
+
+  clearHand = () => this.setState({hand:[]}) 
 
   // only here for testing the endpoint.  adding points should handled server side
   addPoints = (points) => {
@@ -158,6 +171,8 @@ export class AppProvider extends React.Component {
       updateActiveCollectible:this.updateActiveCollectible,
       fetchCollectibles:this.fetchCollectibles,
       collectionSize:this.collectionSize,
+      addToHand:this.addToHand,
+      clearHand:this.clearHand,
       wrappedCollectibles:this.wrappedItems(this.state.collectibles),
       newCollectible:this.newCollectible,
       fetchItems:this.fetchItems,

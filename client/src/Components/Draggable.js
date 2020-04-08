@@ -1,9 +1,10 @@
 import React, {useRef} from 'react';
 import {useDrag, DragPreviewImage} from 'react-dnd'
 
-function Draggable(props){
+function Draggable({id, children}){
   const [{isDragging}, drag] = useDrag({
     item: {
+      id: id,
       type: 'collectible'
     },
     collect: monitor => ({
@@ -11,7 +12,7 @@ function Draggable(props){
     })
   })
 
-  
+  // sets the ref of the draggable element
   const ref = useRef()
   drag(ref)
 
@@ -23,7 +24,7 @@ function Draggable(props){
         cursor: 'move',
       }}
     >
-      {props.children}
+      {children}
     </div>
   )
 }
