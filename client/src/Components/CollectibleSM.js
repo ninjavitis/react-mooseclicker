@@ -1,5 +1,5 @@
 // React Imports
-import React from 'react';
+import React, { useState } from 'react';
 
 import Moment from 'react-moment';
 
@@ -37,7 +37,7 @@ const styles = (theme => ({
     paddingRight: '5%',
   },
   cardText:{
-      fontSize: 18
+      fontSize: 8
   },
   center: {
     alignItems:'center',
@@ -112,6 +112,9 @@ const styles = (theme => ({
 
 
 const Collectible = withStyles(styles)(({classes, ...props}) => {
+  const [inHand] = useState()
+  const [isActive] = useState()
+
   const borderTier = (tier) => {
     switch (tier) {
       case 1:
@@ -139,34 +142,19 @@ const Collectible = withStyles(styles)(({classes, ...props}) => {
         <Paper className={borderTier(props.tier)}>
           <Paper className={classes.topToolBar} elevation={0}>
             <Typography className={classes.cardText} variant="h6">{props.name}</Typography>
-            <div className={classes.grow}/>
-            <Chip 
-              variant="outlined"
-              avatar={<Avatar>LV</Avatar>}
-              label={props.level}
-              className={classes.chip}
-            />
-            <Chip 
-              variant="outlined"
-              icon={<FavoriteIcon className={classes.heartIcon}/>}
-              label={props.clicks + ' / ' + (props.clicksToLevel || '-')}
-              className={classes.chip}
-            />
           </Paper>
           <CardMedia className={classes.cardMedia}>
             <Image />
-          </CardMedia>
-          <CardMedia className={classes.bottomToolBar} elevation={0}>
-            <Typography className={classes.cardText}>
-              Artist: {props.artist}
-            </Typography>
-            <div className={classes.grow}/>
-            <Chip 
-              variant="outlined"
-              icon={<TodayIcon className={classes.todayIcon}/>}
-              label={<Moment fromNow ago>{props.created_at}</Moment>}
-              className={classes.chip}
-            />
+          <Typography className={classes.cardText}>
+            Artist: {props.artist}
+          </Typography>
+          <Typography className={classes.cardText}>
+            <FavoriteIcon className={classes.heartIcon} fontSize='inherit'/>{props.level} {props.clicks + ' / ' + (props.clicksToLevel || '-')}
+          </Typography>
+          <div className={classes.grow}/>
+          <Typography className={classes.cardText}>
+            <TodayIcon className={classes.todayIcon} fontSize='inherit'/><Moment fromNow ago>{props.created_at}</Moment>
+          </Typography>
           </CardMedia>
           </Paper>
         </Paper>

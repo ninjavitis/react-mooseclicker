@@ -14,9 +14,6 @@ export class AppProvider extends React.Component {
     collectibles:[],
     hand:[],
     tab:0,
-    shopify:{
-      accessToken:'3f20b508a4fa70afaabd9e0cbf87ff26',
-      domain:'collectos.myshopify.com'},
     shops:[
       {name:'',items:[]},
       {name:'',items:[]},
@@ -73,6 +70,7 @@ export class AppProvider extends React.Component {
     .catch(res => console.log(res))
   }
 
+  // Gets the collection for the currently logged in user
   fetchCollection = () => {
     axios.get('api/collectibles/myCollection')
     .then(res => this.setCollection(res.data))
@@ -86,6 +84,7 @@ export class AppProvider extends React.Component {
     .catch(res => console.log(res))
   }
 
+  // Supports ascending/descending sort
   sortCollection = (key, direction) => {
     let sorted = this.state.collection.slice().sort((item1,item2) => {
       if(typeof item1[key] == "number"){

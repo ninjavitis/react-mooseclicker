@@ -18,18 +18,16 @@ import FormControl from '@material-ui/core/FormControl'
 import Tooltip from '@material-ui/core/Tooltip'
 
 import Collectible from './Collectible'
+import CollectibleSM from './CollectibleSM'
 import Draggable from './Draggable'
 
 const styles = (theme =>(
   {
-    main:{
-      width: '1px',
-    },
-    gridList:{
-      height:'500px',
-    },
     grid:{
-      padding: '0px 10px'
+      width:'100%',
+      padding: '0px 20px',
+      maxHeight: 'calc(100vh - 128px)',
+      overflow: 'auto',
     },
     toolbar:{
       minHeight:'4vh',
@@ -115,11 +113,11 @@ export default withStyles(styles)(({items, classes}) => {
   const Main = () => {
     if (collection.length > 0) {
       return (
-        <div clasName={classes.main}>
-          <ToolBar className={classes.toolbar}>
+        <div>
+          <ToolBar className={ classes.toolbar }>
             {SortControls}
           </ToolBar> 
-          <Grid className={classes.grid} container spacing={1}>
+          <Grid className={ classes.grid } container spacing={1}>
             {collection.map((item,i) =>
               <Grow key={item.id} in={true} style={{ transitionDelay: delay(i,100)}}>
               <Grid item xs={12} sm={6} md={1} lg={2}>
@@ -127,7 +125,7 @@ export default withStyles(styles)(({items, classes}) => {
                   {/* Collectible wrapped in div as functional components dont take refs (req'd for tooltip) */}
                   <div>
                     <Draggable id={item.id} type={'collectible'}>
-                      <Collectible 
+                      <CollectibleSM 
                         id={item.id}
                         className={classes.item} 
                         name={item.name} 
