@@ -50,25 +50,53 @@ export class AppProvider extends React.Component {
     ],
   }
 
-  setUser = (user) => this.setState({user:user})
-  setCollectibles = (collectibles) => this.setState({collectibles:collectibles})
-  setCollection = (collection) => this.setState({collection:collection})
-  clearCollectible = () => this.setState({activeCollectible:this.state.defaultCollectible})
-  setShops = (shops) => this.setState({shops:shops})
+  // manages application tabs
   setTab = (tab) => this.setState({tab:tab})
-  clearHand = () => this.setState({hand:[]})
-  setValidSets = (validSets) => this.setState({validSets:validSets})
-  clearValidSets = () => this.setValidSets([])
 
-  clearHand = () => {
-    this.setState({hand:[]})
-    this.clearValidSets()
+  ////////////////////////
+  // User Management
+  /////////
+  setUser = (user) => this.setState({user:user})
+
+  // Updates the user object (ex: update click counter after clicking an item)
+  fetchUser = () => {
+    axios.get('/api/user/show')
+    .then(res => this.setUser(res.data))
+    .catch(res => console.log(res))
   }
-  
+
+
+  ////////////////////////
+  // Shop Management - Shop system is getting complete refactor
+  /////////
+  setShops = (shops) => this.setState({shops:shops})
+
+  fetchItems =() => {
+    axios.get('api/items')
+    .then(res => this.setShops(res.data))
+    .catch(res => console.log(res))
+  }
+
+  // TODO remove this - wraps collectible item with additional shop data
+  wrappedItems = (items) => {
+    return items.map(item => {return {item, price:7777.77}})
+  }
+
+
+  ////////////////////////
+  // Item Management
+  /////////
+  newCollectible=(cType) => {
+    axios.post('/api/collectibles/create/', {ctype_id:cType})
+    .then(res => console.log(res.data))
+  }
+
   setActiveCollectible = (collectible) => {
     this.setState({activeCollectible:collectible})
   }
-  
+
+  clearCollectible = () => this.setState({activeCollectible:this.state.defaultCollectible})
+
   getClickCount=()=>{
     axios.get('/api/moose/clickcount')
     .then(res => this.setState({clicks:res.data}))
@@ -77,13 +105,11 @@ export class AppProvider extends React.Component {
 
   clickCollectible = () => {
     axios.put("/api/collectibles/click")
-    .then(res => 
-      {
+    .then(res => {
         // console.log(res.data)
         this.setActiveCollectible(res.data.collectible)
         this.setUser(res.data.user)
-      }
-    )
+      })
   }
 
   updateActiveCollectible = (id) => {
@@ -100,24 +126,17 @@ export class AppProvider extends React.Component {
     .catch(res => console.log(res))
   }
 
-  // Updates the user object (ex: when user is returned after clicking a moose)
-  fetchUser = () => {
-    axios.get('/api/user/show')
-    .then(res => this.setUser(res.data))
-    .catch(res => console.log(res))
-  }
+
+  ////////////////////////
+  // Collection Management
+  /////////
+  setCollectibles = (collectibles) => this.setState({collectibles:collectibles})
+  setCollection = (collection) => this.setState({collection:collection})
 
   // Gets the collection for the currently logged in user
   fetchCollection = () => {
     axios.get('api/collectibles/myCollection')
     .then(res => this.setCollection(res.data))
-    .catch(res => console.log(res))
-  }
-
-  //  old shop provider methods
-  fetchCollectibles = () => {
-    axios.get('api/collectibles')
-    .then(res => this.setCollectibles(res.data))
     .catch(res => console.log(res))
   }
 
@@ -139,27 +158,14 @@ export class AppProvider extends React.Component {
 
   collectionSize = () => this.state.collection.length
 
-  // TODO remove this - wraps collectible item with additional shop data
-  wrappedItems = (items) => {
-    return items.map(item => {return {item, price:7777.77}})
-  }
 
-  newCollectible=(cType) => {
-    axios.post('/api/collectibles/create/', {ctype_id:cType})
-    .then(res => console.log(res.data))
-  }
-
-  fetchItems =() => {
-    axios.get('api/items')
-    .then(res => this.setShops(res.data))
-    .catch(res => console.log(res))
-  }
-
+  /////////////////////////
+  // Hand management
+  ///////
   addToHand = (id) => {
     // Each item can only be added to the hand once
-    const inHand = Boolean(this.state.hand.filter(i=> i.id === id).length)
-    if (inHand) {return} 
-
+    if (this.inHand(id)) {return} 
+    
     if (this.state.collection.length > 0){
       const item = this.state.collection.filter(i => i.id === id)[0]
       this.setState({hand:[item, ...this.state.hand]})
@@ -168,22 +174,34 @@ export class AppProvider extends React.Component {
     // then update the list of sets that are completable by this hand
     this.setValidSets(this.validateSets())
   }
-
+  
   // remove a specific item from the hand
   removeFromHand = (id) => {
     const newHand = this.state.hand.filter(item => item.id !== id) 
     this.setState({hand:newHand})
   }
-
-  getSetSize = (setReqs) => {
-    let setSize = 0
-
-    setReqs.map(req => {
-      setSize += req.quantity
-    })
-    // console.log('set size: ' + setSize)
-    return setSize
+  
+  clearHand = () => {
+    this.setState({hand:[]})
+    this.clearValidSets()
   }
+
+  // used by the item cards to set the 'in hand' styling
+  inHand = (itemID) => Boolean(this.state.hand.find(({id}) => id === itemID))
+  
+  // Returns an array of the quantities of each type of card in the hand
+  tallyHand = () => {
+    let tally = []
+      this.state.hand.forEach(item => {
+        tally.find(({type},i) => type === item.type && tally[i].quant++) || tally.push({type:item.type, quant:1})
+      })
+
+    return tally
+  }
+
+  //////////////////////
+  // Set Management
+  //////
 
   /* ***
 
@@ -204,7 +222,18 @@ export class AppProvider extends React.Component {
 
   *** */
 
+  setValidSets = (validSets) => this.setState({validSets:validSets})
+  clearValidSets = () => this.setValidSets([])
 
+  getSetSize = (setReqs) => {
+  let setSize = 0
+
+  setReqs.map(req => {
+    setSize += req.quantity
+  })
+  // console.log('set size: ' + setSize)
+  return setSize
+}
 
   validateSets = (sets) => {
     let tally = this.tallyHand()
@@ -223,11 +252,7 @@ export class AppProvider extends React.Component {
         set.requirements.length >= tally.length
       )
 
-      // preFilters && preFilteredSets.push(i)
-
-      if(preFilters){
-        preFilteredSets.push(i)
-      }
+      preFilters && preFilteredSets.push(i)
     })
     }
 
@@ -246,22 +271,9 @@ export class AppProvider extends React.Component {
     return validSets
   }
 
-
-
-
-
-  // Returns an array of the quantities of each type of card in the hand
-  tallyHand = () => {
-    let tally = []
-      this.state.hand.forEach(item => {
-        console.log(item)
-        tally.find(({type},i) => type === item.type && tally[i].quant++) || tally.push({type:item.type, quant:1})
-      })
-
-    return tally
-  }
-
-
+ /////////////////////
+ // Testing + Deprecated
+ ///////
 
   // only here for testing the endpoint.  adding points should handled server side
   addPoints = (points) => {
@@ -287,6 +299,13 @@ export class AppProvider extends React.Component {
     .then(res => console.log(res.data))
   }
 
+    //  old shop provider methods
+    fetchCollectibles = () => {
+      axios.get('api/collectibles')
+      .then(res => this.setCollectibles(res.data))
+      .catch(res => console.log(res))
+    }
+
   render(){
     return(
     <AppContext.Provider value ={{
@@ -304,6 +323,7 @@ export class AppProvider extends React.Component {
       collectionSize:this.collectionSize,
       addToHand:this.addToHand,
       clearHand:this.clearHand,
+      inHand:this.inHand,
       wrappedCollectibles:this.wrappedItems(this.state.collectibles),
       newCollectible:this.newCollectible,
       fetchItems:this.fetchItems,

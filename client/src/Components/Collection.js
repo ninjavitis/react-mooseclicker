@@ -40,7 +40,7 @@ const styles = (theme =>(
 
 export default withStyles(styles)(({items, classes}) => {
   const {authenticated} = useContext(AuthContext)
-  const { collection, fetchCollection, sortCollection, updateActiveCollectible } = useContext(AppContext)
+  const { collection, fetchCollection, sortCollection, updateActiveCollectible, inHand } = useContext(AppContext)
   
   const [key, setKey] = useState('created_at')
   const [direction, setDirection] = useState(1)
@@ -109,6 +109,8 @@ export default withStyles(styles)(({items, classes}) => {
       </FormControl>
     </>
   )
+
+
   
   const Main = () => {
     if (collection.length > 0) {
@@ -135,6 +137,7 @@ export default withStyles(styles)(({items, classes}) => {
                         artist={item.artist}
                         created_at={item.created_at}
                         action={()=>updateActiveCollectible(item.id)}
+                        inHand={ inHand(item.id) }
                       />
                     </Draggable>
                   </div>

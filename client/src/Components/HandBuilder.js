@@ -36,7 +36,7 @@ const styles = (theme=>({
   }
 
 const HandBuilder = withStyles(styles)(({classes}) => {
-  const { hand, clearHand, sets, validSets} = useContext(AppContext)
+  const { hand, clearHand, sets, validSets, } = useContext(AppContext)
 
   const clearButton = (
     hand.length > 0 && 
@@ -64,6 +64,7 @@ return(
                 clicksToLevel={ item.clicksToLevel } 
                 artist={ item.artist }
                 created_at={ item.created_at }
+                inHand={false}
               />
             </Draggable>
           </Grid>

@@ -76,9 +76,13 @@ const styles = (theme => ({
   grow: {
     flexGrow: 1,
   },
-  outerBorder:{
-    padding: '2%',
-    borderColor: '#fffff',
+  outerBorderSelected:{
+    padding: '3%',
+    backgroundColor: '#000000',
+  },
+  outerBorderDeselected:{
+    padding: '3%',
+    backgroundColor: '#fffff',
   },
   cardMedia: {
     width:'95%',
@@ -111,8 +115,7 @@ const styles = (theme => ({
 }))
 
 
-const Collectible = withStyles(styles)(({classes, ...props}) => {
-  const [inHand] = useState()
+const CollectibleSM = withStyles(styles)(({classes, ...props}) => {
   const [isActive] = useState()
 
   const borderTier = (tier) => {
@@ -133,12 +136,24 @@ const Collectible = withStyles(styles)(({classes, ...props}) => {
     }
   }
 
+  const elevation = (
+    props.inHand? 24 : 1
+  )
+
+  const outerBorder = (inHand) => {
+    if (inHand){
+      return classes.outerBorderSelected
+    } else {
+      return classes.outerBorderDeselcted
+    }
+  }
+
   return(
-    <Card  className={classes.card} variant='outlined' elevation={7}>
+    <Card className={classes.card} variant='outlined' elevation={elevation}>
       <CardActionArea
         onClick={props.action}
       >
-      <Paper className={classes.outerBorder} >
+      <Paper className={outerBorder(props.inHand)} >
         <Paper className={borderTier(props.tier)}>
           <Paper className={classes.topToolBar} elevation={0}>
             <Typography className={classes.cardText} variant="h6">{props.type}</Typography>
@@ -163,4 +178,4 @@ const Collectible = withStyles(styles)(({classes, ...props}) => {
   )
 })
 
-export default Collectible
+export default CollectibleSM
