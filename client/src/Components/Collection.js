@@ -127,8 +127,7 @@ export default withStyles(styles)(({items, classes}) => {
                     <Draggable id={item.id} type={'collectible'}>
                       <CollectibleSM 
                         id={item.id}
-                        className={classes.item} 
-                        name={item.name} 
+                        type={item.type} 
                         level={item.level} 
                         tier={item.tier}
                         clicks={item.clicks} 

@@ -8,17 +8,46 @@ export class AppProvider extends React.Component {
   state={
     clicks:0,
     user:{remainingClicks:0,points:0},
-    defaultCollectible:{id:'', name:'Cool-lectible', type:'', tier:'0', clicks:0, variant:'', magic:false, clicksToLevel:1, level:1},
-    activeCollectible:{id:'', name:'Cool-lectible', type:'', tier:'0', clicks:0, variant:'', magic:false, clicksToLevel:1, level:1,},
+    defaultCollectible:{id:'', type:'Cool-lectible', tier:'0', clicks:0, variant:'', magic:false, clicksToLevel:1, level:1},
+    activeCollectible:{id:'', type:'Cool-lectible', tier:'0', clicks:0, variant:'', magic:false, clicksToLevel:1, level:1,},
     collection:[],
     collectibles:[],
+    validSets:[],
     hand:[],
     tab:0,
     shops:[
       {name:'',items:[]},
       {name:'',items:[]},
       {name:'',items:[]},
-    ]
+    ],
+    sets:[ 
+      { name: 'Two of a Kind', 
+        requirements:[
+            { type:'any', quantity:2, minClicks:0 },
+        ], 
+        rewards:['joy',]
+      },
+      { name: '3 of a Kind', 
+        requirements:[
+            { type:'any', quantity:3, minClicks:0 },
+        ], 
+        rewards:['more joy',]
+      },
+      { name: 'Full House', 
+        requirements:[
+            { type:'any', quantity:2, minClicks:0 },
+            { type:'any', quantity:3, minClicks:0 },
+        ], 
+        rewards:['even more joy',]
+      },
+      { name: '10 click Full House', 
+        requirements:[
+            { type:'any', quantity:2, minClicks:10 },
+            { type:'any', quantity:3, minClicks:10 },
+        ], 
+        rewards:['even more joy',]
+      },
+    ],
   }
 
   setUser = (user) => this.setState({user:user})
@@ -27,6 +56,14 @@ export class AppProvider extends React.Component {
   clearCollectible = () => this.setState({activeCollectible:this.state.defaultCollectible})
   setShops = (shops) => this.setState({shops:shops})
   setTab = (tab) => this.setState({tab:tab})
+  clearHand = () => this.setState({hand:[]})
+  setValidSets = (validSets) => this.setState({validSets:validSets})
+  clearValidSets = () => this.setValidSets([])
+
+  clearHand = () => {
+    this.setState({hand:[]})
+    this.clearValidSets()
+  }
   
   setActiveCollectible = (collectible) => {
     this.setState({activeCollectible:collectible})
@@ -127,6 +164,9 @@ export class AppProvider extends React.Component {
       const item = this.state.collection.filter(i => i.id === id)[0]
       this.setState({hand:[item, ...this.state.hand]})
     }
+    
+    // then update the list of sets that are completable by this hand
+    this.setValidSets(this.validateSets())
   }
 
   // remove a specific item from the hand
@@ -135,8 +175,93 @@ export class AppProvider extends React.Component {
     this.setState({hand:newHand})
   }
 
-  // remove all items from the hand
-  clearHand = () => this.setState({hand:[]}) 
+  getSetSize = (setReqs) => {
+    let setSize = 0
+
+    setReqs.map(req => {
+      setSize += req.quantity
+    })
+    // console.log('set size: ' + setSize)
+    return setSize
+  }
+
+  /* ***
+
+    Set Validation works thusly:
+      1. Determine how many cards of each type are in the hand.
+
+      2. Get subset of 'Sets' where hand size equals the number of cards in the set
+        (ie exclude sets that have more or less cards than are currently in the hand)
+      
+      3.  Filter set list by card types that match
+        (ie return list of sets that have the right type and quantity of cards)
+
+      4. Display all valid sets to the player
+
+      5.  Pass the hand object + selected set to the back end to complete
+
+      6.  Handle response
+
+  *** */
+
+
+
+  validateSets = (sets) => {
+    let tally = this.tallyHand()
+    let preFilteredSets = []
+    let validSets = []
+
+    // no set has less than 2 cards
+    if (this.state.hand.length > 1){
+      // prefilter sets
+    this.state.sets.map((set, i) => {
+      // only include sets with the same number of cards as in the hand
+      // only include sets with the same number of card types as in the hand
+      let preFilters = Boolean(
+        this.getSetSize(set.requirements) >= this.state.hand.length
+        &&
+        set.requirements.length >= tally.length
+      )
+
+      // preFilters && preFilteredSets.push(i)
+
+      if(preFilters){
+        preFilteredSets.push(i)
+      }
+    })
+    }
+
+    if (preFilteredSets.length > 0){
+      tally.map(element => {
+        validSets = preFilteredSets.map(setNum => {
+          let itemFound = Boolean(this.state.sets[setNum].requirements.find(({type}) => type === 'any' || type === element.type))
+          if(itemFound){
+            return setNum
+          } else {
+            console.log('no match')
+          }
+        })
+      })
+    }
+    return validSets
+  }
+
+
+
+
+
+  // Returns an array of the quantities of each type of card in the hand
+  tallyHand = () => {
+    let tally = []
+      this.state.hand.forEach(item => {
+        console.log(item)
+        tally.find(({type},i) => type === item.type && tally[i].quant++) || tally.push({type:item.type, quant:1})
+      })
+
+    return tally
+  }
+
+
 
   // only here for testing the endpoint.  adding points should handled server side
   addPoints = (points) => {

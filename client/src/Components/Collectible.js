@@ -130,16 +130,17 @@ const Collectible = withStyles(styles)(({classes, ...props}) => {
     }
   }
 
+
   return(
-    <Card  className={classes.card} variant='outlined' elevation={7}>
+    <Card className={ classes.card } variant='outlined' elevation={7}>
       <CardActionArea
-        onClick={props.action}
+        onClick={ props.action }
       >
-      <Paper className={classes.outerBorder} >
-        <Paper className={borderTier(props.tier)}>
-          <Paper className={classes.topToolBar} elevation={0}>
-            <Typography className={classes.cardText} variant="h6">{props.name}</Typography>
-            <div className={classes.grow}/>
+      <Paper className={ classes.outerBorder } >
+        <Paper className={ borderTier(props.tier) }>
+          <Paper className={ classes.topToolBar } elevation={0}>
+            <Typography className={ classes.cardText } variant="h6">{props.type}</Typography>
+            <div className={ classes.grow }/>
             <Chip 
               variant="outlined"
               avatar={<Avatar>LV</Avatar>}
@@ -148,24 +149,24 @@ const Collectible = withStyles(styles)(({classes, ...props}) => {
             />
             <Chip 
               variant="outlined"
-              icon={<FavoriteIcon className={classes.heartIcon}/>}
-              label={props.clicks + ' / ' + (props.clicksToLevel || '-')}
-              className={classes.chip}
+              icon={<FavoriteIcon className={ classes.heartIcon }/>}
+              label={ props.clicks + ' / ' + (props.clicksToLevel || '-')}
+              className={ classes.chip }
             />
           </Paper>
-          <CardMedia className={classes.cardMedia}>
+          <CardMedia className={ classes.cardMedia }>
             <Image />
           </CardMedia>
-          <CardMedia className={classes.bottomToolBar} elevation={0}>
-            <Typography className={classes.cardText}>
-              Artist: {props.artist}
+          <CardMedia className={ classes.bottomToolBar } elevation={0}>
+            <Typography className={ classes.cardText }>
+              Artist: { props.artist }
             </Typography>
-            <div className={classes.grow}/>
+            <div className={ classes.grow }/>
             <Chip 
               variant="outlined"
-              icon={<TodayIcon className={classes.todayIcon}/>}
-              label={<Moment fromNow ago>{props.created_at}</Moment>}
-              className={classes.chip}
+              icon={<TodayIcon className={ classes.todayIcon }/>}
+              label={<Moment fromNow ago>{ props.created_at }</Moment>}
+              className={ classes.chip }
             />
           </CardMedia>
           </Paper>

@@ -141,7 +141,7 @@ const Collectible = withStyles(styles)(({classes, ...props}) => {
       <Paper className={classes.outerBorder} >
         <Paper className={borderTier(props.tier)}>
           <Paper className={classes.topToolBar} elevation={0}>
-            <Typography className={classes.cardText} variant="h6">{props.name}</Typography>
+            <Typography className={classes.cardText} variant="h6">{props.type}</Typography>
           </Paper>
           <CardMedia className={classes.cardMedia}>
             <Image />

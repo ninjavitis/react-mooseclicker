@@ -126,7 +126,7 @@ const styles = (theme => (
       <Grid item xs={12} lg={4} >
         <Collectible 
           className={classes.activeCollectible} 
-          name={activeCollectible.name}
+          type={activeCollectible.type}
           tier={activeCollectible.tier} 
           level={activeCollectible.level} 
           clicks={activeCollectible.clicks} 

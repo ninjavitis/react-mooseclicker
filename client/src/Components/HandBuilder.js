@@ -36,7 +36,7 @@ const styles = (theme=>({
   }
 
 const HandBuilder = withStyles(styles)(({classes}) => {
-  const { hand, clearHand } = useContext(AppContext)
+  const { hand, clearHand, sets, validSets} = useContext(AppContext)
 
   const clearButton = (
     hand.length > 0 && 
@@ -57,8 +57,7 @@ return(
             <Draggable>
               <CollectibleSM
                 id={ item.id }
-                className={ classes.item } 
-                name={ item.name } 
+                type={ item.type } 
                 level={ item.level } 
                 tier={ item.tier }
                 clicks={ item.clicks } 
@@ -71,6 +70,7 @@ return(
         </Grow>
       )}
     </Grid>
+    {validSets.map(validSet => <div>{sets[validSet].name}</div>)}
     </div>
 )
 })
