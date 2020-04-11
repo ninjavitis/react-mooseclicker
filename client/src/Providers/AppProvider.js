@@ -215,10 +215,11 @@ export class AppProvider extends React.Component {
         (ie return list of sets that have the right type and quantity of cards)
 
       4. Display all valid sets to the player
+        TODO: indicate Partial Matches and Full Matches
 
-      5.  Pass the hand object + selected set to the back end to complete
+      5.  TODO: Pass the hand object + selected set to the backend to complete
 
-      6.  Handle response
+      6.  TODO: Handle response
 
   *** */
 
@@ -259,6 +260,8 @@ export class AppProvider extends React.Component {
     if (preFilteredSets.length > 0){
       tally.map(element => {
         validSets = preFilteredSets.map(setNum => {
+           // TODO: implement item level/click count checking
+
           let itemFound = Boolean(this.state.sets[setNum].requirements.find(({type}) => type === 'any' || type === element.type))
           if(itemFound){
             return setNum
