@@ -1,12 +1,9 @@
 import React, {useRef} from 'react';
 import {useDrag, DragPreviewImage} from 'react-dnd'
 
-function Draggable({id, children}){
+function Draggable({item, children}){
   const [{isDragging}, drag] = useDrag({
-    item: {
-      id: id,
-      type: 'collectible'
-    },
+    item: item,
     collect: monitor => ({
       isDragging: !!monitor.isDragging(),
     })

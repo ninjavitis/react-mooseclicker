@@ -29,7 +29,7 @@ const styles = (theme => (
       backgroundColor: theme.palette.background.paper,
       border: theme.palette.background.border,
       boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
+      padding: theme.spacing(2),
       borderRadius: theme.palette.background.borderRadius,
       outline: 'none',
     },
@@ -38,7 +38,7 @@ const styles = (theme => (
       justifyContent: 'center',
     },
     main:{
-      height:'calc(100vh - 104px)',
+      height:'calc(100vh - 84px)',
     },
     collectionManager:{
       display: 'flex'
@@ -155,6 +155,8 @@ const styles = (theme => (
         return main
     }
   }
+
+  console.log('Render Home')
 
   return(
     display(tab)

@@ -64,13 +64,14 @@ return(
                 clicksToLevel={ item.clicksToLevel } 
                 artist={ item.artist }
                 created_at={ item.created_at }
-                inHand={false}
+                inHand={ false }
               />
             </Draggable>
           </Grid>
         </Grow>
       )}
     </Grid>
+    Potential Matches:
     {validSets.map(validSet => <div>{sets[validSet].name}</div>)}
     </div>
 )

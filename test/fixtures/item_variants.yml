@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  item_type: one
+  name: MyString
+  artist_name: MyString
+  desc: MyString
+  tier: 1
+
+two:
+  item_type: two
+  name: MyString
+  artist_name: MyString
+  desc: MyString
+  tier: 1

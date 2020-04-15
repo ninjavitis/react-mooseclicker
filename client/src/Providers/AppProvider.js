@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 export const AppContext = React.createContext()
@@ -21,32 +21,59 @@ export class AppProvider extends React.Component {
       {name:'',items:[]},
     ],
     sets:[ 
-      { name: 'Two of a Kind', 
+      { 
+        id: 5,
+        name: 'Pair of Moose', 
         requirements:[
-            { type:'any', quantity:2, minClicks:0 },
-        ], 
+          { type:'Standard Moose', minClicks:0 },
+          { type:'Standard Moose', minClicks:0 },
+        ],
         rewards:['joy',]
       },
-      { name: '3 of a Kind', 
+      { 
+        id: 1,
+        name: 'Wild Pair', 
         requirements:[
-            { type:'any', quantity:3, minClicks:0 },
+          { type:'req1', minClicks:0 },
+          { type:'req1', minClicks:0 },
+        ],
+        rewards:['joy',]
+      },
+      { 
+        id: 2,
+        name: 'Wild 3 of a Kind', 
+        requirements:[
+          { type:'req1', minClicks:0 },
+          { type:'req1', minClicks:0 },
+          { type:'req1', minClicks:0 },
         ], 
         rewards:['more joy',]
       },
-      { name: 'Full House', 
+      { 
+        id:3,
+        name: 'Full House', 
         requirements:[
-            { type:'any', quantity:2, minClicks:0 },
-            { type:'any', quantity:3, minClicks:0 },
+          { type:'req1', minClicks:0 },
+          { type:'req1', minClicks:0 },
+          { type:'req1', minClicks:0 },
+          { type:'req2', minClicks:0 },
+          { type:'req2', minClicks:0 },
+        ],
+        rewards:['even more joy',]
+      },
+      { 
+        id: 4,
+        name: '10 click Full House', 
+        requirements:[
+          { type:'req1', minClicks:10 },
+          { type:'req1', minClicks:10 },
+          { type:'req1', minClicks:10 },
+          { type:'req2', minClicks:10 },
+          { type:'req2', minClicks:10 },
         ], 
         rewards:['even more joy',]
       },
-      { name: '10 click Full House', 
-        requirements:[
-            { type:'any', quantity:2, minClicks:10 },
-            { type:'any', quantity:3, minClicks:10 },
-        ], 
-        rewards:['even more joy',]
-      },
+
     ],
   }
 

@@ -3,9 +3,6 @@ import { AuthContext } from '../Providers/AuthProvider'
 import { AppContext } from '../Providers/AppProvider'
 import { withStyles } from '@material-ui/core/styles';
 
-import CardActionArea from '@material-ui/core/CardActionArea'
-import CardHeader from '@material-ui/core/CardHeader'
-import Card from '@material-ui/core/Card'
 import Grid from '@material-ui/core/Grid'
 import Grow from '@material-ui/core/Grow'
 import Paper from '@material-ui/core/Paper'
@@ -17,17 +14,19 @@ import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Tooltip from '@material-ui/core/Tooltip'
 
-import Collectible from './Collectible'
 import CollectibleSM from './CollectibleSM'
 import Draggable from './Draggable'
 
 const styles = (theme =>(
   {
+    main:{
+      maxHeight: 'calc(100vh - 84px)',
+      overflow: 'auto',
+    },
     grid:{
       width:'100%',
       padding: '0px 20px',
-      maxHeight: 'calc(100vh - 128px)',
-      overflow: 'auto',
+
     },
     toolbar:{
       minHeight:'4vh',
@@ -115,27 +114,20 @@ export default withStyles(styles)(({items, classes}) => {
   const Main = () => {
     if (collection.length > 0) {
       return (
-        <div>
+        <div className={classes.main}>
           <ToolBar className={ classes.toolbar }>
             {SortControls}
           </ToolBar> 
           <Grid className={ classes.grid } container spacing={1}>
             {collection.map((item,i) =>
               <Grow key={item.id} in={true} style={{ transitionDelay: delay(i,100)}}>
-              <Grid item xs={12} sm={6} md={1} lg={2}>
+              <Grid item xs={12} sm={6} md={4} lg={2}>
                 <Tooltip title="Click to set this as your active collectible!">
                   {/* Collectible wrapped in div as functional components dont take refs (req'd for tooltip) */}
                   <div>
-                    <Draggable id={item.id} type={'collectible'}>
+                    <Draggable item={item}>
                       <CollectibleSM 
-                        id={item.id}
-                        type={item.type} 
-                        level={item.level} 
-                        tier={item.tier}
-                        clicks={item.clicks} 
-                        clicksToLevel={item.clicksToLevel} 
-                        artist={item.artist}
-                        created_at={item.created_at}
+                        item={item}
                         action={()=>updateActiveCollectible(item.id)}
                         inHand={ inHand(item.id) }
                       />

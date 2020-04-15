@@ -143,82 +143,6 @@ ALTER SEQUENCE public.ctypes_id_seq OWNED BY public.ctypes.id;
 
 
 --
--- Name: items; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.items (
-    id bigint NOT NULL,
-    name character varying,
-    "desc" character varying,
-    price double precision,
-    value bigint,
-    image character varying,
-    item_type character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.items_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.items_id_seq OWNED BY public.items.id;
-
-
---
--- Name: mooses; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.mooses (
-    id bigint NOT NULL,
-    type character varying,
-    subtype character varying,
-    clicks bigint,
-    user_id bigint,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    name character varying,
-    variant character varying,
-    magic boolean,
-    age integer,
-    "clicksToLevel" bigint,
-    level bigint
-);
-
-
---
--- Name: mooses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.mooses_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: mooses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.mooses_id_seq OWNED BY public.mooses.id;
-
-
---
 -- Name: points_items; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -374,20 +298,6 @@ ALTER TABLE ONLY public.ctypes ALTER COLUMN id SET DEFAULT nextval('public.ctype
 
 
 --
--- Name: items id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.items ALTER COLUMN id SET DEFAULT nextval('public.items_id_seq'::regclass);
-
-
---
--- Name: mooses id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.mooses ALTER COLUMN id SET DEFAULT nextval('public.mooses_id_seq'::regclass);
-
-
---
 -- Name: points_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -441,22 +351,6 @@ ALTER TABLE ONLY public.ctypes
 
 
 --
--- Name: items items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.items
-    ADD CONSTRAINT items_pkey PRIMARY KEY (id);
-
-
---
--- Name: mooses mooses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.mooses
-    ADD CONSTRAINT mooses_pkey PRIMARY KEY (id);
-
-
---
 -- Name: points_items points_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -503,13 +397,6 @@ CREATE INDEX index_collectibles_on_user_id ON public.collectibles USING btree (u
 
 
 --
--- Name: index_mooses_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_mooses_on_user_id ON public.mooses USING btree (user_id);
-
-
---
 -- Name: index_transactions_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -542,14 +429,6 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING bt
 --
 
 CREATE UNIQUE INDEX index_users_on_uid_and_provider ON public.users USING btree (uid, provider);
-
-
---
--- Name: mooses fk_rails_757cc17817; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.mooses
-    ADD CONSTRAINT fk_rails_757cc17817 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -621,6 +500,16 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200308184012'),
 ('20200308184257'),
 ('20200308184429'),
-('20200308184556');
+('20200308184556'),
+('20200411170521'),
+('20200411170715'),
+('20200411171254'),
+('20200411171329'),
+('20200411171422'),
+('20200411171936'),
+('20200411172509'),
+('20200413033817'),
+('20200413033818'),
+('20200413033819');
 
 

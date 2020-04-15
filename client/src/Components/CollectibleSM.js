@@ -115,8 +115,8 @@ const styles = (theme => ({
 }))
 
 
-const CollectibleSM = withStyles(styles)(({classes, ...props}) => {
-  const [isActive] = useState()
+const CollectibleSM = withStyles(styles)(({classes, item, ...props,}) => {
+  const [isActive] = useState(false)
 
   const borderTier = (tier) => {
     switch (tier) {
@@ -154,21 +154,21 @@ const CollectibleSM = withStyles(styles)(({classes, ...props}) => {
         onClick={props.action}
       >
       <Paper className={outerBorder(props.inHand)} >
-        <Paper className={borderTier(props.tier)}>
+        <Paper className={borderTier(item.tier)}>
           <Paper className={classes.topToolBar} elevation={0}>
-            <Typography className={classes.cardText} variant="h6">{props.type}</Typography>
+            <Typography className={classes.cardText} variant="h6">{item.type}</Typography>
           </Paper>
           <CardMedia className={classes.cardMedia}>
             <Image />
           <Typography className={classes.cardText}>
-            Artist: {props.artist}
+            Artist: {item.artist}
           </Typography>
           <Typography className={classes.cardText}>
-            <FavoriteIcon className={classes.heartIcon} fontSize='inherit'/>{props.level} {props.clicks + ' / ' + (props.clicksToLevel || '-')}
+            <FavoriteIcon className={classes.heartIcon} fontSize='inherit'/>{item.level} {item.clicks + ' / ' + (item.clicksToLevel || '-')}
           </Typography>
           <div className={classes.grow}/>
           <Typography className={classes.cardText}>
-            <TodayIcon className={classes.todayIcon} fontSize='inherit'/><Moment fromNow ago>{props.created_at}</Moment>
+            <TodayIcon className={classes.todayIcon} fontSize='inherit'/><Moment fromNow ago>{item.created_at}</Moment>
           </Typography>
           </CardMedia>
           </Paper>

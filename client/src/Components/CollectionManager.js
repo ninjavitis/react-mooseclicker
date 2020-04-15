@@ -6,25 +6,28 @@ import { AppContext } from '../Providers/AppProvider'
 import Grid from '@material-ui/core/Grid'
 import Collection from './Collection'
 import HandBuilder from './HandBuilder'
+import SetAlbum from './SetAlbum'
 import Droppable from './Droppable'
 
 const styles = (theme=>({
-
+  main:{
+    maxHeight: 'calc(100vh - 84px)',
+  },
 }))
 
 
 const CollectionManager =  withStyles(styles)(({ classes }) => {
   const { addToHand } = useContext(AppContext)
 
+  console.log('Render CollectionManager')
+
 return(
-  <Grid container>
+  <Grid className={classes.main} container>
     <Grid item xs={12} md={6}>
       <Collection />
     </Grid>
     <Grid item xs={12} md={6}>
-      <Droppable type='collectible' dropAction={addToHand}>
-        <HandBuilder />
-      </Droppable>
+      <SetAlbum />
     </Grid>
   </Grid>
 )

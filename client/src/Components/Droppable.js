@@ -1,16 +1,19 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, useState } from 'react';
 import { useDrop } from 'react-dnd'
 
 import { AppContext } from '../Providers/AppProvider'
 
-const Droppable = ({type, children, dropAction}) => {
-  const {addToHand} = useContext(AppContext)
+const Droppable = ({types, children, onDrop, }) => {
+
+  const onlyUnique = (value, i, self) => self.indexOf(value) === i
+  const uniqueTypes = types.filter(onlyUnique).join(',')
 
   const [{isOver, canDrop}, drop] = useDrop({
-    accept: type,
-    drop(item){dropAction(item.id)},
+    accept: uniqueTypes,
+    drop(item){ onDrop(item)},
 
     collect: monitor => ({ 
+      // isOver will only be true if the types match
       isOver: !!monitor.isOver(),
       canDrop: !!monitor.canDrop()
     })
@@ -25,6 +28,7 @@ const Droppable = ({type, children, dropAction}) => {
       style={{
         width: '100%',
         height: '100%',
+        backgroundColor: isOver && '#aaaaaa'
       }}
       
       >

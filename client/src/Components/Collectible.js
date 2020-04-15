@@ -5,7 +5,6 @@ import Moment from 'react-moment';
 
 // Material UI Imports
 import { withStyles } from '@material-ui/styles';
-import Box from '@material-ui/core/Box'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
