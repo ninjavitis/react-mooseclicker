@@ -5,7 +5,7 @@ class Api::CollectiblesController < ApplicationController
 
   def collection
     if current_user
-      collection = current_user.collectibles.includes(:ctype).order(created_at: :desc)
+      collection = current_user.collectibles.includes(ctype: :artist).order(created_at: :desc)
       .map{ |collectible| 
         {
           id:collectible.id,
@@ -17,7 +17,7 @@ class Api::CollectiblesController < ApplicationController
           type:collectible.ctype.name, 
           desc:collectible.ctype.desc, 
           image:collectible.ctype.image,
-          artist:collectible.ctype.artist,
+          artist:collectible.ctype.artist.name,
           tier:collectible.ctype.tier,
         }
       }

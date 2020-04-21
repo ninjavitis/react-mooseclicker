@@ -97,6 +97,8 @@ const styles = (theme => (
 
   const collectionLabel = () => `Collection (${collectionSize()})`
 
+
+
   // prompts the user to register when default collectible is clicked
   const registerModal = (
     <Modal

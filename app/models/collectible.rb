@@ -26,7 +26,7 @@ class Collectible < ApplicationRecord
       c.ctype.name, 
       c.ctype.desc, 
       c.ctype.image, 
-      c.ctype.artist,
+      c.ctype.artist.name,
       c.ctype.tier,
     )
   end

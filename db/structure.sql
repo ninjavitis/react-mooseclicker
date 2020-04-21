@@ -38,6 +38,37 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: artists; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.artists (
+    id bigint NOT NULL,
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: artists_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.artists_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: artists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.artists_id_seq OWNED BY public.artists.id;
+
+
+--
 -- Name: clicks_items; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -119,7 +150,7 @@ CREATE TABLE public.ctypes (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     tier bigint,
-    artist text
+    artist_id bigint
 );
 
 
@@ -277,6 +308,13 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: artists id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.artists ALTER COLUMN id SET DEFAULT nextval('public.artists_id_seq'::regclass);
+
+
+--
 -- Name: clicks_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -324,6 +362,14 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: artists artists_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.artists
+    ADD CONSTRAINT artists_pkey PRIMARY KEY (id);
 
 
 --
@@ -397,6 +443,13 @@ CREATE INDEX index_collectibles_on_user_id ON public.collectibles USING btree (u
 
 
 --
+-- Name: index_ctypes_on_artist_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_ctypes_on_artist_id ON public.ctypes USING btree (artist_id);
+
+
+--
 -- Name: index_transactions_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -429,6 +482,14 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING bt
 --
 
 CREATE UNIQUE INDEX index_users_on_uid_and_provider ON public.users USING btree (uid, provider);
+
+
+--
+-- Name: ctypes fk_rails_3c20065602; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ctypes
+    ADD CONSTRAINT fk_rails_3c20065602 FOREIGN KEY (artist_id) REFERENCES public.artists(id);
 
 
 --
@@ -510,6 +571,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200411172509'),
 ('20200413033817'),
 ('20200413033818'),
-('20200413033819');
+('20200413033819'),
+('20200421215243'),
+('20200421221324'),
+('20200421221551'),
+('20200421222112'),
+('20200421232227');
 
 
