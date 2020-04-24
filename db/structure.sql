@@ -174,6 +174,40 @@ ALTER SEQUENCE public.ctypes_id_seq OWNED BY public.ctypes.id;
 
 
 --
+-- Name: item_sets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.item_sets (
+    id bigint NOT NULL,
+    name character varying,
+    user_id bigint,
+    complete boolean,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    set_type_id bigint
+);
+
+
+--
+-- Name: item_sets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.item_sets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: item_sets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.item_sets_id_seq OWNED BY public.item_sets.id;
+
+
+--
 -- Name: points_items; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -215,6 +249,40 @@ ALTER SEQUENCE public.points_items_id_seq OWNED BY public.points_items.id;
 CREATE TABLE public.schema_migrations (
     version character varying NOT NULL
 );
+
+
+--
+-- Name: set_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.set_types (
+    id bigint NOT NULL,
+    name character varying,
+    tier integer,
+    reward_type character varying,
+    reward_value integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: set_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.set_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: set_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.set_types_id_seq OWNED BY public.set_types.id;
 
 
 --
@@ -336,10 +404,24 @@ ALTER TABLE ONLY public.ctypes ALTER COLUMN id SET DEFAULT nextval('public.ctype
 
 
 --
+-- Name: item_sets id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.item_sets ALTER COLUMN id SET DEFAULT nextval('public.item_sets_id_seq'::regclass);
+
+
+--
 -- Name: points_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.points_items ALTER COLUMN id SET DEFAULT nextval('public.points_items_id_seq'::regclass);
+
+
+--
+-- Name: set_types id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.set_types ALTER COLUMN id SET DEFAULT nextval('public.set_types_id_seq'::regclass);
 
 
 --
@@ -397,6 +479,14 @@ ALTER TABLE ONLY public.ctypes
 
 
 --
+-- Name: item_sets item_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.item_sets
+    ADD CONSTRAINT item_sets_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: points_items points_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -410,6 +500,14 @@ ALTER TABLE ONLY public.points_items
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: set_types set_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.set_types
+    ADD CONSTRAINT set_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -450,6 +548,20 @@ CREATE INDEX index_ctypes_on_artist_id ON public.ctypes USING btree (artist_id);
 
 
 --
+-- Name: index_item_sets_on_set_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_item_sets_on_set_type_id ON public.item_sets USING btree (set_type_id);
+
+
+--
+-- Name: index_item_sets_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_item_sets_on_user_id ON public.item_sets USING btree (user_id);
+
+
+--
 -- Name: index_transactions_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -485,6 +597,14 @@ CREATE UNIQUE INDEX index_users_on_uid_and_provider ON public.users USING btree 
 
 
 --
+-- Name: item_sets fk_rails_1e29386ae9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.item_sets
+    ADD CONSTRAINT fk_rails_1e29386ae9 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: ctypes fk_rails_3c20065602; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -498,6 +618,14 @@ ALTER TABLE ONLY public.ctypes
 
 ALTER TABLE ONLY public.transactions
     ADD CONSTRAINT fk_rails_77364e6416 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: item_sets fk_rails_8546460fb7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.item_sets
+    ADD CONSTRAINT fk_rails_8546460fb7 FOREIGN KEY (set_type_id) REFERENCES public.set_types(id);
 
 
 --
@@ -576,6 +704,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200421221324'),
 ('20200421221551'),
 ('20200421222112'),
-('20200421232227');
+('20200421232227'),
+('20200422234005'),
+('20200424232437'),
+('20200424232628');
 
 

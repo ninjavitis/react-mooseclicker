@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  tier: 1
+  reward_type: MyString
+  reward_value: 1
+
+two:
+  name: MyString
+  tier: 1
+  reward_type: MyString
+  reward_value: 1
