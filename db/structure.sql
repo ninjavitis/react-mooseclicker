@@ -184,7 +184,7 @@ CREATE TABLE public.item_sets (
     complete boolean,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    set_type_id bigint
+    set_definitions_id bigint
 );
 
 
@@ -252,25 +252,29 @@ CREATE TABLE public.schema_migrations (
 
 
 --
--- Name: set_types; Type: TABLE; Schema: public; Owner: -
+-- Name: set_definitions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.set_types (
+CREATE TABLE public.set_definitions (
     id bigint NOT NULL,
-    name character varying,
-    tier integer,
-    reward_type character varying,
-    reward_value integer,
+    name text,
+    tier bigint,
+    point_reward integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    req1_id bigint,
+    req2_id bigint,
+    req3_id bigint,
+    req4_id bigint,
+    req5_id bigint
 );
 
 
 --
--- Name: set_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: set_definitions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.set_types_id_seq
+CREATE SEQUENCE public.set_definitions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -279,10 +283,42 @@ CREATE SEQUENCE public.set_types_id_seq
 
 
 --
--- Name: set_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: set_definitions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.set_types_id_seq OWNED BY public.set_types.id;
+ALTER SEQUENCE public.set_definitions_id_seq OWNED BY public.set_definitions.id;
+
+
+--
+-- Name: set_requirements; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.set_requirements (
+    id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    key text,
+    value text
+);
+
+
+--
+-- Name: set_requirements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.set_requirements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: set_requirements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.set_requirements_id_seq OWNED BY public.set_requirements.id;
 
 
 --
@@ -418,10 +454,17 @@ ALTER TABLE ONLY public.points_items ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- Name: set_types id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: set_definitions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.set_types ALTER COLUMN id SET DEFAULT nextval('public.set_types_id_seq'::regclass);
+ALTER TABLE ONLY public.set_definitions ALTER COLUMN id SET DEFAULT nextval('public.set_definitions_id_seq'::regclass);
+
+
+--
+-- Name: set_requirements id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.set_requirements ALTER COLUMN id SET DEFAULT nextval('public.set_requirements_id_seq'::regclass);
 
 
 --
@@ -503,11 +546,19 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
--- Name: set_types set_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: set_definitions set_definitions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.set_types
-    ADD CONSTRAINT set_types_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.set_definitions
+    ADD CONSTRAINT set_definitions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: set_requirements set_requirements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.set_requirements
+    ADD CONSTRAINT set_requirements_pkey PRIMARY KEY (id);
 
 
 --
@@ -548,10 +599,10 @@ CREATE INDEX index_ctypes_on_artist_id ON public.ctypes USING btree (artist_id);
 
 
 --
--- Name: index_item_sets_on_set_type_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_item_sets_on_set_definitions_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_item_sets_on_set_type_id ON public.item_sets USING btree (set_type_id);
+CREATE INDEX index_item_sets_on_set_definitions_id ON public.item_sets USING btree (set_definitions_id);
 
 
 --
@@ -559,6 +610,41 @@ CREATE INDEX index_item_sets_on_set_type_id ON public.item_sets USING btree (set
 --
 
 CREATE INDEX index_item_sets_on_user_id ON public.item_sets USING btree (user_id);
+
+
+--
+-- Name: index_set_definitions_on_req1_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_set_definitions_on_req1_id ON public.set_definitions USING btree (req1_id);
+
+
+--
+-- Name: index_set_definitions_on_req2_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_set_definitions_on_req2_id ON public.set_definitions USING btree (req2_id);
+
+
+--
+-- Name: index_set_definitions_on_req3_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_set_definitions_on_req3_id ON public.set_definitions USING btree (req3_id);
+
+
+--
+-- Name: index_set_definitions_on_req4_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_set_definitions_on_req4_id ON public.set_definitions USING btree (req4_id);
+
+
+--
+-- Name: index_set_definitions_on_req5_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_set_definitions_on_req5_id ON public.set_definitions USING btree (req5_id);
 
 
 --
@@ -605,11 +691,35 @@ ALTER TABLE ONLY public.item_sets
 
 
 --
+-- Name: set_definitions fk_rails_2e00f1f271; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.set_definitions
+    ADD CONSTRAINT fk_rails_2e00f1f271 FOREIGN KEY (req5_id) REFERENCES public.set_requirements(id);
+
+
+--
 -- Name: ctypes fk_rails_3c20065602; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.ctypes
     ADD CONSTRAINT fk_rails_3c20065602 FOREIGN KEY (artist_id) REFERENCES public.artists(id);
+
+
+--
+-- Name: set_definitions fk_rails_4548964a08; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.set_definitions
+    ADD CONSTRAINT fk_rails_4548964a08 FOREIGN KEY (req1_id) REFERENCES public.set_requirements(id);
+
+
+--
+-- Name: item_sets fk_rails_54420528bf; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.item_sets
+    ADD CONSTRAINT fk_rails_54420528bf FOREIGN KEY (set_definitions_id) REFERENCES public.set_definitions(id);
 
 
 --
@@ -621,11 +731,19 @@ ALTER TABLE ONLY public.transactions
 
 
 --
--- Name: item_sets fk_rails_8546460fb7; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: set_definitions fk_rails_77fa1cc01c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.item_sets
-    ADD CONSTRAINT fk_rails_8546460fb7 FOREIGN KEY (set_type_id) REFERENCES public.set_types(id);
+ALTER TABLE ONLY public.set_definitions
+    ADD CONSTRAINT fk_rails_77fa1cc01c FOREIGN KEY (req2_id) REFERENCES public.set_requirements(id);
+
+
+--
+-- Name: set_definitions fk_rails_7f3c803f70; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.set_definitions
+    ADD CONSTRAINT fk_rails_7f3c803f70 FOREIGN KEY (req4_id) REFERENCES public.set_requirements(id);
 
 
 --
@@ -634,6 +752,14 @@ ALTER TABLE ONLY public.item_sets
 
 ALTER TABLE ONLY public.collectibles
     ADD CONSTRAINT fk_rails_c1c7a5e88a FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: set_definitions fk_rails_df9766d60a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.set_definitions
+    ADD CONSTRAINT fk_rails_df9766d60a FOREIGN KEY (req3_id) REFERENCES public.set_requirements(id);
 
 
 --
@@ -707,6 +833,24 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200421232227'),
 ('20200422234005'),
 ('20200424232437'),
-('20200424232628');
+('20200424232628'),
+('20200516191452'),
+('20200516192023'),
+('20200516193924'),
+('20200516194532'),
+('20200516200153'),
+('20200516201522'),
+('20200516205816'),
+('20200516210023'),
+('20200519222020'),
+('20200519223401'),
+('20200519223736'),
+('20200519223807'),
+('20200519224702'),
+('20200519225854'),
+('20200519230551'),
+('20200519230806'),
+('20200519231158'),
+('20200519231336');
 
 

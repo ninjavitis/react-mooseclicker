@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  namespace :set_definitions do
+    get 'api/index'
+    get 'api/create'
+    get 'api/update'
+    get 'api/destroy'
+    get 'api/show'
+  end
+  namespace :set_controller do
+    get 'api/index'
+    get 'api/create'
+    get 'api/update'
+    get 'api/destroy'
+    get 'api/show'
+  end
   # get 'transaction/index'
   # get 'transaction/show'
   # get 'transaction/create'
@@ -38,6 +52,8 @@ Rails.application.routes.draw do
 
   get 'api/transactions/', to: 'api/transactions#index'
   get 'api/transactions/user', to: 'api/transactions#index_by_user'
+
+  get 'api/setDefinitions/', to: 'api/set_definitions#index'
   
   # TODO remove when transition to collectible schema is complete
   # get 'api/user/click', to: 'api/users#click'
