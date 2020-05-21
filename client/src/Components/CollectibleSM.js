@@ -115,7 +115,7 @@ const styles = (theme => ({
 }))
 
 
-const CollectibleSM = withStyles(styles)(({classes, item, ...props,}) => {
+const CollectibleSM = withStyles(styles)(({classes, item, ...props}) => {
   const [isActive] = useState(false)
 
   const borderTier = (tier) => {
