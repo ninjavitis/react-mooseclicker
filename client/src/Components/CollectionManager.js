@@ -19,12 +19,13 @@ const styles = (theme=>({
 const CollectionManager =  withStyles(styles)(({ classes }) => {
   const { addToHand } = useContext(AppContext)
 
-  console.log('Render CollectionManager')
-
 return(
   <Grid className={classes.main} container>
     <Grid item xs={12} md={6}>
       <Collection />
+      <Droppable type={ 'collectible' } onDrop={ addToHand }>
+        <HandBuilder />
+      </Droppable>
     </Grid>
     <Grid item xs={12} md={6}>
       <SetAlbum />

@@ -37,7 +37,7 @@ const styles = (theme =>({
   }
 }))
 
-const SetPage = withStyles(styles)(({classes, ...props})=> {
+const SetPage = withStyles(styles)(({classes, requirements, serializedReqs, ...props})=> {
   const { collection } = useContext( AppContext )
 
   const [complete, setComplete] = useState( false ) 
@@ -45,8 +45,9 @@ const SetPage = withStyles(styles)(({classes, ...props})=> {
   const [items, setItems] = useState( [] )
 
   // Gather all of the type requirements for this set
-  const types = props.requirements.map( req => req.type)
+  const types = requirements.map( req => req.type)
 
+  //
   const inItems = (itemID) => Boolean(items.find(({id}) => id === itemID))
 
   const addToSet = ( res ) => {
@@ -56,7 +57,7 @@ const SetPage = withStyles(styles)(({classes, ...props})=> {
       return
     }
 
-    setComplete(checkRequirements(props.requirements))
+    setComplete(checkRequirements(requirements))
   }
 
   // Build the set dropzones
@@ -89,10 +90,10 @@ const SetPage = withStyles(styles)(({classes, ...props})=> {
     }
   }
 
-  const dropZones = (
-    props.requirements.map( (req, i) => 
+  const itemsInSet = (
+    requirements.map( (req,i) =>
       <Grid item>
-        {items[i] ? <CollectibleSM item={ items[i] } /> : <CardDropZone type={req.type} />}
+        {items[i] && <CollectibleSM item={ items[i] } /> }
       </Grid>
     )
   )
@@ -102,9 +103,9 @@ const SetPage = withStyles(styles)(({classes, ...props})=> {
       <div className={classes.setTitle}>{props.name}</div>
         <Paper className={classes.setBody}>
           {complete? <StarRoundedIcon style={{color:'#fce205'}} fontSize={'large'}/> : <StarBorderRoundedIcon style={{color:'#999999'}} fontSize={'large'}/> }
-          <Droppable types={ types } onDrop={ addToSet }>
+          <Droppable type={ 'collectible' } onDrop={ addToSet }>
             <Grid container>
-              {dropZones}
+                {itemsInSet}
             </Grid>
           </Droppable>
         </Paper>

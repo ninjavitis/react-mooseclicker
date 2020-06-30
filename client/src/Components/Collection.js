@@ -39,7 +39,7 @@ const styles = (theme =>(
 
 export default withStyles(styles)(({items, classes}) => {
   const {authenticated} = useContext(AuthContext)
-  const { collection, fetchCollection, sortCollection, updateActiveCollectible, inHand } = useContext(AppContext)
+  const { collection, fetchCollection, sortCollection, updateActiveCollectible, } = useContext(AppContext)
   
   const [key, setKey] = useState('created_at')
   const [direction, setDirection] = useState(1)
@@ -63,10 +63,9 @@ export default withStyles(styles)(({items, classes}) => {
     setDirection(e.target.value)
   }
   
-  
   // linearly stagger drawing the cards
   const delay = (step,interval) => {
-    let base = 200;
+    let base = 0;
     return `${base + (interval * (step - 1))}ms`
   }
   
@@ -109,7 +108,25 @@ export default withStyles(styles)(({items, classes}) => {
     </>
   )
 
-
+  const collectibles = (
+    collection.map((item,i) =>
+      <Grow key={item.id} in={true} style={{ transitionDelay: delay(i,50)}}>
+      <Grid item xs={12} sm={6} md={4} lg={2}>
+        <Tooltip title="Click to set this as your active collectible!">
+          {/* Collectible wrapped in div as functional components dont take refs (req'd for tooltip) */}
+          <div>
+            <Draggable item={item}>
+              <CollectibleSM 
+                item={item}
+                action={()=>updateActiveCollectible(item.id)}
+              />
+            </Draggable>
+          </div>
+        </Tooltip>
+      </Grid>
+    </Grow>
+    )
+  )
   
   const Main = () => {
     if (collection.length > 0) {
@@ -119,24 +136,7 @@ export default withStyles(styles)(({items, classes}) => {
             {SortControls}
           </ToolBar> 
           <Grid className={ classes.grid } container spacing={1}>
-            {collection.map((item,i) =>
-              <Grow key={item.id} in={true} style={{ transitionDelay: delay(i,100)}}>
-              <Grid item xs={12} sm={6} md={4} lg={2}>
-                <Tooltip title="Click to set this as your active collectible!">
-                  {/* Collectible wrapped in div as functional components dont take refs (req'd for tooltip) */}
-                  <div>
-                    <Draggable item={item}>
-                      <CollectibleSM 
-                        item={item}
-                        action={()=>updateActiveCollectible(item.id)}
-                        inHand={ inHand(item.id) }
-                      />
-                    </Draggable>
-                  </div>
-                </Tooltip>
-              </Grid>
-            </Grow>
-            )}
+            {collectibles}
           </Grid>
         </div>
       )

@@ -31,48 +31,41 @@ const styles = (theme=>({
 
   // linearly stagger drawing the cards
   const delay = (step,interval) => {
-    let base = 200;
+    let base = 0;
     return `${base + (interval * (step - 1))}ms`
   }
 
 const HandBuilder = withStyles(styles)(({classes}) => {
-  const { hand, clearHand, sets, validSets, } = useContext(AppContext)
+  const { hand, checkHand, clearHand, sets, validSets, } = useContext(AppContext)
 
   const clearButton = (
     hand.length > 0 && 
-    <Button variant="contained" onClick={clearHand}>
-      Clear items
-    </Button>
+    <Button variant="contained" onClick={clearHand}>Clear items</Button>
   )
 
+  const checkHandButton = (
+    <Button variant="contained" onClick={checkHand}>Check Hand</Button>
+  )
+  
 return(
   <div className={ classes.main }>
-    <Toolbar className={ classes.toolbar }>
-      {clearButton}
-    </Toolbar>
+      Add cards to the dropzone below to start building a set!
     <Grid container alignItems='center' justifyItems='center' spacing={1}>
       {hand.map((item,i) =>
-        <Grow key={ item.id } in={ true } style={{ transitionDelay: delay(i,100)}}>
+        <Grow key={ item.id } in={ true } style={{ transitionDelay: delay(i,50)}}>
           <Grid item xs={12} sm={6} md={1} lg={2}>
-            <Draggable>
-              <CollectibleSM
-                id={ item.id }
-                type={ item.type } 
-                level={ item.level } 
-                tier={ item.tier }
-                clicks={ item.clicks } 
-                clicksToLevel={ item.clicksToLevel } 
-                artist={ item.artist }
-                created_at={ item.created_at }
-                inHand={ false }
-              />
-            </Draggable>
+            <CollectibleSM
+              item={item}
+            />
           </Grid>
         </Grow>
       )}
     </Grid>
-    Potential Matches:
     {validSets.map(validSet => <div>{sets[validSet].name}</div>)}
+    <Toolbar className={ classes.toolbar }>
+      {clearButton}
+      {hand.length > 1 && checkHandButton}
+    </Toolbar>
     </div>
 )
 })

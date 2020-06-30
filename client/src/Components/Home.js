@@ -13,7 +13,7 @@ import Paper from '@material-ui/core/Paper'
 // CollectOS components
 import Collectible from './Collectible'
 import ShopBox from './ShopBox'
-import Collection from './Collection'
+import UserProfile from './UserProfile'
 import CollectionManager from './CollectionManager'
 import RegistrationForm from './RegistrationForm'
 
@@ -58,6 +58,7 @@ const styles = (theme => (
     collectionSize,
     fetchCollection,
     fetchItems,
+    fetchSetDefinitions,
   } = useContext(AppContext)
 
   useEffect(()=>{
@@ -65,6 +66,7 @@ const styles = (theme => (
       fetchActiveCollectible()
       fetchCollection()
       fetchItems()
+      fetchSetDefinitions()
     } else {
       clearCollectible()
     }
@@ -153,12 +155,12 @@ const styles = (theme => (
         return <CollectionManager className={classes.collectionManager}/>
       case 2:
         return <ShopBox />
+      case 3:
+        return <UserProfile />
       default:
         return main
     }
   }
-
-  console.log('Render Home')
 
   return(
     display(tab)

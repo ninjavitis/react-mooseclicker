@@ -1,20 +1,17 @@
 // React Imports
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AppContext } from '../Providers/AppProvider'
 
 import Moment from 'react-moment';
 
 // Material UI Imports
 import { withStyles } from '@material-ui/styles';
-import Box from '@material-ui/core/Box'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Paper from '@material-ui/core/Paper'
-import Chip from '@material-ui/core/Chip'
-import Avatar from '@material-ui/core/Avatar';
+
 import Typography from '@material-ui/core/Typography'
-import Badge from '@material-ui/core/Badge'
 
 // Colors
 import indigo from '@material-ui/core/colors/indigo'
@@ -114,9 +111,14 @@ const styles = (theme => ({
     },
 }))
 
+const destructuredProps = [
+  
+]
 
-const CollectibleSM = withStyles(styles)(({classes, item, ...props}) => {
-  const [isActive] = useState(false)
+
+const CollectibleSM = withStyles(styles)(({classes, item, action, props}) => {
+  const { inHand } = useContext(AppContext)
+
 
   const borderTier = (tier) => {
     switch (tier) {
@@ -137,11 +139,11 @@ const CollectibleSM = withStyles(styles)(({classes, item, ...props}) => {
   }
 
   const elevation = (
-    props.inHand? 24 : 1
+    inHand(item.id)? 24 : 1
   )
 
   const outerBorder = (inHand) => {
-    if (inHand){
+    if (item.inHand){
       return classes.outerBorderSelected
     } else {
       return classes.outerBorderDeselcted
@@ -151,9 +153,9 @@ const CollectibleSM = withStyles(styles)(({classes, item, ...props}) => {
   return(
     <Card className={classes.card} variant='outlined' elevation={elevation}>
       <CardActionArea
-        onClick={props.action}
+        onClick={action}
       >
-      <Paper className={outerBorder(props.inHand)} >
+      <Paper className={outerBorder(inHand(item.id))} >
         <Paper className={borderTier(item.tier)}>
           <Paper className={classes.topToolBar} elevation={0}>
             <Typography className={classes.cardText} variant="h6">{item.type}</Typography>

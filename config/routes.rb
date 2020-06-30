@@ -54,6 +54,8 @@ Rails.application.routes.draw do
   get 'api/transactions/user', to: 'api/transactions#index_by_user'
 
   get 'api/setDefinitions/', to: 'api/set_definitions#index'
+
+  put 'api/sets/checkHand', to: 'api/sets#check_hand'
   
   # TODO remove when transition to collectible schema is complete
   # get 'api/user/click', to: 'api/users#click'

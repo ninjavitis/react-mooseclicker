@@ -16,16 +16,17 @@ const styles = (theme => ({
 }))
 
 const SetAlbum = withStyles( styles )(({ classes, ...props }) => {
-  const { sets } = useContext( AppContext )
+  const { setDefinitions, fetchSetDefinitions } = useContext( AppContext )
 
   return(
     <Paper className={classes.main}>
       { 
-        sets.map( set => 
+        setDefinitions.map( definition => 
           <SetPage
-            key={ set.id }
-            name={ set.name }
-            requirements={ set.requirements }
+            key={ definition.id }
+            name={ definition.name }
+            requirements={ definition.requirements }
+            serializedReqs={ definition.serializedReqs }
           />
         )
       }

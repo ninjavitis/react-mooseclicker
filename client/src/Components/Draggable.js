@@ -3,7 +3,7 @@ import {useDrag, DragPreviewImage} from 'react-dnd'
 
 function Draggable({item, children}){
   const [{isDragging}, drag] = useDrag({
-    item: item,
+    item: {id:item.id, type:item.draggable_type},
     collect: monitor => ({
       isDragging: !!monitor.isDragging(),
     })

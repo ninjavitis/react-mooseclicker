@@ -53,4 +53,8 @@ class Api::SetDefinitionsController < ApplicationController
   def set_definition_params
     params.require(:set_definitions).permit(:name, :tier, :point_reward, :req1, :req2, :req3, :req4, :req5 )
   end
+
+  def check_hand_params
+    params.require(:item_ids)
+  end
 end

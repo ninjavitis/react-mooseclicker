@@ -14,11 +14,10 @@ const styles = ( theme => ({
   }
 }))
 
-const CardDropZone = withStyles(styles)(({classes, ...props}) => {
-  const [type] = useState(props.type || 'collectible')
 
+const CardDropZone = withStyles(styles)(({classes,requirement}) => {
   return(
-      <Box className={classes.box}>{type}</Box>
+    <Box className={classes.box}>{requirement.type}:{requirement.pattern}</Box>
   )
 })
 

@@ -20,6 +20,7 @@ export class AppProvider extends React.Component {
       {name:'',items:[]},
       {name:'',items:[]},
     ],
+    setDefinitions:[],
     sets:[ 
       { 
         id: 5,
@@ -153,7 +154,6 @@ export class AppProvider extends React.Component {
     .catch(res => console.log(res))
   }
 
-
   ////////////////////////
   // Collection Management
   /////////
@@ -197,9 +197,10 @@ export class AppProvider extends React.Component {
       const item = this.state.collection.filter(i => i.id === id)[0]
       this.setState({hand:[item, ...this.state.hand]})
     }
-    
-    // then update the list of sets that are completable by this hand
-    this.setValidSets(this.validateSets())
+  }
+
+  itemIds = (itemArray) => {
+    return itemArray.map(item => item.id)
   }
   
   // remove a specific item from the hand
@@ -210,11 +211,19 @@ export class AppProvider extends React.Component {
   
   clearHand = () => {
     this.setState({hand:[]})
-    this.clearValidSets()
   }
 
-  // used by the item cards to set the 'in hand' styling
-  inHand = (itemID) => Boolean(this.state.hand.find(({id}) => id === itemID))
+  // determine if an itemID exists in the hand array
+  inHand = (itemID) => {
+    return Boolean(this.state.hand.find(({id}) => id === itemID))
+  }
+
+  // ask the backend to check for potential set matches with the current hand
+  checkHand = items => {
+    axios.put('/api/sets/checkHand/', {item_ids: this.itemIds(this.state.hand)})
+    .then(res => console.log(res.data))
+    .catch(res => console.log(res))
+  }
   
   // Returns an array of the quantities of each type of card in the hand
   tallyHand = () => {
@@ -224,6 +233,35 @@ export class AppProvider extends React.Component {
       })
 
     return tally
+  }
+
+  //////////////////////
+  // Set Definition Management
+  //////
+
+  // most of this is moving into the backend
+  // TODO remove once backend functions work
+
+  setSetDefinitions = (setDefinitions) => this.setState({ setDefinitions:setDefinitions })
+
+  // not free, but each requirement is only 2 key/value pairs 
+  serializeRequirements = (req) => { return JSON.stringify(req) }
+
+  fetchSetDefinitions = () => {
+    axios.get('/api/setDefinitions/')
+    .then(res => {
+      // serialize the requirements of each set so they are easy to compare
+      let setDefs = res.data
+      setDefs.forEach((definition, i) => {
+        let serializedReqs = definition.requirements.map( 
+          req => { return this.serializeRequirements(req) }
+        )
+        definition.serializedReqs = serializedReqs
+      })
+      // save the modified set definitions to state
+      this.setSetDefinitions(setDefs)
+    })
+    .catch(res => console.log(res))
   }
 
   //////////////////////
@@ -344,19 +382,21 @@ export class AppProvider extends React.Component {
       getUser:this.getUser,
       fetchUser:this.fetchUser,
       fetchCollection:this.fetchCollection,
-      sortCollection:this.sortCollection,
       fetchActiveCollectible:this.fetchActiveCollecitble,
+      fetchCollectibles:this.fetchCollectibles,
+      fetchItems:this.fetchItems,
+      fetchSetDefinitions:this.fetchSetDefinitions,
+      sortCollection:this.sortCollection,
       clearCollectible:this.clearCollectible,
       clickCollectible:this.clickCollectible,
       updateActiveCollectible:this.updateActiveCollectible,
-      fetchCollectibles:this.fetchCollectibles,
       collectionSize:this.collectionSize,
       addToHand:this.addToHand,
       clearHand:this.clearHand,
       inHand:this.inHand,
+      checkHand:this.checkHand,
       wrappedCollectibles:this.wrappedItems(this.state.collectibles),
       newCollectible:this.newCollectible,
-      fetchItems:this.fetchItems,
       inventories:[
         {name:'Points',items:this.state.pointsItems}, 
         {name:'Collectibles',items:this.state.collectibleItems}, 

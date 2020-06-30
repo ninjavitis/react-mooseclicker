@@ -19,6 +19,7 @@ class Api::CollectiblesController < ApplicationController
           image:collectible.ctype.image,
           artist:collectible.ctype.artist.name,
           tier:collectible.ctype.tier,
+          draggable_type:'collectible',
         }
       }
 
@@ -68,5 +69,4 @@ class Api::CollectiblesController < ApplicationController
   def active_collectible
     active_collectible = Collectible.find(current_user.activeCollectible)
   end
-
 end

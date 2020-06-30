@@ -160,6 +160,19 @@ const styles = (theme => ({
     <MenuItem onClick={handleLogout} key={'2'}>Log Out</MenuItem>
  ]
 
+ const accountIcon = (
+  <COSTooltip title="My Account">
+  <IconButton
+      edge="start"
+      aria-label="My Account"
+      color="inherit"
+      onClick={()=>handleTabChange(3)}
+    >
+        <AccountCircle is active={tab === 3}/>
+      </IconButton>
+    </COSTooltip>
+ )
+
  const navigationButtons = (
    <>
     <COSTooltip title="Home">
@@ -198,79 +211,6 @@ const styles = (theme => ({
   </>
  )
 
-  // Mobile Account Menu
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-      </MenuItem>
-        { menuItems } 
-    </Menu>
-  )
-
-  // Desktop Account Menu
-  const menuId = 'primary-account-window'
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{vertical:'top', horizontal:'right'}}
-      id={menuId}
-      keepMounted
-      transformOrigin={{vertical:'top', horizontal:'right'}}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      {
-        menuItems
-      }
-    </Menu>
-  )
-
-  const SectionDesktop = () => {
-    return(
-      <IconButton
-      edge = "end"
-      aria-label="current account"
-      aria-controls={menuId}
-      aria-haspopup="true"
-      onClick={handleProfileMenuOpen}
-      color="inherit"
-    >
-      <AccountCircle />
-    </IconButton>
-    )
-  }
-
-  const SectionMobile = () =>{
-    return(
-      <IconButton
-        aria-label="show more"
-        aria-controls={mobileMenuId}
-        aria-haspopup="true"
-        onClick={handleMobileMenuOpen}
-        color="inherit"
-      >
-        <MoreIcon />
-      </IconButton>
-    )
-  }
-
   return(
     <div className={classes.grow}>
       <AppBar position="static">
@@ -291,16 +231,11 @@ const styles = (theme => ({
           <div className={classes.grow} />
           {!authenticated && <LoginForm2 />}
           <div className={classes.sectionDesktop}>
-            {authenticated && <SectionDesktop />}
-          </div>
-          <div className={classes.sectionMobile}>
-            {authenticated && <SectionMobile />}
+            {authenticated && accountIcon}
           </div>
         </Toolbar>
       <Statusbar />
       </AppBar>
-      {renderMenu}
-      {renderMobileMenu}
       {loginModal}
     </div>
   )
