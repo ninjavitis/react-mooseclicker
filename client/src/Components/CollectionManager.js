@@ -23,12 +23,11 @@ return(
   <Grid className={classes.main} container>
     <Grid item xs={12} md={6}>
       <Collection />
+    </Grid>
+    <Grid item xs={12} md={6}>
       <Droppable type={ 'collectible' } onDrop={ addToHand }>
         <HandBuilder />
       </Droppable>
-    </Grid>
-    <Grid item xs={12} md={6}>
-      <SetAlbum />
     </Grid>
   </Grid>
 )
